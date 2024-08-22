@@ -15,8 +15,8 @@ class UserRegisterTest extends TestCase
         $data = [
             'name' => $this->faker->name,
             'email' => $this->faker->email,
-            'password' => '123456',
-            'password_confirmation' => '123456'
+            'password' => '@teste1234',
+            'password_confirmation' => '@teste1234'
         ];
 
         $response = $this->postJson('/api/register', $data);
