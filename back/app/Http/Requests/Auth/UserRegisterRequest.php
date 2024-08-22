@@ -41,4 +41,23 @@ class UserRegisterRequest extends FormRequest
             ]
         ];
     }
+    
+    public function messages() : array
+    {
+        return([
+            'name.required' => 'O campo nome é obrigatório',
+            'name.string' => 'O campo nome deve ser uma string',
+            'email.email' => 'O campo email deve ser um email válido',
+            'email.unique' => 'O email informado já está em uso',
+            'email.required' => 'O campo email é obrigatório',
+            'password.required' => 'O campo senha é obrigatório',
+            'password.string' => 'O campo senha deve ser uma string',
+            'password.confirmed' => 'O campo senha deve ser confirmado',
+            'password.min' => 'O campo senha deve ter no mínimo 6 caracteres',
+            'password.mixed_case' => 'O campo senha deve conter letras maiúsculas e minúsculas',
+            'password.letters' => 'O campo senha deve conter letras',
+            'password.numbers' => 'O campo senha deve conter números',
+            'password.symbols' => 'O campo senha deve conter símbolos'
+        ]);
+    }
 }
