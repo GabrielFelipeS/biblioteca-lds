@@ -9,7 +9,7 @@ use Tests\TestCase;
 class UserRegisterTest extends TestCase
 {
 
-    use WithFaker;
+    use WithFaker, RefreshDatabase;
 
     public function test_de_registro_com_dados_validos(){
         $data = [
