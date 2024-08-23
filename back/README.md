@@ -45,3 +45,41 @@
         }
     }
     ```
+
+## Rota api/auth/login
+
+### Campos Necessarios
+
+- `email` (string): Email do usuario para login
+- `password` (string): Senha para o login (Senha Mixada: ex: @Test1234)
+
+
+### Respostas
+
+- **Código HTTP:** 200 Ok
+
+
+- **Retorno:**
+    ```json
+    {
+        "token": "valor do token",
+    }
+
+#### Dados Inválidos
+
+- **Código HTTP:** 422 Unprocessable Content
+
+- **Retorno:**
+    ```json
+   {
+	"message": "O campo email é obrigatório (and 1 more error)",
+	"errors": {
+		"email": [
+			// Mensagens de erro específicas para o campo "email"
+		],
+		"password": [
+			// Mensagens de erro específicas para o campo "password"
+		]
+	}
+    }
+    ```
