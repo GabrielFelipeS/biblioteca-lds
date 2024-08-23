@@ -6,11 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UserRegisterRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\UserService;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
+    public function __construct(private UserService $service)
+    {
+    }
     public function register(UserRegisterRequest $request)
     {
         try {
