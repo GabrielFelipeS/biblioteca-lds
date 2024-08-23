@@ -83,3 +83,49 @@
 	}
     }
     ```
+
+
+## Rotas Autenticadas por token tipo Bearer
+
+### Erro de autenticão nas rotas
+
+- **Código HTTP:** 401 Unauthorized
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Unauthenticated."
+    }
+    ```
+
+## Rota api/auth/logout
+
+### Método: POST
+
+### Campos Necessários
+
+- `token` (string): Token de autenticação do usuário no formato Bearer no header da requisição
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Logout realizado com sucesso!"
+    }
+    ```
+
+#### Dados Inválidos
+
+- **Código HTTP:** 500 Internal Server Error
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Erro ao realizar logout!."
+    }
+    ```
