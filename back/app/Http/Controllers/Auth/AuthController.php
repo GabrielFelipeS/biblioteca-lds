@@ -39,7 +39,9 @@ class AuthController extends Controller
     public function logout()
     {
         try {
+            Log::info('Tentavia de logout do usuário: ' . auth()->user()->email);
             $this->service->logout();
+            Log::info('Logout realizado com sucesso do usuário: ' . auth()->user()->email);
             return response()->json(['message' => 'Logout realizado com sucesso!']);
         } catch (\Throwable $th) {
             Log::error('Erro ao realizar logout: ' . $th->getMessage());
@@ -50,6 +52,7 @@ class AuthController extends Controller
     public function validateToken()
     {
         try {
+            Log::info('Validando token do usuário: ' . auth()->user()->email);
             return response()->json(['message' => 'Token válido!']);
         } catch (\Throwable $th) {
             Log::error('Erro ao validar token: ' . $th->getMessage());
