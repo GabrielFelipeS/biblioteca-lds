@@ -129,3 +129,34 @@
         "message": "Erro ao realizar logout!."
     }
     ```
+
+## Rota api/auth/validate
+
+### Método: GET
+
+### Campos Necessários
+
+- `token` (string): Token de autenticação do usuário no formato Bearer no header da requisição
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Token válido"
+    }
+
+#### Dados Inválidos
+
+- **Código HTTP:** 401 Unauthorized
+
+- **Retorno:**
+    ```json
+    {
+	"message": "Unauthenticated."
+    }
+    ```
