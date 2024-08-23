@@ -9,23 +9,23 @@ use Tests\TestCase;
 
 class UserLoginTest extends TestCase
 {
-    use WithFaker, RefreshDatabase;
+    use WithFaker;
 
     public function test_de_login_com_credenciais_validas()
     {
 
-        $user = User::create([
-            'name' => $this->faker->name,
-            'email' => $this->faker->email,
+        $user = User::factory()->create([
             'password' => bcrypt('@Teste123')
         ]);
 
         $data = [
             'email' => $user->email,
-            'password' => '@Teste1234'
+            'password' => '@Teste123'
         ];
 
         $response = $this->postJson('/api/login', $data);
+
+        $user->delete();
 
         $response->assertStatus(200);
 
