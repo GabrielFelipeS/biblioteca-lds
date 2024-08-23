@@ -35,4 +35,15 @@ class AuthController extends Controller
             return response()->json(['message' => 'Erro ao realizar login!'], 500);
         }
     }
+
+    public function logout()
+    {
+        try {
+            $this->service->logout();
+            return response()->json(['message' => 'Logout realizado com sucesso!']);
+        } catch (\Throwable $th) {
+            Log::error('Erro ao realizar logout: ' . $th->getMessage());
+            return response()->json(['message' => 'Erro ao realizar logout!'], 500);
+        }
+    }
 }
