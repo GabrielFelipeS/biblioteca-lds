@@ -10,4 +10,9 @@ class TokenService
     {
         return $model->createToken('Token de Acesso')->accessToken;
     }
+
+    public static function revokeToken(Model $model): void
+    {
+        $model->token()->revoke();
+    }
 }
