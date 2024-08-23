@@ -46,4 +46,14 @@ class AuthController extends Controller
             return response()->json(['message' => 'Erro ao realizar logout!'], 500);
         }
     }
+
+    public function validateToken()
+    {
+        try {
+            return response()->json(['message' => 'Token válido!']);
+        } catch (\Throwable $th) {
+            Log::error('Erro ao validar token: ' . $th->getMessage());
+            return response()->json(['message' => 'Erro ao validar token!'], 500);
+        }
+    }
 }
