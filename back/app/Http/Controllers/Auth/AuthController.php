@@ -25,4 +25,30 @@ class AuthController extends Controller
             return response()->json(['message' => 'Erro ao registrar usuario!'], 500);
         }
     }
+
+    public function login(Request $request)
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+
+            if(!$user || !password_verify($request->password, $user->password)){
+                return response()->json(['message' => 'Credenciais inválidas!'], 401);
+            }
+        
+
+            $token = $user->createToken($user->email)->accessToken;
+
+            return response()->json(['token' => $token], 200);
+
+            
+        } catch (\Throwable $th) {
+            Log::error('Erro ao realizar login: ' . $th->getMessage());
+            return response()->json(['message' => 'Erro ao realizar login!'], 500);
+        }
+    }
 }
