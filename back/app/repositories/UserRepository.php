@@ -10,4 +10,9 @@ class UserRepository extends Repository
     {
         $this->model = $user;
     }
+
+    public function findByEmail(string $email): User
+    {
+        return $this->model->where('email', $email)->first();
+    }
 }
