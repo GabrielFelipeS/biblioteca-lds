@@ -23,7 +23,7 @@ class UserLoginTest extends TestCase
             'password' => '@Teste123'
         ];
 
-        $response = $this->postJson('/api/login', $data);
+        $response = $this->postJson('/api/auth/login', $data);
 
         $user->delete();
 

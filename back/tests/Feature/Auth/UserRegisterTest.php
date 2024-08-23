@@ -19,7 +19,7 @@ class UserRegisterTest extends TestCase
             'password_confirmation' => '@Teste1234'
         ];
 
-        $response = $this->postJson('/api/register', $data);
+        $response = $this->postJson('/api/auth/register', $data);
 
         $response->assertStatus(201);
     }
