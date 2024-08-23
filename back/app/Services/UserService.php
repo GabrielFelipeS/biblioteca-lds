@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
-use Illuminate\Container\Attributes\Auth;
+use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
@@ -35,7 +35,7 @@ class UserService
     public function logout(): void
     {
         try {
-            TokenService::revokeToken(Auth()->user);
+            TokenService::revokeToken(Auth::user());
         } catch (\Throwable $th) {
             throw new \Exception('Erro ao realizar logout: ' . $th->getMessage());
         }
