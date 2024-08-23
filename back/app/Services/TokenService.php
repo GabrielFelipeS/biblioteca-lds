@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class TokenService
 {
-    public function generateToken(User $user): string
+    public static function generateToken(Model $model): string
     {
-        return $user->createToken($user->email)->accessToken;
+        return $model->createToken('Token de Acesso')->accessToken;
     }
 }
