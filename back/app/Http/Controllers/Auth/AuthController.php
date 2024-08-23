@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\UserRegisterRequest;
+use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -26,26 +27,20 @@ class AuthController extends Controller
         }
     }
 
-    public function login(Request $request)
+    public function login(UserLoginRequest $request)
     {
         try {
-            $request->validate([
-                'email' => 'required|email',
-                'password' => 'required'
-            ]);
-
+            Log::info('Recebida requisição de login de usuario para o email: ' . $request->email);
             $user = User::where('email', $request->email)->first();
-
-            if(!$user || !password_verify($request->password, $user->password)){
+            if (!$user || !password_verify($request->password, $user->password)) {
+                Log::info('Credenciais inválidas para o email: ' . $request->email);
                 return response()->json(['message' => 'Credenciais inválidas!'], 401);
             }
-        
-
+            Log::info('Usuario logado com sucesso: ' . $request->email);
+            Log::info('Gerando token de acesso para o email: ' . $request->email);
             $token = $user->createToken($user->email)->accessToken;
-
+            Log::info('Token de acesso gerado com sucesso para o email: ' . $request->email);
             return response()->json(['token' => $token], 200);
-
-            
         } catch (\Throwable $th) {
             Log::error('Erro ao realizar login: ' . $th->getMessage());
             return response()->json(['message' => 'Erro ao realizar login!'], 500);
