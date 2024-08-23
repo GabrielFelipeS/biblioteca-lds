@@ -17,8 +17,8 @@ class AuthController extends Controller
     public function register(UserRegisterRequest $request)
     {
         try {
-            $token = $this->service->register($request->validated());
-            return response()->json(['token' => $token], 201);
+            $this->service->register($request->validated());
+            return response()->json(['message'=> 'Usuário registrado com sucesso!'], 201);
         } catch (\Throwable $th) {
             Log::error('Erro ao registrar usuario: ' . $th->getMessage());
             return response()->json(['message' => 'Erro ao registrar usuario!'], 500);
