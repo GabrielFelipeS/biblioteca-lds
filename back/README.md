@@ -26,6 +26,8 @@
 
 #### Dados Inválidos
 
+- **Código HTTP:** 422 Unprocessable Content
+
 - **Retorno:**
     ```json
     {
