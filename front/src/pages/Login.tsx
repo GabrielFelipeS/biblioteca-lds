@@ -1,15 +1,21 @@
-import {useState} from "react";
-import {api, url} from "../services/api"
+import {useEffect, useState} from "react";
+import {api} from "../services/api"
+import {useNavigate} from "react-router-dom";
 
 export function Login() {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+    const navigete = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem("token")
+        if(token && token.trim().length != 0) {
+            navigete("/home")
+        }
+    }, [])
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-        console.log(url)
-        console.log(email)
-        console.log(password)
 
         const data = {
             email,
@@ -21,7 +27,7 @@ export function Login() {
             .then(responseData =>  responseData.token)
             .then(responseToken => {
                 localStorage.setItem("token", responseToken)
-                console.log(responseToken)
+                navigete("/home")
             })
             .catch(e => {
                console.log(e)
@@ -45,14 +51,14 @@ export function Login() {
                         <label htmlFor="email" className="text-ligth-primary font-bold mb-1">
                             E-mail:
                         </label>
-                        <input type="email" name="email" className="h-10 rounded-2xl"
+                        <input type="email" name="email" className="h-10 rounded-2xl pl-1"
                                onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                     <div className="flex flex-col mb-3">
                         <label htmlFor="password" className="text-ligth-primary font-bold mb-1">
                             Senha:
                         </label>
-                        <input type="password" name="password" className="h-10 rounded-2xl"
+                        <input type="password" name="password" className="h-10 rounded-2xl pl-1"
                                onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <div className="text-ligth-primary mb-7 font-bold">
