@@ -48,6 +48,8 @@
 
 ## Rota api/auth/login
 
+### Método: POST
+
 ### Campos Necessarios
 
 - `email` (string): Email do usuario para login

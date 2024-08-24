@@ -1,0 +1,62 @@
+networks:
+  laravel:
+    driver: bridge
+
+services:
+  php_fpm:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+    container_name: lds_php
+    networks:
+      - laravel
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "9000:9000"
+    depends_on:
+      - pgsql
+      - phpredis
+    restart: always
+
+  nginx:
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
+    container_name: lds_nginx
+    networks:
+      - laravel
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - php_fpm
+    restart: always
+
+  phpredis:
+    image: redis:alpine
+    container_name: lds_redis
+    networks:
+      - laravel
+    ports:
+      - "6379:6379"
+    restart: always
+
+  pgsql:
+    image: postgres:alpine
+    container_name: lds_pgsql
+    networks:
+      - laravel
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: lds
+    restart: always
+
+volumes:
+  pgdata:
