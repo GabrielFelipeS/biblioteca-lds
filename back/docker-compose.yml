@@ -58,22 +58,5 @@ services:
       POSTGRES_DB: lds
     restart: always
 
-  init:
-    image: php:8.2-cli
-    container_name: lds_init
-    networks:
-      - laravel
-    volumes:
-      - ./:/var/www/html
-    depends_on:
-      - php_fpm
-      - nginx
-    entrypoint: ["/bin/sh", "-c"]
-    command: >
-      "sleep 10 &&
-      php /var/www/html/artisan key:generate &&
-      php /var/www/html/artisan migrate --force"
-    restart: "no"
-
 volumes:
   pgdata:
