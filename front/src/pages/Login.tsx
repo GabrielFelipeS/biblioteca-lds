@@ -1,8 +1,33 @@
 import {useState} from "react";
+import {api, url} from "../services/api"
 
 export function Login() {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
+
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        console.log(url)
+        console.log(email)
+        console.log(password)
+
+        const data = {
+            email,
+            password
+        }
+
+        api.post("auth/login", data)
+            .then(response => response.data)
+            .then(responseData =>  responseData.token)
+            .then(responseToken => {
+                localStorage.setItem("token", responseToken)
+                console.log(responseToken)
+            })
+            .catch(e => {
+               console.log(e)
+            })
+    }
+
 
     return (
         <div className={"flex w-full h-full bg-ligth-background"}>
@@ -12,7 +37,7 @@ export function Login() {
                 </div>
             </div>
             <div className="bg-ligth-container max-md:w-full w-1/3 flex justify-center items-center">
-                <form className="flex flex-col justify-center w-56">
+                <form className="flex flex-col justify-center w-56" onSubmit={handleSubmit}>
                     <div className="text-ligth-primary font-bold text-5xl mb-5 flex justify-center">
                             Login
                     </div>
@@ -20,13 +45,15 @@ export function Login() {
                         <label htmlFor="email" className="text-ligth-primary font-bold mb-1">
                             E-mail:
                         </label>
-                        <input name="email" className="h-10 rounded-2xl"/>
+                        <input type="email" name="email" className="h-10 rounded-2xl"
+                               onChange={(e) => setEmail(e.target.value)}/>
                     </div>
                     <div className="flex flex-col mb-3">
                         <label htmlFor="password" className="text-ligth-primary font-bold mb-1">
                             Senha:
                         </label>
-                        <input name="password" className="h-10 rounded-2xl"/>
+                        <input type="password" name="password" className="h-10 rounded-2xl"
+                               onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <div className="text-ligth-primary mb-7 font-bold">
                         Esqueceu sua senha?
