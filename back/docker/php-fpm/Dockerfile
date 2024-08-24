@@ -12,13 +12,14 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     libxml2-dev \
+    libpq-dev \
     zip \
     unzip \
     git \
     curl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
-    && docker-php-ext-install pdo_mysql zip mbstring bcmath opcache exif pcntl soap intl mysqli \
+    && docker-php-ext-install pdo_mysql pdo_pgsql zip mbstring bcmath opcache exif pcntl soap intl mysqli \
     && docker-php-ext-enable opcache
 
 # Instalar o Composer
