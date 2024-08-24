@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
 
         Artisan::call('passport:keys' , ['--force' => true]);
 
+        chmod(storage_path('oauth-public.key'), 0777);
+        chmod(storage_path('oauth-private.key'), 0777);
         $cliente = new ClientRepository();
         $client = $cliente->createPersonalAccessClient(
             null, 'Test Personal Access Client', 'http://localhost'
