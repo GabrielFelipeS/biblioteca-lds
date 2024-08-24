@@ -20,7 +20,10 @@ class BookFactory extends Factory
             'title' => $this->faker->sentence(3),
             'author' => $this->faker->name(),
             'year' => $this->faker->year(),
-            'isbn' => $this->faker->isbn13()
+            'isbn' => $this->faker->isbn13(),
+            'genre' => $this->faker->word(),
+            'publisher' => $this->faker->company(),
+            'edition' => $this->faker->numberBetween(1, 10) . 'º',
         ];
     }
 }
