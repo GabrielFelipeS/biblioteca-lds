@@ -18,7 +18,6 @@ export function LoginList() {
                     <Li endPoint={"/register"} navigate={navigate}>Cadastro</Li>
                 </>
             }
-
         </>
 )
 }
