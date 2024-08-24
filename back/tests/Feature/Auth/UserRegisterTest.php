@@ -4,12 +4,19 @@ namespace Tests\Feature\Auth;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class UserRegisterTest extends TestCase
 {
 
     use WithFaker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        Artisan::call('migrate:fresh', ['--seed' => true]);
+    }
 
     public function test_de_registro_com_dados_validos(){
         $data = [
