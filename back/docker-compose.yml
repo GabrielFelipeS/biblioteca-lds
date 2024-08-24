@@ -1,9 +1,8 @@
 networks:
-    laravel:
-        driver: bridge
+  laravel:
+    driver: bridge
 
 services:
-
   php_fpm:
     build:
       context: ./docker/php-fpm
@@ -15,12 +14,15 @@ services:
       - ./:/var/www/html
     ports:
       - "9000:9000"
+    depends_on:
+      - pgsql
+      - phpredis
     restart: always
 
   nginx:
     build:
-        context: ./docker/nginx
-        dockerfile: Dockerfile
+      context: ./docker/nginx
+      dockerfile: Dockerfile
     container_name: lds_nginx
     networks:
       - laravel
@@ -56,6 +58,22 @@ services:
       POSTGRES_DB: lds
     restart: always
 
+  init:
+    image: php:8.2-cli
+    container_name: lds_init
+    networks:
+      - laravel
+    volumes:
+      - ./:/var/www/html
+    depends_on:
+      - php_fpm
+      - nginx
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      "sleep 10 &&
+      php /var/www/html/artisan key:generate &&
+      php /var/www/html/artisan migrate --force"
+    restart: "no"
 
 volumes:
   pgdata:
