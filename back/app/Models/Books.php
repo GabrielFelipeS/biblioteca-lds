@@ -13,6 +13,10 @@ class Books extends Model
         'title',
         'author',
         'year',
-        'isbn'
+        'isbn',
+        'genre',
+        'publisher',
+        'edition',
+        'image',
     ];
 }
