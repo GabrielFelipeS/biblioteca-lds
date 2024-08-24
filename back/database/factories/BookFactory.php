@@ -24,6 +24,7 @@ class BookFactory extends Factory
             'genre' => $this->faker->word(),
             'publisher' => $this->faker->company(),
             'edition' => $this->faker->numberBetween(1, 10) . 'º',
+            'image' => $this->faker->imageUrl(),
         ];
     }
 }
