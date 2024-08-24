@@ -4,7 +4,6 @@ export function Home() {
     return (
         <>
             <NavBar/>
-            home
         </>
     )
 }
