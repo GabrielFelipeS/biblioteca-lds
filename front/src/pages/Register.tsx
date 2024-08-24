@@ -17,7 +17,7 @@ export function Register() {
                         </label>
                         <input name="email" className="h-10 rounded-2xl"/>
                     </div>
-                    <div className="flex flex-col mb-3">
+                    <div className="flex flex-col mb-2">
                         <label htmlFor="password" className="text-ligth-primary font-bold mb-1">
                             Senha:
                         </label>

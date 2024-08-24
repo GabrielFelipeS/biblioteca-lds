@@ -1,4 +1,9 @@
+import {useState} from "react";
+
 export function Login() {
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("")
+
     return (
         <div className={"flex w-full h-full bg-ligth-background"}>
             <div className="hidden w-2/3 md:flex justify-center items-end" >
