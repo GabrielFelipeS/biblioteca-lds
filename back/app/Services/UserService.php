@@ -13,7 +13,8 @@ class UserService
     {
         try {
             $data['password'] = bcrypt($data['password']);
-            $this->userRepository->create($data);
+            $user = $this->userRepository->create($data);
+            RolesService::setRole($user, 'solicitante');
         } catch (\Throwable $th) {
             throw new \Exception('Erro ao registrar usuario: ' . $th->getMessage());
         }
