@@ -41,6 +41,9 @@ class DatabaseSeeder extends Seeder
         config(['passport.personal_access_client.secret' => $client->secret]);
 
         $this->call([
+            UserSeeder::class,
+            BookSeeder::class,
+            ReservationSeeeder::class,
             RolesAndPermissionsSeeder::class,
         ]);
     }
