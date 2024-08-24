@@ -1,12 +1,12 @@
 export function Login() {
     return (
         <div className={"flex w-full h-full bg-ligth-background"}>
-            <div className="hidden w-2/3 md:flex justify-center items-end" >
+            <div className="hidden w-3/5 md:flex justify-center items-end" >
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex
                 </div>
             </div>
-            <div className="bg-ligth-container max-md:w-full w-1/3 flex justify-center items-center">
+            <div className="bg-ligth-container max-md:w-full w-2/5 flex justify-center items-center">
                 <form className="flex flex-col justify-center w-56">
                     <div className="text-ligth-primary font-bold text-5xl mb-5 flex justify-center">
                             Login
