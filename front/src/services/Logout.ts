@@ -15,7 +15,6 @@ export function logout(navigate: NavigateFunction) {
         }).then((response) => {
         if(response.status == 200) {
             localStorage.clear()
-            console.log(response.data)
             navigate("/home")
         }
     }).catch(e => console.log(e))
