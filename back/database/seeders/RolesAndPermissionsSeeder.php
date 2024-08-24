@@ -16,14 +16,27 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
-        Permission::create(['name' => 'alugar livro']);
+        // Base User Permissions
+        Permission::create(['name' => 'criar reserva']);
+        Permission::create(['name' => 'cancelar reserva']);
         Permission::create(['name' => 'devolver livro']);
-        Permission::create(['name' => 'renovar aluguel']);
+        Permission::create(['name' => 'extender reserva']);
+        Permission::create(['name' => 'listar livro']);
+        Permission::create(['name' => 'ver reserva']);
+
+        // Management Permissions
+        Permission::create(['name' => 'adicionar livro']);
+        Permission::create(['name' => 'editar livro']);
+        Permission::create(['name' => 'remover livro']);
+        Permission::create(['name' => 'remover usuario']);
 
         $solicitante = Role::create(['name' => 'solicitante'])->givePermissionTo([
-            'alugar livro',
+            'criar reserva',
+            'cancelar reserva',
             'devolver livro',
-            'renovar aluguel',
+            'extender reserva',
+            'listar livro',
+            'ver reserva',
         ]);
 
         $superAdmin = Role::create(['name' => 'Super-Admin'])
