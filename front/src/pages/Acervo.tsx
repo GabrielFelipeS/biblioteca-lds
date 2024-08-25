@@ -30,7 +30,7 @@ export function Acervo() {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr className="h-8"> 
+                            <tr className="h-12"> 
                                 <td className="px-2 cursor-pointer"><div className="bg-ligth-blue p-1 rounded-lg"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 flex m-auto"/></div></td>
                                 <td className="px-2 cursor-pointer"><div className="bg-ligth-orange p-1 rounded-lg"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto"/> </div></td>
                                 <td className="px-2 cursor-pointer"><div className="bg-ligth-red p-1 rounded-lg"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto"/> </div></td>
