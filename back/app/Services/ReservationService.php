@@ -52,4 +52,22 @@ class ReservationService
             return response()->json(['message' => 'Error'], 500);
         }
     }
+
+    public function update($reservation, array $data)
+    {
+        try {
+            if ($reservation->status !== 'pending') {
+                Log::info('Erro na atualização da reserva do livro : ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não pode ser atualizada'], 422);
+            }
+            if ($this->repository->update($reservation->id, $data)) {
+                Log::info('Reserva atualizada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+                $reservation = $this->repository->find($reservation->id);
+                return response()->json($reservation, 200);
+            }
+        } catch (\Throwable $th) {
+            Log::error('Erro ao atualizar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
 }
