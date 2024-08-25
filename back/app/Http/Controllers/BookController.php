@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Book\BookRegisterRequest;
 use App\Models\Book;
 use App\Services\BookService;
 use Illuminate\Http\JsonResponse;
@@ -26,9 +27,12 @@ class BookController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BookRegisterRequest $request): JsonResponse
     {
-
+        $data = $request->validated();
+        $data['image'] = $request->file('image');
+        $this->service->registerBook($data);
+        return response()->json(['message' => 'Livro cadastrado com sucesso'], 201);
     }
 
     /**
