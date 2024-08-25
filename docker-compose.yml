@@ -4,7 +4,15 @@ networks:
 
 services:
   front:
-    build: ./front/
+    build: 
+      context: ./front/docker/
+    container_name: front_react
+    ports:
+      -"80:80"
+    depends_on:
+      - php_fpm
+      - nginx
+    restart: always
 
   php_fpm:
     build:
@@ -32,7 +40,7 @@ services:
     volumes:
       - ./back/:/var/www/html
     ports:
-      - "80:80"
+      - "8000:80"
     depends_on:
       - php_fpm
     restart: always
