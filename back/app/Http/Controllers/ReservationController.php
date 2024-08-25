@@ -9,14 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class ReservationController extends Controller
 {
-    public function __construct(private ServicesReservation $service)
-    {
-    }
+    public function __construct(private ServicesReservation $service) {}
     public function index(Request $request)
     {
         try {
             Log::info('Recebida requisição para listar reservas do usuário: ' . $request->user()->id);
-            $reservations = Reservation::where('user_id', $request->user()->id)->get();
+            $reservations = $this->service->listByUser($request->user()->id);
             Log::info('Reservas listadas com sucesso');
             return response()->json($reservations, 200);
         } catch (\Throwable $th) {
