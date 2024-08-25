@@ -35,7 +35,7 @@ class BookResourceTest extends TestCase
             'password' => bcrypt('123456')
         ]);
 
-        $token = $user->createToken('token')->accessToken;
+        $this->token = $user->createToken('token')->accessToken;
 
         Book::factory()->count(5)->create();
     }
