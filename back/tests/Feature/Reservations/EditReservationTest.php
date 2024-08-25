@@ -38,5 +38,23 @@ class EditReservationTest extends TestCase
         ])->putJson('/api/reservation/' . $reservation->id, $newData);
 
         $response->assertStatus(200);
+
+        $response->assertJsonFragment([
+            'id' => $reservation->id,
+            'book_id' => $book->id,
+            'user_id' => $user->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-15',
+            'status' => 'pending',
+        ]);
+
+        $this->assertDatabaseHas('reservations', [
+            'id' => $reservation->id,
+            'book_id' => $book->id,
+            'user_id' => $user->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-15',
+            'status' => 'pending',
+        ]);
     }
 }
