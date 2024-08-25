@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\ReservationRepository;
 
-class Reservation
+class ReservationService
 {
 
     public function __construct(private ReservationRepository $repository)
