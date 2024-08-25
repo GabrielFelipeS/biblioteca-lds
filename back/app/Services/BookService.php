@@ -32,6 +32,9 @@ class BookService
 
     public function updateBook(int $id, array $data)
     {
+        if (isset($data['image'])) {
+            $data['image'] = ImageService::saveImage($data['image'], 'books');
+        }
         return $this->repository->update($id, $data);
     }
 
