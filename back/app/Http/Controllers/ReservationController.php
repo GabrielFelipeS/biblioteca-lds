@@ -33,4 +33,15 @@ class ReservationController extends Controller
             return response()->json(['message' => 'Error'], 500);
         }
     }
+
+    public function update(Request $request, Reservation $reservation)
+    {
+        try {
+            Log::info('Recebida requisição para atualizar reserva do usuário: ' . $request->user()->id);
+            return $this->service->update($reservation, $request->all());
+        } catch (\Throwable $th) {
+            Log::error('Erro ao atualizar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
 }
