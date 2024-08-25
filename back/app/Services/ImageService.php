@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Storage;
+
 class ImageService
 {
     /**
@@ -11,9 +13,9 @@ class ImageService
      * @return string Image Path
      *
      */
-    public static function saveImage(mixed $image, string $directory, string $disk = 'storage/app/public' ): string
+    public static function saveImage(mixed $image, string $directory, string $disk = 'public' ): string
     {
         $image_path = $image->store($directory, $disk);
-        return $image_path;
+        return Storage::url($image_path);
     }
 }
