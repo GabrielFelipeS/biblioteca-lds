@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Reservation;
+use App\Services\Reservation as ServicesReservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class ReservationController extends Controller
 {
+    public function __construct(private ServicesReservation $service)
+    {
+    }
     public function index(Request $request)
     {
         try {
