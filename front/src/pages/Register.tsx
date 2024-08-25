@@ -19,6 +19,7 @@ export function Register() {
         const data = {
             name: name.trim() + " " + sobrenome.trim(),
             email,
+            telefone,
             password,
             password_confirmation
         }
