@@ -6,16 +6,16 @@ COPY ./package*.json ./
 
 RUN npm ci
 
-COPY .. .
+COPY . .
 
 RUN npm run build
 
 FROM nginx:stable-alpine
 LABEL authors="Gabriel Felipe"
 
-COPY ../nginx.conf /etc/nginx/conf.d/default.conf
-COPY --from=build /app/dist /usr/share/ngnix/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
 
-CMD ["ngnix", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
