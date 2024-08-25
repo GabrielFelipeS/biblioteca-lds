@@ -4,7 +4,7 @@ import {Book, LivroEmpty} from "../Book.ts";
 import {FormLivro} from "../components/FormLivro.tsx";
 
 export function CadastrarLivro() {
-    const [livro, setLivro] = useState<Book>(LivroEmpty)
+    const [book, setBook] = useState<Book>(LivroEmpty)
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -17,8 +17,8 @@ export function CadastrarLivro() {
             <div className={`h-min w-full flex justify-center pt-14`}>
                <FormLivro
                    handleSubmit={handleSubmit}
-                   livro={livro}
-                   setLivro={setLivro}
+                   livro={book}
+                   setLivro={setBook}
                    title={"Cadastrar livro"}
                    buttonLabel={"Cadastrar"}/>
             </div>

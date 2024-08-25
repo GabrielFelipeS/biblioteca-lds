@@ -1,0 +1,23 @@
+import {NavBar} from "../components/NavBar.tsx";
+import {FormLivro} from "../components/FormLivro.tsx";
+import {useState} from "react";
+import {Book, LivroEmpty} from "../Book.ts";
+
+export function EditBook() {
+    const [book, setBook] = useState<Book>(LivroEmpty)
+
+    return(
+        <div className={"bg-ligth-background_secondary h-screen md:h-full"}>
+            <NavBar/>
+
+            <div className={`h-min w-full flex justify-center pt-14`}>
+                <FormLivro
+                    handleSubmit={handleSubmit}
+                    livro={book}
+                    setLivro={setBook}
+                    title={"Cadastrar livro"}
+                    buttonLabel={"Cadastrar"}/>
+            </div>
+        </div>
+    )
+}
