@@ -34,8 +34,8 @@ class ReservationService
             $data = [
                 'book_id' => $data['book_id'],
                 'user_id' => Auth::user()->id,
-                'from' => $data['start_date'],
-                'to' => $data['end_date'],
+                'from' => $data['from'],
+                'to' => $data['to'],
                 'status' => 'pending'
             ];
 
