@@ -27,7 +27,7 @@ class ReservationController extends Controller
     {
         try {
             Log::info('Recebida requisição para criar reserva do usuário: ' . $request->user()->id);
-            $reservation = $this->service->create($request->all());
+            return $this->service->create($request->all());
         } catch (\Throwable $th) {
             Log::error('Erro ao criar reserva: ' . $th->getMessage());
             return response()->json(['message' => 'Error'], 500);
