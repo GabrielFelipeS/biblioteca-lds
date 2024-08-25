@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\BookRegisterRequest;
+use App\Http\Requests\Book\BookUpdateRequest;
 use App\Models\Book;
 use App\Services\BookService;
 use Illuminate\Http\JsonResponse;
@@ -59,9 +60,18 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Book $book)
+    public function update(BookUpdateRequest $request, string $id): JsonResponse
     {
-        //
+        try {
+            $data = $request->validated();
+            if ($request->hasFile('image')) {
+                $data['image'] = $request->file('image');
+            }
+            $this->service->updateBook($id, $data);
+            return response()->json(['message' => 'Livro atualizado com sucesso'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Erro ao atualizar livro ' . $th->getMessage()], 500);
+        }
     }
 
     /**
