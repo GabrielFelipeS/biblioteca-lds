@@ -103,4 +103,25 @@ class CreateReservationTest extends TestCase
         $response->assertStatus(422);
 
     }
+
+    public function test_tentativa_de_criacao_de_reserva_com_livro_nao_encontrado(){
+        $user = \App\Models\User::factory()->create();
+        $permission =  Permission::findByName('criar reserva');
+        $user->givePermissionTo($permission);
+        $token = $user->createToken('token')->accessToken;
+
+        $data = [
+            'book_id' => 10000,
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
+        ];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/reservation', $data);
+
+        $response->assertStatus(404);
+
+        $this->assertEquals('Livro não encontrado', $response['message']);
+    }
 }
