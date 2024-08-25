@@ -1,10 +1,10 @@
-import {Livro} from "../Livro.ts";
+import {Book} from "../Book.ts";
 import input_file from "../assets/file-input.png";
 
 interface FormLivroProps {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
-    livro: Livro
-    setLivro: React.Dispatch<React.SetStateAction<Livro>>
+    livro: Book
+    setLivro: React.Dispatch<React.SetStateAction<Book>>
     title: string
     buttonLabel: string
 }

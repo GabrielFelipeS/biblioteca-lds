@@ -1,10 +1,10 @@
 import {NavBar} from "../components/NavBar";
 import {useState} from "react";
-import {Livro, LivroEmpty} from "../Livro.ts";
+import {Book, LivroEmpty} from "../Book.ts";
 import {FormLivro} from "../components/FormLivro.tsx";
 
 export function CadastrarLivro() {
-    const [livro, setLivro] = useState<Livro>(LivroEmpty)
+    const [livro, setLivro] = useState<Book>(LivroEmpty)
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
