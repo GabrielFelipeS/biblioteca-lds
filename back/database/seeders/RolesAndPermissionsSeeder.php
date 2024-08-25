@@ -17,18 +17,30 @@ class RolesAndPermissionsSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // Base User Permissions
-        Permission::create(['name' => 'criar reserva']);
-        Permission::create(['name' => 'cancelar reserva']);
-        Permission::create(['name' => 'devolver livro']);
-        Permission::create(['name' => 'extender reserva']);
-        Permission::create(['name' => 'listar livro']);
-        Permission::create(['name' => 'ver reserva']);
-
+        
         // Management Permissions
+        Permission::create(['name' => 'listar livro']);
         Permission::create(['name' => 'adicionar livro']);
         Permission::create(['name' => 'editar livro']);
         Permission::create(['name' => 'remover livro']);
+        Permission::create(['name' => 'devolver livro']);
+        Permission::create(['name' => 'ver livro']);
+
         Permission::create(['name' => 'remover usuario']);
+        Permission::create(['name' => 'editar usuario']);
+        Permission::create(['name' => 'listar usuario']);
+        Permission::create(['name' => 'ver usuario']);
+        Permission::create(['name' => 'adicionar usuario']);
+        
+        // Reservations Permissions
+        
+        Permission::create(['name' => 'ver reserva']);
+        Permission::create(['name' => 'criar reserva']);
+        Permission::create(['name' => 'cancelar reserva']);
+        Permission::create(['name' => 'listar reservas']);
+        Permission::create(['name' => 'extender reserva']);
+        
+
 
         $solicitante = Role::create(['name' => 'solicitante'])->givePermissionTo([
             'criar reserva',
@@ -37,9 +49,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'extender reserva',
             'listar livro',
             'ver reserva',
+            'ver livro',
+            'listar reservas',
         ]);
 
-        $superAdmin = Role::create(['name' => 'Super-Admin'])
+        $superAdmin = Role::create(['name' => 'bibliotecario'])
             ->givePermissionTo(Permission::all());
 
     }
