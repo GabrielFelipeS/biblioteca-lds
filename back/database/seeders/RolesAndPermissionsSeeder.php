@@ -52,6 +52,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'ver reserva',
             'ver livro',
             'listar reservas',
+            'editar reserva'
         ]);
 
         $superAdmin = Role::create(['name' => 'bibliotecario'])
