@@ -15,16 +15,6 @@ class BookResourceTest extends TestCase
 
     private string $token;
 
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    }
-
     public function setUp(): void
     {
         parent::setUp();
@@ -42,7 +32,7 @@ class BookResourceTest extends TestCase
 
     public function test_get_all_books(): void
     {
-        $response = $this->getJson('/api/books/', [], [
+        $response = $this->getJson('/api/books/', [
             'Authorization' => 'Bearer ' . $this->token
         ]);
 
@@ -51,7 +41,7 @@ class BookResourceTest extends TestCase
 
     public function test_get_book(): void
     {
-        $response = $this->getJson('/api/books/1', [], [
+        $response = $this->getJson('/api/books/1', [
             'Authorization' => 'Bearer ' . $this->token
         ]);
 
