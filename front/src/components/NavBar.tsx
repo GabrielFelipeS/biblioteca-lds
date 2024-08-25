@@ -15,7 +15,7 @@ export function NavBar() {
                <ul id={"menu"} className="flex flex-row  h-full">
                    <Li endPoint={"/home"} navigate={navigate}>Inicio</Li>
                    <Li endPoint={"/acervo"} navigate={navigate}>Acervo</Li>
-                   <Li endPoint={"/cadastrarLivro"} navigate={navigate}>Cadastrar Livro</Li>
+                   <Li endPoint={"/livro/cadastrar"} navigate={navigate}>Cadastrar Livro</Li>
                    <Li endPoint={"/emprestimo"} navigate={navigate}>Emprestimos</Li>
                     <LoginList/>
                </ul>
