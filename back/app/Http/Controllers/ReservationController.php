@@ -15,8 +15,6 @@ class ReservationController extends Controller
         try {
             Log::info('Recebida requisição para listar reservas do usuário: ' . $request->user()->id);
             $reservations = $this->service->listByUser($request->user()->id);
-            Log::info('Reservas listadas com sucesso');
-            return response()->json($reservations, 200);
         } catch (\Throwable $th) {
             Log::error('Erro ao listar reservas: ' . $th->getMessage());
             return response()->json(['message' => 'Error'], 500);
