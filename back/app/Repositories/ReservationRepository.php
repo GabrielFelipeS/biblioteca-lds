@@ -6,9 +6,8 @@ use App\Models\Reservation;
 
 class ReservationRepository extends Repository
 {
-    public function __construct(Reservation $model)
-    {
-        parent::__construct($model);
+    public function __construct(private Reservation $reservation) {
+        $this->model = $reservation;
     }
 
     public function findByUser(int $userId)
