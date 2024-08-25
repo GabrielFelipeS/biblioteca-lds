@@ -21,6 +21,11 @@ class ReservationService
     public function create(array $data)
     {
         try {
+            $activeUserReservations = $this->repository->findByUserActiveReservations(Auth::user()->id);
+            if (count($activeUserReservations) >= 3) {
+                Log::info('Erro na criação da reserva do livro : ' . $data['book_id'] . ', Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Usuário já possui 3 reservas ativas'], 422);
+            }
             $activeReservation = $this->repository->findActiveReservation($data['book_id']);
             if ($activeReservation) {
                 Log::info('Erro na criação da reserva do livro : ' . $data['book_id'] . ', Pelo usuário: ' . Auth::user()->id);
