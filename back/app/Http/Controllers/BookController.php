@@ -20,8 +20,12 @@ class BookController extends Controller
      */
     public function index(): JsonResponse
     {
-        $books = $this->service->getAllBooks();
-        return response()->json($books, 200);
+        try {
+            $books = $this->service->getAllBooks();
+            return response()->json($books, 200);
+        } catch (\Throwable $th) {
+            return response()->json('Erro ao retornar livros ' . $th->getMessage(), 500);
+        }
     }
 
     /**
@@ -29,10 +33,14 @@ class BookController extends Controller
      */
     public function store(BookRegisterRequest $request): JsonResponse
     {
-        $data = $request->validated();
-        $data['image'] = $request->file('image');
-        $this->service->registerBook($data);
-        return response()->json(['message' => 'Livro cadastrado com sucesso'], 201);
+        try {
+            $data = $request->validated();
+            $data['image'] = $request->file('image');
+            $this->service->registerBook($data);
+            return response()->json(['message' => 'Livro cadastrado com sucesso'], 201);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Erro ao cadastrar livro ' . $th->getMessage()], 500);
+        }
     }
 
     /**
@@ -40,8 +48,12 @@ class BookController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $book = $this->service->getBookById($id);
-        return response()->json($book, 200);
+        try {
+            $book = $this->service->getBookById($id);
+            return response()->json($book, 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Erro ao pesquisar livro ' . $th->getMessage()], 500);
+        }
     }
 
     /**
@@ -57,8 +69,12 @@ class BookController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        $book = $this->service->getBookById($id);
-        $this->service->deleteBook($id);
-        return response()->json(['message' => 'Livro \'' . $book->title . '\' removido com sucesso'], 200);
+        try {
+            $book = $this->service->getBookById($id);
+            $this->service->deleteBook($id);
+            return response()->json(['message' => 'Livro \'' . $book->title . '\' removido com sucesso'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(['message' => 'Erro ao deletar o livro ' . $th->getMessage()], 500);
+        }
     }
 }
