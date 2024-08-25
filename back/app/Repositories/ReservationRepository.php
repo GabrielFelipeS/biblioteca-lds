@@ -14,4 +14,8 @@ class ReservationRepository extends Repository
     {
         return $this->model->where('user_id', $userId)->get();
     }
+    public function findActiveReservation(int $bookId)
+    {
+        return $this->model->where('book_id', $bookId)->where('status', '!=', 'returned')->first();
+    }
 }
