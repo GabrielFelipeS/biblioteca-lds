@@ -12,15 +12,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return Book::all()->jsonSerialize();
     }
 
     /**
@@ -28,23 +20,15 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Book $book)
+    public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Book $book)
-    {
-        //
+        return Book::findOrFail($id);
     }
 
     /**
@@ -58,8 +42,9 @@ class BookController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Book $book)
+    public function destroy(string $id)
     {
-        //
+        Book::destroy($id);
+        return response()->json(['message' => 'Livro removido com sucesso'], 200);
     }
 }
