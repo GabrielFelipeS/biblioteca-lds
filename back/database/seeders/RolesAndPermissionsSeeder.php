@@ -39,6 +39,7 @@ class RolesAndPermissionsSeeder extends Seeder
         Permission::create(['name' => 'cancelar reserva']);
         Permission::create(['name' => 'listar reservas']);
         Permission::create(['name' => 'extender reserva']);
+        Permission::create(['name' => 'editar reserva']);
         
 
 
