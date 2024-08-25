@@ -19,8 +19,8 @@ class CreateReservationTest extends TestCase
 
         $data = [
             'book_id' => $book->id,
-            'start_date' => '2021-10-10',
-            'end_date' => '2021-10-20',
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
         ];
 
         $response = $this->withHeaders([
@@ -54,5 +54,53 @@ class CreateReservationTest extends TestCase
         ])->postJson('/api/reservation', $data);
 
         $response->assertStatus(422);
+    }
+
+    public function test_tentativa_de_nova_reserva_ja_tendo_3_livros_reservados(){
+        $user = \App\Models\User::factory()->create();
+        $permission =  Permission::findByName('criar reserva');
+        $user->givePermissionTo($permission);
+        $token = $user->createToken('token')->accessToken;
+        $book = \App\Models\Book::factory()->create();
+        $book2 = \App\Models\Book::factory()->create();
+        $book3 = \App\Models\Book::factory()->create();
+        $book4 = \App\Models\Book::factory()->create();
+
+        $reservation = \App\Models\Reservation::factory()->create([
+            'user_id' => $user->id,
+            'book_id' => $book->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
+            'status' => 'pending'
+        ]);
+
+        $reservation2 = \App\Models\Reservation::factory()->create([
+            'user_id' => $user->id,
+            'book_id' => $book2->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
+            'status' => 'pending'
+        ]);
+
+        $reservation3 = \App\Models\Reservation::factory()->create([
+            'user_id' => $user->id,
+            'book_id' => $book3->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
+            'status' => 'pending'
+        ]);
+
+        $data = [
+            'book_id' => $book4->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
+        ];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/reservation', $data);
+
+        $response->assertStatus(422);
+
     }
 }
