@@ -1,4 +1,4 @@
-export type Livro = {
+export type Book = {
     title: string
     autor: string
     genero: string
