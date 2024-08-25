@@ -9,19 +9,21 @@ use Illuminate\Http\JsonResponse;
 
 class BookService
 {
-    function __construct(private BookRepository $repository)
-    {
-
-    }
+    function __construct(private BookRepository $repository) {}
 
     public function getAllBooks(): Collection
     {
         return $this->repository->all();
     }
 
-    public function getBookById(int $id): Book
+    public function getBookById(int $id): Book | array
     {
-        return $this->repository->find($id);
+        $book = $this->repository->find($id);
+        if (!$book) {
+            return [];
+        } else {
+            return $book;
+        }
     }
 
     public function registerBook(array $data)
