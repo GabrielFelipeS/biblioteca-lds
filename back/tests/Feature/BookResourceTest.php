@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -17,20 +18,21 @@ class BookResourceTest extends TestCase
     use RefreshDatabase, WithFaker;
 
     private string $token;
+    private User $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $user = User::factory()->create([
+        $this->user = User::factory()->create([
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('123456')
         ]);
 
-        $this->token = $user->createToken('token')->accessToken;
+        $this->user->assignRole('Super-Admin');
 
-        Book::factory()->count(5)->create();
+        $this->token = $this->user->createToken('token')->accessToken;
     }
 
     public function test_get_all_books(): void
