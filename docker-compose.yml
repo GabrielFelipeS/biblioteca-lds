@@ -5,7 +5,7 @@ networks:
 services:
   front:
     build: 
-      context: ./front/docker/
+      context: ./front/
     container_name: front_react
     ports:
       - "80:80"
