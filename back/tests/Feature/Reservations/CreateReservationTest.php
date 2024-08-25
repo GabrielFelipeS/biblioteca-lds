@@ -28,6 +28,13 @@ class CreateReservationTest extends TestCase
         ])->postJson('/api/reservation', $data);
 
         $response->assertStatus(201);
+
+        $this->assertDatabaseHas('reservations', [
+            'book_id' => $book->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-20',
+            'status' => 'pending'
+        ]);
     }
 
     public function test_teste_de_criacao_com_livro_ja_reservado()
@@ -54,6 +61,8 @@ class CreateReservationTest extends TestCase
         ])->postJson('/api/reservation', $data);
 
         $response->assertStatus(422);
+
+        $this->assertEquals('Livro já reservado', $response['message']);
     }
 
     public function test_tentativa_de_nova_reserva_ja_tendo_3_livros_reservados(){
@@ -101,6 +110,8 @@ class CreateReservationTest extends TestCase
         ])->postJson('/api/reservation', $data);
 
         $response->assertStatus(422);
+
+        $this->assertEquals('Usuário já possui 3 reservas ativas', $response['message']);
 
     }
 
