@@ -73,6 +73,9 @@ class BookResourceTest extends TestCase
 
     public function test_update_book(): void
     {
+        $image = UploadedFile::fake()->image('cover.jpg');
+        Storage::fake('public');
+
         $response = $this->putJson('/api/books/1', [
             'title' => $this->faker->name,
             'author' => $this->faker->name,
@@ -81,7 +84,7 @@ class BookResourceTest extends TestCase
             'isbn' => $this->faker->isbn13(),
             'publisher' => $this->faker->company(),
             'edition' => $this->faker->numberBetween(1,10) . 'ª',
-            'image' => $this->faker->imageUrl(),
+            'image' => $image,
         ], [
             'Authorization' => 'Bearer ' . $this->token
         ]);
