@@ -7,7 +7,7 @@ use App\Repositories\ReservationRepository;
 class ReservationService
 {
 
-    public function __construct(private ReservationRepository $repository)
+    public function __construct(private ReservationRepository $repository, private BookService $bookService)
     {
         $this->repository = $repository;
     }
