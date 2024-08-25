@@ -6,6 +6,10 @@ import {Book, LivroEmpty} from "../Book.ts";
 export function EditBook() {
     const [book, setBook] = useState<Book>(LivroEmpty)
 
+    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+    }
+
     return(
         <div className={"bg-ligth-background_secondary h-screen md:h-full"}>
             <NavBar/>
@@ -15,8 +19,8 @@ export function EditBook() {
                     handleSubmit={handleSubmit}
                     livro={book}
                     setLivro={setBook}
-                    title={"Cadastrar livro"}
-                    buttonLabel={"Cadastrar"}/>
+                    title={"Editar livro"}
+                    buttonLabel={"Editar"}/>
             </div>
         </div>
     )
