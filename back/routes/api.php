@@ -17,7 +17,6 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::apiResource('/books', BookController::class)
-        ->withoutMiddleware('auth:api');
+    Route::apiResource('/books', BookController::class);
 });
 
