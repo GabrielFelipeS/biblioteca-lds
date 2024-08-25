@@ -21,11 +21,15 @@ class BookController extends Controller
      */
     public function index(): JsonResponse
     {
-        try {
-            $books = $this->service->getAllBooks();
-            return response()->json($books, 200);
-        } catch (\Throwable $th) {
-            return response()->json('Erro ao retornar livros ' . $th->getMessage(), 500);
+        if (auth()->user()->can('listar livro')) {
+            try {
+                $books = $this->service->getAllBooks();
+                return response()->json($books, 200);
+            } catch (\Throwable $th) {
+                return response()->json('Erro ao retornar livros ' . $th->getMessage(), 500);
+            }
+        } else {
+            return response()->json('Não autorizado', 403);
         }
     }
 
@@ -34,13 +38,17 @@ class BookController extends Controller
      */
     public function store(BookRegisterRequest $request): JsonResponse
     {
-        try {
-            $data = $request->validated();
-            $data['image'] = $request->file('image');
-            $this->service->registerBook($data);
-            return response()->json(['message' => 'Livro cadastrado com sucesso'], 201);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'Erro ao cadastrar livro ' . $th->getMessage()], 500);
+        if (auth()->user()->can('adicionar livro')) {
+            try {
+                $data = $request->validated();
+                $data['image'] = $request->file('image');
+                $this->service->registerBook($data);
+                return response()->json(['message' => 'Livro cadastrado com sucesso'], 201);
+            } catch (\Throwable $th) {
+                return response()->json(['message' => 'Erro ao cadastrar livro ' . $th->getMessage()], 500);
+            }
+        } else {
+            return response()->json('Não autorizado', 403);
         }
     }
 
@@ -49,11 +57,15 @@ class BookController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        try {
-            $book = $this->service->getBookById($id);
-            return response()->json($book, 200);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'Erro ao pesquisar livro ' . $th->getMessage()], 500);
+        if (auth()->user()->can('ver livro')) {
+            try {
+                $book = $this->service->getBookById($id);
+                return response()->json($book, 200);
+            } catch (\Throwable $th) {
+                return response()->json(['message' => 'Erro ao pesquisar livro ' . $th->getMessage()], 500);
+            }
+        } else {
+            return response()->json('Não autorizado', 403);
         }
     }
 
@@ -62,15 +74,19 @@ class BookController extends Controller
      */
     public function update(BookUpdateRequest $request, string $id): JsonResponse
     {
-        try {
-            $data = $request->validated();
-            if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image');
+        if (auth()->user()->can('editar livro')) {
+            try {
+                $data = $request->validated();
+                if ($request->hasFile('image')) {
+                    $data['image'] = $request->file('image');
+                }
+                $this->service->updateBook($id, $data);
+                return response()->json(['message' => 'Livro atualizado com sucesso'], 200);
+            } catch (\Throwable $th) {
+                return response()->json(['message' => 'Erro ao atualizar livro ' . $th->getMessage()], 500);
             }
-            $this->service->updateBook($id, $data);
-            return response()->json(['message' => 'Livro atualizado com sucesso'], 200);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'Erro ao atualizar livro ' . $th->getMessage()], 500);
+        } else {
+            return response()->json('Não autorizado', 403);
         }
     }
 
@@ -79,12 +95,16 @@ class BookController extends Controller
      */
     public function destroy(string $id): JsonResponse
     {
-        try {
-            $book = $this->service->getBookById($id);
-            $this->service->deleteBook($id);
-            return response()->json(['message' => 'Livro \'' . $book->title . '\' removido com sucesso'], 200);
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'Erro ao deletar o livro ' . $th->getMessage()], 500);
+        if (auth()->user()->can('remover livro')) {
+            try {
+                $book = $this->service->getBookById($id);
+                $this->service->deleteBook($id);
+                return response()->json(['message' => 'Livro \'' . $book->title . '\' removido com sucesso'], 200);
+            } catch (\Throwable $th) {
+                return response()->json(['message' => 'Erro ao deletar o livro ' . $th->getMessage()], 500);
+            }
+        } else {
+            return response()->json('Não autorizado', 403);
         }
     }
 }
