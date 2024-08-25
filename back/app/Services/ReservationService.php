@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\ReservationRepository;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ReservationService
 {
@@ -22,11 +23,13 @@ class ReservationService
         try {
             $activeReservation = $this->repository->findActiveReservation($data['book_id']);
             if ($activeReservation) {
-                throw new \Exception('Já existe uma reserva ativa para este livro');
+                Log::info('Erro na criação da reserva do livro : ' . $data['book_id'] . ', Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Livro já reservado'], 422);
             }
             $book = $this->bookService->getBookById($data['book_id']);
             if (!$book) {
-                throw new \Exception('Livro não encontrado');
+                Log::info('Erro na criação da reserva do livro : ' . $data['book_id'] . ', Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Livro não encontrado'], 404);
             }
             $data = [
                 'book_id' => $data['book_id'],
@@ -36,9 +39,12 @@ class ReservationService
                 'status' => 'pending'
             ];
 
-            return $this->repository->create($data);
+            $reservation = $this->repository->create($data);
+            Log::info('Reserva criada com sucesso para o livro: ' . $data['book_id'] . ', Pelo usuário: ' . Auth::user()->id);
+            return response()->json($reservation, 201);
         } catch (\Throwable $th) {
-            throw new \Exception($th->getMessage());
+            Log::error('Erro ao criar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
         }
     }
 }
