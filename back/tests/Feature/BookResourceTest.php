@@ -8,6 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class BookResourceTest extends TestCase
@@ -90,6 +91,12 @@ class BookResourceTest extends TestCase
         ]);
 
         $response->assertStatus(200);
+
+        $book = $this->getJson('/api/books/1', [
+            'Authorization' => 'Bearer ' . $this->token
+        ]);
+
+        $this->assertTrue(Str::contains($book['image'], '/storage/books/', ignoreCase: true));
     }
 
     public function test_patch_book()
