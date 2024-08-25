@@ -24,8 +24,9 @@ class BookService
         return $this->repository->find($id);
     }
 
-    public function createBook(array $data)
+    public function registerBook(array $data)
     {
+        $data['image'] = ImageService::saveImage($data['image'], 'books');
         return $this->repository->create($data);
     }
 
