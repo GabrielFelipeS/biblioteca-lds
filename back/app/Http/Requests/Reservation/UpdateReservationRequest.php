@@ -14,6 +14,13 @@ class UpdateReservationRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            $this->except(['book_id', 'user_id', 'status'])
+        ]);
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -32,5 +39,35 @@ class UpdateReservationRequest extends FormRequest
                 }
             }],
         ];
+    }
+
+    public function messages()
+    {
+        return [
+            'from.required' => 'A data de retirada é obrigatória.',
+            'from.date' => 'A data de retirada deve ser uma data válida.',
+            'from.after' => 'A data de retirada deve ser uma data futura.',
+            'to.required' => 'A data de retorno é obrigatória.',
+            'to.date' => 'A data de retorno deve ser uma data válida.',
+            'to.after' => 'A data de retorno deve ser uma data futura.',
+
+        ];
+    }
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            $blockedParams = ['book_id', 'user_id', 'status'];
+            foreach ($blockedParams as $param) {
+                if ($this->has($param)) {
+                    $validator->errors()->add($param, "O parâmetro $param não é permitido.");
+                }
+            }
+        });
     }
 }
