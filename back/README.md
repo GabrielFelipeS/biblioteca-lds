@@ -386,3 +386,194 @@
         "message": "Erro ao deletar livro {$errorMessage}"
     }
     ```
+
+# Rota de Reservas de Livros
+
+## Rota api/reservation
+
+### Método: GET
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        {
+        "id": "1",
+        "user_id": "1",
+        "book_id": "1",
+        "from": "2021-09-01",
+        "to": "2021-09-15",
+        "status": "('pending', 'approved', 'returned', 'canceled',  'expired', 'overdue')"
+        }
+    }
+    ```
+
+#### Erro de autenticação
+
+- **Código HTTP:** 403 Forbidden
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Não autorizado"
+    }
+    ```
+
+## Rota api/reservation
+
+### Método: GET
+
+### Campos Necessários
+
+- `Bearer token` (string): Token de autenticação do usuário no formato Bearer no header da requisição
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        {
+        "id": "1",
+        "user_id": "1",
+        "book_id": "1",
+        "from": "2021-09-01",
+        "to": "2021-09-15",
+        "status": "('pending', 'approved', 'returned', 'canceled',  'expired', 'overdue')"
+        }
+    }
+    ```
+
+## Rota api/reservation
+
+### Método: POST
+
+### Campos Necessários
+
+- book_id (string): Id do livro que está sendo reservado
+- from (string): Data de início da reserva (Minimo de 1 dia a partir da data atual)
+- to (string): Data de término da reserva (Maximo de 7 dias a partir da data de início)
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 201 Created
+
+- **Retorno:**
+    ```json
+    {
+        {
+            "book_id": 27,
+            "user_id": 27,
+            "from": "2024-08-27",
+            "to": "2024-09-02",
+            "status" : "pending",
+            "updated_at" : "2024-08-26T02:28:53.000000Z",
+            "created_at" : "2024-08-26T02:28:53.000000Z",
+            "id" : 11
+        }
+    }
+    ```
+
+#### Erro de validaçao
+
+- **Código HTTP:** 422 Unprocessable Entity
+
+- **Retorno:**
+    ```json
+    {
+        "message": "O campo book_id é obrigatório (and 1 more error)",
+        "errors": {
+            "book_id": [
+                // Mensagens de erro específicas para o campo "book_id"
+            ],
+            "from": [
+                // Mensagens de erro específicas para o campo "from"
+            ],
+            "to": [
+                // Mensagens de erro específicas para o campo "to"
+            ]
+        }
+    }
+    ```
+
+### Rota api/reservation/{reservation}
+
+### Método: PUT
+
+### Campos Necessários
+
+- from (string): Data de início da reserva (Minimo de 1 dia a partir da data atual)
+- to (string): Data de término da reserva (Maximo de 7 dias a partir da data de início)
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        "book_id": 27,
+        "user_id": 27,
+        "from": "2024-08-27",
+        "to": "2024-09-02",
+        "status" : "pending",
+        "updated_at" : "2024-08-26T02:28:53.000000Z",
+        "created_at" : "2024-08-26T02:28:53.000000Z",
+        "id" : 11
+    }
+    ```
+
+### Erro de validaçao
+
+#### Erro de Reserva Não Encontrada
+
+- **Código HTTP:** 404 Not Found
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva não encontrada"
+    }
+    ```
+
+#### Erro reserva com status imuutavel (Devolveu ou Cancelado)
+
+- **Código HTTP:** 422 Unprocessable Entity
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva não pode ser atualizada"
+    }
+    ```
+
+## Rota api/reservation/{reservation}
+
+### Método: DELETE
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 204 No Content
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva removida com sucesso"
+    }
+    ```
+
+
