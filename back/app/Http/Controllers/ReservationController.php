@@ -44,4 +44,15 @@ class ReservationController extends Controller
             return response()->json(['message' => 'Error'], 500);
         }
     }
+
+    public function destroy(Request $request, int $reservation)
+    {
+        try {
+            Log::info('Recebida requisição para deletar reserva do usuário: ' . $request->user()->id);
+            return $this->service->delete($reservation);
+        } catch (\Throwable $th) {
+            Log::error('Erro ao deletar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
 }
