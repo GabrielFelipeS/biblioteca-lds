@@ -23,8 +23,15 @@ class StoreReservationRequest extends FormRequest
     {
         return [
             'book_id' => ['required', 'exists:books,id'],
-            'from' => ['required', 'date','after:today'],
-            'to' => ['required', 'date', 'after:from'],
+            'from' => ['required', 'date', 'after:today'],
+            'to' => ['required', 'date', 'after:from', function ($attribute, $value, $fail) {
+                $from = $this->input('from');
+                $to = $value;
+                $maxDate = \Carbon\Carbon::parse($from)->addDays(7);
+                if (\Carbon\Carbon::parse($to)->greaterThan($maxDate)) {
+                    $fail('O campo to não pode ser maior que 7 dias após a data de retirada.');
+                }
+            }],
         ];
     }
 
