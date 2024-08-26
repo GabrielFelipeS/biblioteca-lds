@@ -160,7 +160,7 @@ class BookController extends Controller
                     'idLivro' => $id,
                 ];
                 Log::info('Livro Removido: ' . json_encode($parametrosLog));
-                return response()->json(['message' => 'Livro \'' . $book->title . '\' removido com sucesso'], 200);
+                return response()->json(['message' => 'Livro \'' . $book->title . '\' removido com sucesso'], 204);
             } catch (\Throwable $th) {
                 $parametrosLog = [
                     'ipUsuario' => request()->ip(),

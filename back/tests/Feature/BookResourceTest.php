@@ -121,7 +121,7 @@ class BookResourceTest extends TestCase
             'Authorization' => 'Bearer ' . $this->token
         ]);
 
-        $response->assertStatus(200);
+        $response->assertStatus(204);
     }
 
 
