@@ -10,13 +10,7 @@ use Tests\TestCase;
 class UserRegisterTest extends TestCase
 {
 
-    use WithFaker;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        Artisan::call('migrate:fresh', ['--seed' => true]);
-    }
+    use WithFaker, RefreshDatabase;
 
     public function test_de_registro_com_dados_validos(){
         $data = [
