@@ -94,7 +94,9 @@ class BookResourceTest extends TestCase
 
         $response->assertStatus(200);
 
-        $book = $this->getJson('/api/books/1', [
+        $response = $response->json();
+
+        $book = $this->getJson("/api/books/{$response['idLivro']}", [
             'Authorization' => 'Bearer ' . $this->token
         ]);
 
