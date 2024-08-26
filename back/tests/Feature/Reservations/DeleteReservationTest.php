@@ -24,7 +24,7 @@ class DeleteReservationTest extends TestCase
         ])->deleteJson('/api/reservation/' . $reservation->id);
 
         $response->assertStatus(204);
-        
+
         $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
             'status' => 'canceled',
@@ -41,5 +41,21 @@ class DeleteReservationTest extends TestCase
         ])->deleteJson('/api/reservation/1000');
 
         $response->assertStatus(404);
+    }
+
+    public function test_tentativa_de_delecao_de_reserva_ja_em_andamento()
+    {
+        $user = User::factory()->create();
+        $token = $user->createToken('token')->accessToken;
+        $reservation = Reservation::factory()->create([
+            'user_id' => $user->id,
+            'status' => 'approved',
+        ]);
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->deleteJson('/api/reservation/' . $reservation->id);
+
+        $response->assertStatus(422);
     }
 }
