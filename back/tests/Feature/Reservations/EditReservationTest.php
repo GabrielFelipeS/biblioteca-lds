@@ -22,8 +22,8 @@ class EditReservationTest extends TestCase
 
         $newData = [
             'book_id' => $book->id,
-            'from' => '2021-10-10',
-            'to' => '2021-10-15',
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' =>  Date('Y-m-d', strtotime('+7 day')),
         ];
 
         $reservation = Reservation::factory()->create([
@@ -43,8 +43,8 @@ class EditReservationTest extends TestCase
             'id' => $reservation->id,
             'book_id' => $book->id,
             'user_id' => $user->id,
-            'from' => '2021-10-10',
-            'to' => '2021-10-15',
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' =>  Date('Y-m-d', strtotime('+7 day')),
             'status' => 'pending',
         ]);
 
@@ -52,8 +52,8 @@ class EditReservationTest extends TestCase
             'id' => $reservation->id,
             'book_id' => $book->id,
             'user_id' => $user->id,
-            'from' => '2021-10-10',
-            'to' => '2021-10-15',
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' =>  Date('Y-m-d', strtotime('+7 day')),
             'status' => 'pending',
         ]);
     }
@@ -68,8 +68,8 @@ class EditReservationTest extends TestCase
 
         $newData = [
             'book_id' => $book->id,
-            'from' => '2021-10-10',
-            'to' => '2021-10-15',
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' =>  Date('Y-m-d', strtotime('+7 day')),
         ];
 
         $reservation = Reservation::factory()->create([
@@ -99,8 +99,8 @@ class EditReservationTest extends TestCase
 
         $newData = [
             'book_id' => $book->id,
-            'from' => '2021-10-10',
-            'to' => '2021-10-15',
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' =>  Date('Y-m-d', strtotime('+7 day')),
         ];
 
         $response = $this->withHeaders([
