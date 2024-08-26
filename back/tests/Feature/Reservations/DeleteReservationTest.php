@@ -24,9 +24,10 @@ class DeleteReservationTest extends TestCase
         ])->deleteJson('/api/reservation/' . $reservation->id);
 
         $response->assertStatus(204);
-
-        $this->assertDatabaseMissing('reservations', [
+        
+        $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
+            'status' => 'canceled',
         ]);
     }
     
