@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Reservation\StoreReservationRequest;
 use App\Models\Reservation;
 use App\Services\ReservationService;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class ReservationController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreReservationRequest $request)
     {
         try {
             Log::info('Recebida requisição para criar reserva do usuário: ' . $request->user()->id);
