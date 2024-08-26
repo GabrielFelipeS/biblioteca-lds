@@ -56,8 +56,13 @@ class ReservationService
     public function update($reservation, array $data)
     {
         try {
+            $reservation = $this->repository->find($reservation);
+            if (!$reservation) {
+                Log::info('Erro na tentativa de atualizar reserva inexistente, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não encontrada'], 404);
+            }
             if ($reservation->status !== 'pending') {
-                Log::info('Erro na atualização da reserva do livro : ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+                Log::info('Erro na tentativa de atualizar reserva com status diferente de pendente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não pode ser atualizada'], 422);
             }
             if ($this->repository->update($reservation->id, $data)) {
