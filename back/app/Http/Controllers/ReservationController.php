@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Reservation\StoreReservationRequest;
+use App\Http\Requests\Reservation\UpdateReservationRequest;
 use App\Models\Reservation;
 use App\Services\ReservationService;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class ReservationController extends Controller
         }
     }
 
-    public function update(Request $request, int $reservation)
+    public function update(UpdateReservationRequest $request, int $reservation)
     {
         try {
             Log::info('Recebida requisição para atualizar reserva do usuário: ' . $request->user()->id);
