@@ -75,4 +75,26 @@ class ReservationService
             return response()->json(['message' => 'Error'], 500);
         }
     }
+
+    public function delete($reservation)
+    {
+        try {
+            $reservation = $this->repository->find($reservation);
+            if (!$reservation) {
+                Log::info('Erro na tentativa de deletar reserva inexistente, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não encontrada'], 404);
+            }
+            if ($reservation->status !== 'pending') {
+                Log::info('Erro na tentativa de deletar reserva com status diferente de pendente, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não pode ser deletada'], 422);
+            }
+            if ($this->repository->delete($reservation->id)) {
+                Log::info('Reserva deletada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+                return response()->json([], 204);
+            }
+        } catch (\Throwable $th) {
+            Log::error('Erro ao deletar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
 }
