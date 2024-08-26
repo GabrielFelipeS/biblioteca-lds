@@ -29,7 +29,7 @@ class StoreReservationRequest extends FormRequest
                 $to = $value;
                 $maxDate = \Carbon\Carbon::parse($from)->addDays(7);
                 if (\Carbon\Carbon::parse($to)->greaterThan($maxDate)) {
-                    $fail('O campo to não pode ser maior que 7 dias após a data de retirada.');
+                    $fail('A data de retorno não pode ser maior que 7 dias após a data de retirada.');
                 }
             }],
         ];
