@@ -28,5 +28,17 @@ class DeleteReservationTest extends TestCase
         $this->assertDatabaseMissing('reservations', [
             'id' => $reservation->id,
         ]);
-    }   
+    }
+    
+    public function test_deletando_reserva_inexistente()
+    {
+        $user = User::factory()->create();
+        $token = $user->createToken('token')->accessToken;
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->deleteJson('/api/reservation/1000');
+
+        $response->assertStatus(404);
+    }
 }
