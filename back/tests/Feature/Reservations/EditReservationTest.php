@@ -88,4 +88,29 @@ class EditReservationTest extends TestCase
             'message' => 'Reserva não pode ser atualizada',
         ]);
     }
+
+    public function test_editando_reserva_que_nao_existe()
+    {
+        $book = Book::factory()->create();
+        $user = User::factory()->create();
+        $token = $user->createToken('token')->accessToken;
+        $permission = Permission::findByName('editar reserva');
+        $user->givePermissionTo($permission);
+
+        $newData = [
+            'book_id' => $book->id,
+            'from' => '2021-10-10',
+            'to' => '2021-10-15',
+        ];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->putJson('/api/reservation/1000', $newData);
+
+        $response->assertStatus(404);
+
+        $response->assertJsonFragment([
+            'message' => 'Reserva não encontrada',
+        ]);
+    }
 }
