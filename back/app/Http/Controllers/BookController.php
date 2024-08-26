@@ -70,7 +70,7 @@ class BookController extends Controller
                     'erro' => $th->getMessage(),
                     'idUsuario' => auth()->user()->getAuthIdentifier(),
                 ];
-                Log::error('Erro ao retornar livros: ' . json_encode($parametrosLog));
+                Log::error('Erro ao cadastrar livro: ' . json_encode($parametrosLog));
                 return response()->json(['message' => 'Erro ao cadastrar livro ' . $th->getMessage()], 500);
             }
         } else {
