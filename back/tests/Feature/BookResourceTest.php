@@ -30,7 +30,7 @@ class BookResourceTest extends TestCase
             'password' => bcrypt('123456')
         ]);
 
-        $this->user->assignRole('Super-Admin');
+        $this->user->assignRole('bibliotecario');
 
         $this->token = $this->user->createToken('token')->accessToken;
     }
