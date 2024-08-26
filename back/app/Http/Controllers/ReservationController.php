@@ -34,7 +34,7 @@ class ReservationController extends Controller
         }
     }
 
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request, int $reservation)
     {
         try {
             Log::info('Recebida requisição para atualizar reserva do usuário: ' . $request->user()->id);
