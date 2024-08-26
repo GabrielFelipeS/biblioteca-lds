@@ -88,7 +88,7 @@ class ReservationService
                 Log::info('Erro na tentativa de deletar reserva com status diferente de pendente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não pode ser deletada'], 422);
             }
-            if ($this->repository->delete($reservation->id)) {
+            if ($this->repository->update($reservation->id, ['status' => 'canceled'])) {
                 Log::info('Reserva deletada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
                 return response()->json([], 204);
             }
