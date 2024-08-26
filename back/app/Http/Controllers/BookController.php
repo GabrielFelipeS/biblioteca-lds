@@ -135,7 +135,7 @@ class BookController extends Controller
                     'ipUsuario' => request()->ip(),
                     'erro' => $th->getMessage(),
                     'idUsuario' => auth()->user()->getAuthIdentifier(),
-                    'dados' => $data,
+                    'dados' => $request->validated(),
                 ];
                 Log::error('Erro ao atualizar livro: ' . json_encode($parametrosLog));
                 return response()->json(['message' => 'Erro ao atualizar livro ' . $th->getMessage()], 500);
