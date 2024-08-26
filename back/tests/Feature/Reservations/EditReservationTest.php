@@ -21,13 +21,11 @@ class EditReservationTest extends TestCase
         $user->givePermissionTo($permission);
 
         $newData = [
-            'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
             'to' =>  Date('Y-m-d', strtotime('+7 day')),
         ];
 
         $reservation = Reservation::factory()->create([
-            'book_id' => $book->id,
             'user_id' => $user->id,
             'status' => 'pending',
         ]);
@@ -41,7 +39,6 @@ class EditReservationTest extends TestCase
 
         $response->assertJsonFragment([
             'id' => $reservation->id,
-            'book_id' => $book->id,
             'user_id' => $user->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
             'to' =>  Date('Y-m-d', strtotime('+7 day')),
@@ -50,7 +47,6 @@ class EditReservationTest extends TestCase
 
         $this->assertDatabaseHas('reservations', [
             'id' => $reservation->id,
-            'book_id' => $book->id,
             'user_id' => $user->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
             'to' =>  Date('Y-m-d', strtotime('+7 day')),
@@ -67,13 +63,11 @@ class EditReservationTest extends TestCase
         $user->givePermissionTo($permission);
 
         $newData = [
-            'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
             'to' =>  Date('Y-m-d', strtotime('+7 day')),
         ];
 
         $reservation = Reservation::factory()->create([
-            'book_id' => $book->id,
             'user_id' => $user->id,
             'status' => 'approved',
         ]);
@@ -98,7 +92,6 @@ class EditReservationTest extends TestCase
         $user->givePermissionTo($permission);
 
         $newData = [
-            'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
             'to' =>  Date('Y-m-d', strtotime('+7 day')),
         ];
