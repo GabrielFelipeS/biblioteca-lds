@@ -136,4 +136,27 @@ class CreateReservationTest extends TestCase
 
         $this->assertEquals('O livro informado não existe', $response['errors']['book_id'][0]);
     }
+
+    public function test_tentativa_de_criacao_de_reserva_com_data_de_retorno_maior_que_7_dias()
+    {
+        $user = \App\Models\User::factory()->create();
+        $permission =  Permission::findByName('criar reserva');
+        $user->givePermissionTo($permission);
+        $token = $user->createToken('token')->accessToken;
+        $book = \App\Models\Book::factory()->create();
+
+        $data = [
+            'book_id' => $book->id,
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' => Date('Y-m-d', strtotime('+9 days')),
+        ];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/reservation', $data);
+
+        $response->assertStatus(422);
+
+        $this->assertEquals('A data de retorno não pode ser maior que 7 dias após a data de retirada.', $response['errors']['to'][0]);
+    }
 }
