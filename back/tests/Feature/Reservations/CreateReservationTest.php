@@ -20,7 +20,7 @@ class CreateReservationTest extends TestCase
         $data = [
             'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
         ];
 
         $response = $this->withHeaders([
@@ -32,7 +32,7 @@ class CreateReservationTest extends TestCase
         $this->assertDatabaseHas('reservations', [
             'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
             'status' => 'pending'
         ]);
     }
@@ -47,13 +47,13 @@ class CreateReservationTest extends TestCase
         $reservation = \App\Models\Reservation::factory()->create([
             'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
         ]);
 
         $data = [
             'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
         ];
 
         $response = $this->withHeaders([
@@ -80,7 +80,7 @@ class CreateReservationTest extends TestCase
             'user_id' => $user->id,
             'book_id' => $book->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
             'status' => 'pending'
         ]);
 
@@ -88,7 +88,7 @@ class CreateReservationTest extends TestCase
             'user_id' => $user->id,
             'book_id' => $book2->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
             'status' => 'pending'
         ]);
 
@@ -96,14 +96,14 @@ class CreateReservationTest extends TestCase
             'user_id' => $user->id,
             'book_id' => $book3->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
             'status' => 'pending'
         ]);
 
         $data = [
             'book_id' => $book4->id,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
         ];
 
         $response = $this->withHeaders([
@@ -125,7 +125,7 @@ class CreateReservationTest extends TestCase
         $data = [
             'book_id' => 10000,
             'from' => Date('Y-m-d', strtotime('+1 day')),
-            'to' => Date('Y-m-d', strtotime('+10 days')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
         ];
 
         $response = $this->withHeaders([
