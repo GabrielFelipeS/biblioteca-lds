@@ -16,6 +16,7 @@ class DeleteReservationTest extends TestCase
         $token = $user->createToken('token')->accessToken;
         $reservation = Reservation::factory()->create([
             'user_id' => $user->id,
+            'status' => 'pending',
         ]);
 
         $response = $this->withHeaders([
