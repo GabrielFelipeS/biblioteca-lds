@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import {Book} from "../Book.ts";
 import input_file from "/src/assets/file-input.png";
 
@@ -11,6 +12,26 @@ interface FormLivroProps {
 
 export function FormLivro({handleSubmit, livro, setLivro,
                               title, buttonLabel}: FormLivroProps) {
+        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+        const imagePreview = document.getElementById('imagePreview') as HTMLImageElement;
+
+    function handleImage (event: ChangeEvent<HTMLInputElement>) {
+        const input = event.target as HTMLInputElement;
+        const file = input.files?.[0];
+    
+        if (file) {
+          // Cria um URL para o arquivo selecionado
+          const reader = new FileReader();
+    
+          reader.onload = (e) => {
+            // Atualiza a fonte da imagem para o URL do arquivo
+            imagePreview.src = e.target?.result as string;
+            imagePreview.style.display = 'block';
+          };
+    
+          reader.readAsDataURL(file);
+        }
+    }
     return (
         <div className={`
                     bg-ligth-background text-ligth-primary 
@@ -85,7 +106,9 @@ export function FormLivro({handleSubmit, livro, setLivro,
                     <img src={input_file} className={"h-5 w-4"} alt={"input file"}/>
                 </label>
 
-                <input id={"input-file"} type={"file"} className={"hidden"}/>
+                <input id={"input-file"} type={"file"} className={"hidden"}
+                    onChange={handleImage}
+                />
 
                 <div className={"flex justify-center"}>
                     <button type={"submit"} className={"bg-ligth-container p-2 rounded-full"}>
