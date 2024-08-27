@@ -1,18 +1,24 @@
-import {api} from "./api.ts";
 import {NavigateFunction} from "react-router-dom";
+import axios from "axios";
+import {api} from "./api.ts";
 
 export function logout(navigate: NavigateFunction) {
     const bearer = "Bearer " + localStorage.getItem("token");
 
-    api.post("auth/logout",
+    console.log( localStorage.getItem("token"))
+
+    const config = {
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            Authorization: bearer
+        }
+    }
+
+    axios.post("http://localhost:8000/api/auth/logout",
         {},
-        {
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: bearer
-            }
-        }).then((response) => {
+        config
+        ).then((response) => {
         if(response.status == 200) {
             localStorage.clear()
             navigate("/home")
