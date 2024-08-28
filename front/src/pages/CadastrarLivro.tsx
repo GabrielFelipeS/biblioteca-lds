@@ -10,15 +10,6 @@ export function CadastrarLivro() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
-           /* title (string): Título do livro
-            author (string): Autor do livro
-            genre (string): Gênero do livro
-            year (string): Ano de publicação do livro
-            isbn (string): Código ISBN do livro
-            publisher (string): Editora do livro
-            edition (string): Edição do livro
-            image (file): Imagem de capa do livro [max: 2048MB, format: jpg,"jpeg","png","webp"] */
-
         const data = {
             title: '',
             author: '',
@@ -40,10 +31,10 @@ export function CadastrarLivro() {
     }
 
     return (
-        <div className={"bg-ligth-background_secondary h-screen md:h-full"}>
+        <div className={"bg-ligth-background_secondary w-full h-full"}>
             <NavBar/>
 
-            <div className={`h-min w-full flex justify-center pt-14`}>
+            <div className={`h-full w-full flex justify-center pt-14`}>
                <FormLivro
                    handleSubmit={handleSubmit}
                    livro={book}
