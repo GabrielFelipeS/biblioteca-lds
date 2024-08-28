@@ -24,6 +24,14 @@ export function Emprestimo() {
             .catch(e => console.log(e))
     }, [])
 
+    function handleRenewal(id: string) {
+        console.log(id)
+    }
+
+    function handleReturn(id: string) {
+        console.log(id)
+    }
+
     return (
         <div className={"bg-ligth-background_secondary pb-20"}>
         <NavBar />
@@ -35,7 +43,7 @@ export function Emprestimo() {
                 <table className={"relative overflow-x-auto"}>
                     <thead>
                         <tr className="text-ligth-primary bg-black">
-                            <th className="px-9 py-3 "></th>
+                            <th className="px-9 py-3"></th>
                             <th className="px-9 py-3"></th>
                             <th className="px-6 py-3">Titulo</th>
                             <th className="px-6 py-3">Autor</th>
@@ -51,11 +59,11 @@ export function Emprestimo() {
                        { books && books.map((book, index) => {
                             return (
                                 <tr className="h-12" key={index}> 
-                                    <td className="px-2 cursor-pointer border">
-                                        <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg">Renovação</div>
+                                    <td className="px-2 cursor-pointer border" onClick={() => handleRenewal(book.id)}>
+                                        <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg" >Renovação</div>
                                     </td>
                                     <td className="px-2 cursor-pointer border">
-                                        <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg">Devolução </div>
+                                        <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg" onClick={() => handleReturn(book.id)}>Devolução </div>
                                     </td>
                                     <td className="px-6 border">{book.title}</td>
                                     <td className="px-6 border">{book.author}</td>
