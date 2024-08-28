@@ -9,12 +9,12 @@ export function Router() {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path={"/"} element={<Home/>}/>
                 <Route path={"/home"} element={<Home/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path={"/register"} element={<Register/>}/>
                 <Route path={"/livro/cadastrar"} element={<CadastrarLivro/>}/>
                 <Route path={"/livro/editar/:id"} element={<EditBook/>}/>
-                <Route path={"/*"} element={<Home/>}/>
             </Routes>
         </BrowserRouter>
     )
