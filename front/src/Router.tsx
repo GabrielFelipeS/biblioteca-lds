@@ -4,7 +4,8 @@ import {Register} from "./pages/Register";
 import {Home} from "./pages/Home";
 import {CadastrarLivro} from "./pages/CadastrarLivro";
 import {EditBook} from "./pages/EditBook.tsx";
-import { Emprestimo } from "./pages/Emprestimo";
+import {Acervo} from "./pages/Acervo.tsx";
+import { Emprestimo } from "./pages/Emprestimo.tsx";
 
 export function Router() {
     return (
@@ -13,6 +14,7 @@ export function Router() {
                 <Route path={"/home"} element={<Home/>}/>
                 <Route path={"/login"} element={<Login/>}/>
                 <Route path={"/register"} element={<Register/>}/>
+                <Route path={"/acervo"} element={<Acervo/>}/>
                 <Route path={"/emprestimo"} element={<Emprestimo/>}/>
                 <Route path={"/livro/cadastrar"} element={<CadastrarLivro/>}/>
                 <Route path={"/livro/editar/:id"} element={<EditBook/>}/>
