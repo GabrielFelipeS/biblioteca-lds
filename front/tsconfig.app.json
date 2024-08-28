@@ -8,7 +8,6 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
@@ -25,7 +24,9 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "src/**/*",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "types/**/*.d.ts",
     "node_modules/ts-jest/globals.d.ts"
   ]
 }
