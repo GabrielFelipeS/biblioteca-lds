@@ -1,5 +1,5 @@
 import {NavigateFunction} from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 import {api} from "./api.ts";
 
 export function logout(navigate: NavigateFunction) {
@@ -15,7 +15,7 @@ export function logout(navigate: NavigateFunction) {
         }
     }
 
-    axios.post("http://localhost:8000/api/auth/logout",
+    api.post("auth/logout",
         {},
         config
         ).then((response) => {
