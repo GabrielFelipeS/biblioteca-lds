@@ -37,14 +37,14 @@ export function Emprestimo() {
                         <tr className="text-ligth-primary bg-black">
                             <th className="px-9 py-3 "></th>
                             <th className="px-9 py-3"></th>
-                            <th className="px-6 py-3 border">Titulo</th>
-                            <th className="px-6 py-3 border">Autor</th>
-                            <th className="px-6 py-3 border hidden lg:table-cell">Gênero</th>
-                            <th className="px-6 py-3 border hidden lg:table-cell">ISBN</th>
-                            <th className="px-6 py-3 border hidden lg:table-cell">Lançamento</th>
-                            <th className="px-6 py-3 border hidden lg:table-cell">Editora</th>
-                            <th className="px-6 py-3 border hidden lg:table-cell">Edição</th>
-                            <th className="px-6 py-3 border">Unidades</th>
+                            <th className="px-6 py-3">Titulo</th>
+                            <th className="px-6 py-3">Autor</th>
+                            <th className="px-6 py-3 hidden lg:table-cell">Gênero</th>
+                            <th className="px-6 py-3 hidden lg:table-cell">ISBN</th>
+                            <th className="px-6 py-3 hidden lg:table-cell">Lançamento</th>
+                            <th className="px-6 py-3 hidden lg:table-cell">Editora</th>
+                            <th className="px-6 py-3 hidden lg:table-cell">Edição</th>
+                            <th className="px-6 py-3">Unidades</th>
                         </tr>
                     </thead>
                     <tbody>
