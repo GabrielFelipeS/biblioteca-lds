@@ -1,11 +1,11 @@
 export type Book = {
     title: string
-    autor: string
-    genero: string
+    author: string
+    genre: string
     isbn: string
-    ano: number
-    editora: string
-    edicao: string
+    year: number
+    edition: string
+    publisher: string
 }
 
 export const LivroEmpty = {
