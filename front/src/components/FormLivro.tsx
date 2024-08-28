@@ -44,21 +44,21 @@ export function FormLivro({handleSubmit, livro, setLivro,
             <form onSubmit={handleSubmit}>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"titulo"}> Titulo</label>
-                    <input id={"titulo"} value={livro.title} className={"rounded-lg"}
+                    <input id={"titulo"} value={livro.title} className={"rounded-lg text-ligth-secondary"}
                            onChange={(e) =>
                                setLivro(state => ({...state, title: e.target.value}))}
                     />
                 </div>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"autor"}> Autor</label>
-                    <input id={"autor"} value={livro.autor} className="rounded-lg"
+                    <input id={"autor"} value={livro.autor} className="rounded-lg text-ligth-secondary"
                            onChange={(e) =>
                                setLivro(state => ({...state, autor: e.target.value}))}
                     />
                 </div>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"genero"}> Genero</label>
-                    <input id={"genero"} value={livro.genero} className="rounded-lg"
+                    <input id={"genero"} value={livro.genero} className="rounded-lg text-ligth-secondary"
                            onChange={(e) =>
                                setLivro(state => ({...state, genero: e.target.value}))}
                     />
@@ -67,27 +67,28 @@ export function FormLivro({handleSubmit, livro, setLivro,
                 <div className={"md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-5 mb-6"}>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"isbn"}> Códgio ISBN</label>
-                        <input id={"isbn"} value={livro.isbn} className="rounded-lg"
+                        <input id={"isbn"} value={livro.isbn} className="rounded-lg text-ligth-secondary"
                                onChange={(e) =>
                                    setLivro(state => ({...state, isbn: e.target.value}))}
                         />
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"lancamento"}> Ano de lançamento</label>
-                        <input id={"lancamento"} value={livro.ano} className="rounded-lg"
-                               onChange={(e) =>
-                                   setLivro(state => ({...state, ano: Number.parseInt(e.target.value)}))}/>
+                        <input type="number" id={"lancamento"} value={livro.ano} className="rounded-lg text-ligth-secondary"
+                               onChange={(e) => {
+                                const anoInput = Number.isInteger(e.target.value)? Number.parseInt(e.target.value) : 0;
+                                   setLivro(state => ({...state, ano: Number.parseInt(e.target.value)}))}}/>
 
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"editora"}> Editora</label>
-                        <input id={"editora"} value={livro.editora} className="rounded-lg"
+                        <input id={"editora"} value={livro.editora} className="rounded-lg text-ligth-secondary"
                                onChange={(e) =>
                                    setLivro(state => ({...state, editora: e.target.value}))}/>
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"edicao"}> Edição</label>
-                        <input id={"edicao"} value={livro.edicao} className="rounded-lg"
+                        <input id={"edicao"} value={livro.edicao} className="rounded-lg text-ligth-secondary"
                                onChange={(e) =>
                                    setLivro(state => ({...state, edicao: e.target.value}))}
                         />
