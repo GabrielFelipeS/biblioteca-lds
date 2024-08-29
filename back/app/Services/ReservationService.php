@@ -61,7 +61,7 @@ class ReservationService
                 Log::info('Erro na tentativa de atualizar reserva inexistente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não encontrada'], 404);
             }
-            if ($data['status']) {
+            if (isset($data['status'])) {
                 if (!Auth::user()->hasRole('bibliotecario')) {
                     Log::info('Erro na tentativa de atualizar reserva sem permissão, Pelo usuário: ' . Auth::user()->id);
                     return response()->json(['message' => 'Usuário não tem permissão para atualizar status'], 403);
