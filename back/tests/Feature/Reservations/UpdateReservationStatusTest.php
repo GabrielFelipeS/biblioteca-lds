@@ -12,7 +12,7 @@ class UpdateReservationStatusTest extends TestCase
 {
     public function test_liberando_reserva_com_sucesso()
     {
-        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+        $user = User::findOrFail(1);
 
         $token = $user->createToken('token')->accessToken;
 
@@ -45,7 +45,7 @@ class UpdateReservationStatusTest extends TestCase
 
     public function test_tentativa_de_liberar_reserva_inexistente()
     {
-        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+        $user = User::findOrFail(1);
 
         $token = $user->createToken('token')->accessToken;
 
