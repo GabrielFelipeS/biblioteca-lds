@@ -185,17 +185,71 @@
 - **Retorno:**
     ```json
     {
-        "id": "1",
-        "title": "string",
-        "author": "string",
-        "genre": "string",
-        "year": "string",
-        "isbn": "string",
-        "publisher": "string",
-        "edition": "string",
-        "image": "string"
-    }
-    ```
+      "current_page": 1,
+      "data": [
+        {
+          "id": 1,
+          "title": "Aut aliquam eum.",
+          "author": "Amya Dare MD",
+          "year": 1984,
+          "isbn": "9785185287316",
+          "created_at": "2024-08-29T21:38:49.000000Z",
+          "updated_at": "2024-08-29T21:38:49.000000Z",
+          "genre": "quia",
+          "publisher": "Rempel Inc",
+          "edition": "10º",
+          "image": "https://via.placeholder.com/640x480.png/0088cc?text=sed",
+          "deleted_at": null
+        },
+        {
+          "id": 2,
+          "title": "Quidem voluptatem consequatur.",
+          "author": "Michaela Schulist",
+          "year": 2007,
+          "isbn": "9780757584978",
+          "created_at": "2024-08-29T21:38:49.000000Z",
+          "updated_at": "2024-08-29T21:38:49.000000Z",
+          "genre": "aperiam",
+          "publisher": "McLaughlin Ltd",
+          "edition": "5º",
+          "image": "https://via.placeholder.com/640x480.png/0011ff?text=hic",
+          "deleted_at": null
+        }
+      ],
+      "first_page_url": "http://localhost/api/books?page=1",
+      "from": 1,
+      "last_page": 2,
+      "last_page_url": "http://localhost/api/books?page=2",
+      "links": [
+        {
+          "url": null,
+          "label": "&laquo; Previous",
+          "active": false
+        },
+        {
+          "url": "http://localhost/api/books?page=1",
+          "label": "1",
+          "active": true
+        },
+        {
+          "url": "http://localhost/api/books?page=2",
+          "label": "2",
+          "active": false
+        },
+        {
+          "url": "http://localhost/api/books?page=2",
+          "label": "Next &raquo;",
+          "active": false
+        }
+      ],
+      "next_page_url": "http://localhost/api/books?page=2",
+      "path": "http://localhost/api/books",
+      "per_page": 15,
+      "prev_page_url": null,
+      "to": 15,
+      "total": 26
+  }
+  ```
   
 #### Erro de autenticação
 
