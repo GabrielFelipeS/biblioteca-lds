@@ -17,7 +17,7 @@ class UpdateReservationRequest extends FormRequest
     public function prepareForValidation()
     {
         $this->merge([
-            $this->except(['book_id', 'user_id', 'status'])
+            $this->except(['book_id', 'user_id'])
         ]);
     }
 
@@ -50,7 +50,6 @@ class UpdateReservationRequest extends FormRequest
             'to.required' => 'A data de retorno é obrigatória.',
             'to.date' => 'A data de retorno deve ser uma data válida.',
             'to.after' => 'A data de retorno deve ser uma data futura.',
-
         ];
     }
     /**
