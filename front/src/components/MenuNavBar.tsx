@@ -1,12 +1,10 @@
 import { LoginList } from "./LoginList.tsx";
 import { LiNavBar as Li } from "./LiNavBar.tsx";
 import { NavigateFunction } from "react-router-dom";
-import { useState } from "react";
 
 interface MenuNavBarProps {
     navigate: NavigateFunction
 }
-
 
 export function MenuNavBar({ navigate }: MenuNavBarProps) {
 
