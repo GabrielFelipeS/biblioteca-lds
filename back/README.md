@@ -576,4 +576,26 @@
     }
     ```
 
+#### Erro de validaçao
+
+- **Código HTTP:** 404 Not Found
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva não encontrada"
+    }
+    ```
+
+#### Erro de reserva com status imuutavel (Devolveu ou Cancelado)
+
+- **Código HTTP:** 422 Unprocessable Entity
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva não pode ser removida"
+    }
+    ```
+
 
