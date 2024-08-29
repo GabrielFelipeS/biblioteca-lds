@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { api } from "../services/api";
-import { Book } from "../Book";
+import { Book } from "../types/Book";
 
 
 export function Emprestimo() {
@@ -38,7 +38,7 @@ export function Emprestimo() {
         <div className="flex justify-center pt-14 ">
             <div className={`h-min w-min flex flex-col justify-center items-center bg-white`}>
                 <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl max-sm:text-base ">
-                    Acervos de Livros 
+                    Emprestimo de Livros 
                 </div>
                 <table className={"relative overflow-x-auto pr-2"}>
                     <thead>
