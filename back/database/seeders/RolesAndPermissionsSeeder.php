@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -55,8 +56,15 @@ class RolesAndPermissionsSeeder extends Seeder
             'editar reserva'
         ]);
 
+        $user = User::create([
+            'name' => 'Biblioteca IFSP',
+            'email' => 'biblioteca@ifsp.com',
+            'password' => bcrypt('123456')]);
+
         $superAdmin = Role::create(['name' => 'bibliotecario'])
             ->givePermissionTo(Permission::all());
+
+        $user->assignRole($superAdmin);
 
     }
 }
