@@ -62,8 +62,8 @@ export function Emprestimo() {
                                     <td className="px-2 cursor-pointer border max-sm:px-0  max-sm:py-0" onClick={() => handleRenewal(book.id)}>
                                         <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg max-sm:text-xs" >Renovação</div>
                                     </td>
-                                    <td className="px-2 cursor-pointer border">
-                                        <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg max-sm:text-xs" onClick={() => handleReturn(book.id)}>Devolução </div>
+                                    <td className="px-2 cursor-pointer border" onClick={() => handleReturn(book.id)}>
+                                        <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg max-sm:text-xs" >Devolução </div>
                                     </td>
                                     <td className="px-6  max-sm:px-0  max-sm:py-0 border max-sm:text-xs">{book.title}</td>
                                     <td className="px-6 border max-sm:hidden">{book.author}</td>
