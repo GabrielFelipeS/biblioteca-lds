@@ -14,6 +14,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory(20)->create();
+
+        // Criar usuário administrador
+        $user = User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('senha123'),
+        ]);
+        $user->assingRole('bibliotecario');
     }
 
 }

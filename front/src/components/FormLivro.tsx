@@ -51,16 +51,16 @@ export function FormLivro({handleSubmit, livro, setLivro,
                 </div>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"autor"}> Autor</label>
-                    <input id={"autor"} value={livro.autor} className="rounded-lg text-ligth-secondary"
+                    <input id={"autor"} value={livro.author}
                            onChange={(e) =>
-                               setLivro(state => ({...state, autor: e.target.value}))}
+                               setLivro(state => ({...state, author: e.target.value}))}
                     />
                 </div>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"genero"}> Genero</label>
-                    <input id={"genero"} value={livro.genero} className="rounded-lg text-ligth-secondary"
+                    <input id={"genero"} value={livro.genre}
                            onChange={(e) =>
-                               setLivro(state => ({...state, genero: e.target.value}))}
+                               setLivro(state => ({...state, genre: e.target.value}))}
                     />
                 </div>
 
@@ -74,23 +74,22 @@ export function FormLivro({handleSubmit, livro, setLivro,
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"lancamento"}> Ano de lançamento</label>
-                        <input type="number" id={"lancamento"} value={livro.ano} className="rounded-lg text-ligth-secondary"
-                               onChange={(e) => {
-                                const anoInput = Number.isInteger(e.target.value)? Number.parseInt(e.target.value) : 0;
-                                   setLivro(state => ({...state, ano: Number.parseInt(e.target.value)}))}}/>
+                        <input id={"lancamento"} value={livro.year}
+                               onChange={(e) =>
+                                   setLivro(state => ({...state, year: Number.parseInt(e.target.value)}))}/>
 
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"editora"}> Editora</label>
-                        <input id={"editora"} value={livro.editora} className="rounded-lg text-ligth-secondary"
+                        <input id={"editora"} value={livro.edition}
                                onChange={(e) =>
-                                   setLivro(state => ({...state, editora: e.target.value}))}/>
+                                   setLivro(state => ({...state, edition: e.target.value}))}/>
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"edicao"}> Edição</label>
-                        <input id={"edicao"} value={livro.edicao} className="rounded-lg text-ligth-secondary"
+                        <input id={"edicao"} value={livro.publisher}
                                onChange={(e) =>
-                                   setLivro(state => ({...state, edicao: e.target.value}))}
+                                   setLivro(state => ({...state, publisher: e.target.value}))}
                         />
                     </div>
                 </div>

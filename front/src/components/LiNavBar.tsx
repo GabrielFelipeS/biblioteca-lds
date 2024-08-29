@@ -8,7 +8,7 @@ interface ListItemProps {
 
 export const style = (condition: boolean | null) =>
     (`cursor-pointer hover:bg-ligth-selected text-ligth-primary 
-      font-bold h-full flex items-center pl-2 pr-2
+      font-bold h-full items-center pl-1 pr-1 flex text-xs sm:text-base sm:pr-2 sm:pl-2
       ${condition ? 'bg-ligth-selected' : ''} 
     `)
 
