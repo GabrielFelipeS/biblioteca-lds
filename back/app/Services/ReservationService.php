@@ -72,7 +72,8 @@ class ReservationService
                 Log::info('Reserva atualizada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Status da reserva alterado com sucesso'], 200);
             }
-            if ($reservation->status !== 'pending' || $reservation->status !== 'approved') {
+            if ($reservation->status !== 'pending') {
+                Log::info($reservation->status);
                 Log::info('Erro na tentativa de atualizar reserva com status diferente de pendente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não pode ser atualizada'], 422);
             }
