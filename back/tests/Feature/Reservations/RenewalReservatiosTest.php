@@ -20,20 +20,27 @@ class RenewalReservatiosTest extends TestCase
         $reservation = Reservation::factory()->create([
             'to' => Date('Y-m-d', strtotime('-8 day')),
             'from' => Date('Y-m-d', strtotime('-1 day')),
+            'status' => 'approved',
         ]);
 
         $data = [
-            'from' => Date('Y-m-d', strtotime('-1 day')),
-            'to' => Date('Y-m-d', strtotime('+6 day')),
+            'to' => Date('Y-m-d', strtotime('+7 day')),
         ];
 
         $response = $this->withHeader('Authorization', 'Bearer ' . $token)
-            ->putJson('/api/reservation/1/renewal');
+            ->putJson('/api/reservation/' . $reservation->id . '/renewal', $data);
 
         $response->assertStatus(200);
 
         $response->assertJson([
             'message' => 'Reserva renovada com sucesso'
+        ]);
+
+        $this->assertDatabaseHas('reservations', [
+            'id' => $reservation->id,
+            'to' => Date('Y-m-d', strtotime('+7 day')),
+            'from' => Date('Y-m-d', strtotime('-1 day')),
+            'status' => 'approved',
         ]);
     }
 }
