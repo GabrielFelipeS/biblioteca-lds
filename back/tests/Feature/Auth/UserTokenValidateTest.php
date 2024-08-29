@@ -51,4 +51,20 @@ class UserTokenValidateTest extends TestCase
 
         $response->assertStatus(401);
     }
+
+    public function test_usuario_sem_role(){
+        $user = User::factory()->create();
+
+        $token = $user->createToken('token')->accessToken;
+
+        $response = $this->withHeader('Authorization', "Bearer $token")
+            ->getJson('/api/auth/validate');
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'message' => 'Token válido!',
+            'type' => null
+        ]);
+    }
 }
