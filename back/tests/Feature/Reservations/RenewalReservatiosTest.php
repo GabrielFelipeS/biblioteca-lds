@@ -7,13 +7,15 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Date;
+use Spatie\Permission\Models\Role;
 use Tests\TestCase;
 
 class RenewalReservatiosTest extends TestCase
 {
     public function test_renovacao_de_reserva_com_sucesso()
     {
-        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+        $user = User::factory()->create();
+        $role = Role::findByName('solicitante', 'api');
 
         $token = $user->createToken('token')->accessToken;
 
@@ -46,7 +48,8 @@ class RenewalReservatiosTest extends TestCase
 
     public function test_renovacao_de_reserva_com_status_diferente_de_aprovado()
     {
-        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+        $user = User::factory()->create();
+        $role = Role::findByName('solicitante', 'api');
 
         $token = $user->createToken('token')->accessToken;
 
@@ -79,7 +82,8 @@ class RenewalReservatiosTest extends TestCase
 
     public function test_renovacao_de_reserva_cancelada()
     {
-        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+        $user = User::factory()->create();
+        $role = Role::findByName('solicitante', 'api');
 
         $token = $user->createToken('token')->accessToken;
 
