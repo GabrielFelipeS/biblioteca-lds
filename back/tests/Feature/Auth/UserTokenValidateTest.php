@@ -27,4 +27,22 @@ class UserTokenValidateTest extends TestCase
             'type' => 'bibliotecario'
         ]);
     }
+
+    public function test_validando_token_de_usuario(){
+        $user = User::factory()->create();
+        $role = Role::findOrCreate('solicitante', 'api');
+        $user->assignRole($role);
+
+        $token = $user->createToken('token')->accessToken;
+
+        $response = $this->withHeader('Authorization', "Bearer $token")
+            ->getJson('/api/auth/validate');
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'message' => 'Token válido!',
+            'type' => 'usuario'
+        ]);
+    }
 }
