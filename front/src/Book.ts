@@ -16,5 +16,6 @@ export const LivroEmpty = {
     isbn: "",
     ano: 0,
     editora: "",
-    edicao: ""
+    edicao: "",
+    imagem: ''
 }
