@@ -27,7 +27,7 @@ export function Acervo() {
     }, [])
 
     return (
-        <div className={"bg-ligth-background_secondary h-screen md:h-full"}>
+        <div className={"bg-ligth-background_secondary h-screen md:h-full pb-20"}>
             <NavBar />
             <div className="flex justify-center pt-14 ">
                 <div className={`h-min w-min flex flex-col justify-center items-center bg-white`}>
