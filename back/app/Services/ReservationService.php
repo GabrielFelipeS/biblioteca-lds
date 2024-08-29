@@ -72,7 +72,7 @@ class ReservationService
                 Log::info('Reserva atualizada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Status da reserva alterado com sucesso'], 200);
             }
-            if ($reservation->status !== 'pending') {
+            if ($reservation->status !== 'pending' || $reservation->status !== 'approved') {
                 Log::info('Erro na tentativa de atualizar reserva com status diferente de pendente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não pode ser atualizada'], 422);
             }
@@ -105,6 +105,53 @@ class ReservationService
             }
         } catch (\Throwable $th) {
             Log::error('Erro ao deletar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
+
+    public function renewal(int $reservation, array $data)
+    {
+        try {
+            $reservation = $this->repository->find($reservation);
+            if (!$reservation) {
+                Log::info('Erro na tentativa de renovar reserva inexistente, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não encontrada'], 404);
+            }
+            if ($reservation->status !== 'approved') {
+                if($reservation->status === 'canceled'){
+                    Log::info('Erro na tentativa de renovar reserva cancelada, Pelo usuário: ' . Auth::user()->id);
+                    return response()->json(['message' => 'Reserva cancelada'], 422);
+                }
+                if($reservation->status === 'pending'){
+                    Log::info('Erro na tentativa de renovar reserva pendente, Pelo usuário: ' . Auth::user()->id);
+                    return response()->json(['message' => 'Reserva pendente'], 422);
+                }
+                if($reservation->status === 'denied'){
+                    Log::info('Erro na tentativa de renovar reserva negada, Pelo usuário: ' . Auth::user()->id);
+                    return response()->json(['message' => 'Reserva negada'], 422);
+                }
+                if($reservation->status === 'overdue'){
+                    Log::info('Erro na tentativa de renovar reserva atrasada, Pelo usuário: ' . Auth::user()->id);
+                    return response()->json(['message' => 'Reserva atrasada'], 422);
+                }
+                Log::info('Erro na tentativa de renovar reserva com status diferente de aprovado, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não pode ser renovada'], 422);
+            }
+            $maxDate = Date('Y-m-d', strtotime('+7 day'));
+            if (\Carbon\Carbon::parse($data['to'])->greaterThan($maxDate)) {
+                Log::info('Erro na tentativa de renovar reserva com data de retorno maior que 7 dias, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'A data de retorno não pode ser maior que 7 dias após a data de retirada.'], 422);
+            }
+            $data = [
+                'to' => $data['to'],
+            ];
+            if ($this->repository->update($reservation->id, $data)) {
+                Log::info('Reserva renovada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+                $reservation = $this->repository->find($reservation->id);
+                return response()->json(['message' => 'Reserva renovada com sucesso'], 200);
+            }
+        } catch (\Throwable $th) {
+            Log::error('Erro ao renovar reserva: ' . $th->getMessage());
             return response()->json(['message' => 'Error'], 500);
         }
     }
