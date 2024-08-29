@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import {Book} from "../Book.ts";
+import {Book} from "../types/Book.ts";
 import input_file from "/src/assets/file-input.png";
 
 interface FormLivroProps {

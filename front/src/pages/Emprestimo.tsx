@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { api } from "../services/api";
-import { Book } from "../Book";
+import { Book } from "../types/Book";
 
 
 export function Emprestimo() {

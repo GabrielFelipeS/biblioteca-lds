@@ -2,7 +2,7 @@ import { NavBar } from "../components/NavBar.tsx";
 import verImg from "../assets/ver.png"
 import editarImg from "../assets/editar.png"
 import deletarImg from "/src/assets/deletar.png"
-import { Book } from "../Book.ts";
+import { Book } from "../types/Book.ts";
 import { useEffect, useState } from "react";
 import { api } from "../services/api.ts"
 

@@ -1,6 +1,6 @@
 import {NavBar} from "../components/NavBar";
 import {useState} from "react";
-import {Book, LivroEmpty} from "../Book.ts";
+import {Book, LivroEmpty} from "../types/Book.ts";
 import {FormLivro} from "../components/FormLivro.tsx";
 import {api} from "../services/api.ts";
 
