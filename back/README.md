@@ -598,4 +598,60 @@
     }
     ```
 
+## Rota api/reservation/{reservation}/renewal
+
+### campos necessários
+
+- `to` (string): Data de término da reserva (Maximo de 7 dias a partir da data de início)
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+       "message": "Reserva renovada com sucesso"
+    }
+    ```
+
+### Erro de validaçao
+
+#### Reserva não encontrada
+
+- **Código HTTP:** 404 Not Found
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva não encontrada"
+    }
+    ```
+
+#### Data de retorno maior que 7 dias apartir do pedido de renovação (O dia da requisição)
+
+- **Código HTTP:** 422 Unprocessable Entity
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Data de retorno maior que 7 dias apartir do pedido de renovação"
+    }
+    ```
+
+#### Tentativa de renovação de reserva com status imutavel (Devolveu ou Cancelado)
+
+- **Código HTTP:** 422 Unprocessable Entity
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva {{status}}"
+    }
+    ```
+
+
+
 
