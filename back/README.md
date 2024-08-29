@@ -159,7 +159,8 @@
 - **Retorno:**
     ```json
     {
-        "message": "Token válido"
+        "message": "Token válido",
+        "type" : "bibliotecario|usuario|null"
     }
 
 #### Dados Inválidos
