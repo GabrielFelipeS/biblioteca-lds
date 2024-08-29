@@ -12,7 +12,7 @@ interface FormLivroProps {
 
 export function FormLivro({handleSubmit, livro, setLivro,
                               title, buttonLabel}: FormLivroProps) {
-        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
+        //const fileInput = document.getElementById('fileInput') as HTMLInputElement;
         const imagePreview = document.getElementById('imagePreview') as HTMLImageElement;
 
     function handleImage (event: ChangeEvent<HTMLInputElement>) {
