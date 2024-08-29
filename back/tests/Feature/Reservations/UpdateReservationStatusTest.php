@@ -42,4 +42,20 @@ class UpdateReservationStatusTest extends TestCase
             'message' => 'Usuário não tem permissão para atualizar status'
         ]);
     }
+
+    public function test_tentativa_de_liberar_reserva_inexistente()
+    {
+        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+
+        $token = $user->createToken('token')->accessToken;
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $token)
+            ->putJson('/api/reservation/999', ['status' => 'canceled']);
+
+        $response->assertStatus(404);
+
+        $response->assertJson([
+            'message' => 'Reserva não encontrada'
+        ]);
+    }
 }
