@@ -12,6 +12,7 @@ use Tests\TestCase;
 
 class EditReservationTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_editando_reserva_com_sucesso()
     {
         $book = Book::factory()->create();
