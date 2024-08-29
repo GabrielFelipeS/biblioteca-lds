@@ -10,7 +10,7 @@ export function Acervo() {
             <div className="flex justify-center pt-14 ">
                 <div className={`h-min w-min flex flex-col justify-center items-center bg-white`}>
                     <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl ">
-                        Acervos de Livros 
+                        Acervo de Livros 
                         
                     </div>
                     <table className={"relative overflow-x-auto"}>
