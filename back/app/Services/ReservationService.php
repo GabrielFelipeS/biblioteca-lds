@@ -61,6 +61,17 @@ class ReservationService
                 Log::info('Erro na tentativa de atualizar reserva inexistente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não encontrada'], 404);
             }
+            if ($data['status']) {
+                if (!Auth::user()->hasRole('bibliotecario')) {
+                    Log::info('Erro na tentativa de atualizar reserva sem permissão, Pelo usuário: ' . Auth::user()->id);
+                    return response()->json(['message' => 'Usuário não tem permissão para atualizar status'], 403);
+                }
+                $reservation->status = $data['status'];
+                $reservation->save();
+
+                Log::info('Reserva atualizada com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Status da reserva alterado com sucesso'], 200);
+            }
             if ($reservation->status !== 'pending') {
                 Log::info('Erro na tentativa de atualizar reserva com status diferente de pendente, Pelo usuário: ' . Auth::user()->id);
                 return response()->json(['message' => 'Reserva não pode ser atualizada'], 422);
