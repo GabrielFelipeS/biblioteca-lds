@@ -56,15 +56,8 @@ class RolesAndPermissionsSeeder extends Seeder
             'editar reserva'
         ]);
 
-        $user = User::create([
-            'name' => 'Biblioteca IFSP',
-            'email' => 'biblioteca@ifsp.com',
-            'password' => bcrypt('123456')]);
-
         $superAdmin = Role::create(['name' => 'bibliotecario'])
             ->givePermissionTo(Permission::all());
-
-        $user->assignRole($superAdmin);
 
     }
 }
