@@ -1,5 +1,15 @@
 # Documentação da API
 
+## Usuário Administrador Padrão:
+
+### Usuário que possui todas as permissões por padrão:
+
+- `name` : admin
+- `email` : admin@admin.com
+- `password` : password
+
+# Rotas de API:
+
 ## Rota: `api/auth/register`
 
 ### Método: POST
