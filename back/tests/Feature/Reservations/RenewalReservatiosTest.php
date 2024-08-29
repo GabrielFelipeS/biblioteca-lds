@@ -76,4 +76,37 @@ class RenewalReservatiosTest extends TestCase
             'status' => 'pending',
         ]);
     }
+
+    public function test_renovacao_de_reserva_cancelada()
+    {
+        $user = User::all()->where('name', 'Biblioteca IFSP')->first();
+
+        $token = $user->createToken('token')->accessToken;
+
+        $reservation = Reservation::factory()->create([
+            'to' => Date('Y-m-d', strtotime('-8 day')),
+            'from' => Date('Y-m-d', strtotime('-1 day')),
+            'status' => 'canceled',
+        ]);
+
+        $data = [
+            'to' => Date('Y-m-d', strtotime('+7 day')),
+        ];
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $token)
+            ->putJson('/api/reservation/' . $reservation->id . '/renewal', $data);
+
+        $response->assertStatus(422);
+
+        $response->assertJson([
+            'message' => 'Reserva cancelada'
+        ]);
+
+        $this->assertDatabaseHas('reservations', [
+            'id' => $reservation->id,
+            'to' => Date('Y-m-d', strtotime('-8 day')),
+            'from' => Date('Y-m-d', strtotime('-1 day')),
+            'status' => 'canceled',
+        ]);
+    }
 }
