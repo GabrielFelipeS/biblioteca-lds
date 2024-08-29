@@ -45,4 +45,10 @@ class UserTokenValidateTest extends TestCase
             'type' => 'usuario'
         ]);
     }
+
+    public function test_validando_token_de_usuario_invalido(){
+        $response = $this->getJson('/api/auth/validate');
+
+        $response->assertStatus(401);
+    }
 }
