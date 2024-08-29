@@ -29,8 +29,8 @@ class UpdateReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'from' => ['required', 'date', 'after:today'],
-            'to' => ['required', 'date', 'after:from', function ($attribute, $value, $fail) {
+            'from' => ['date', 'after:today'],
+            'to' => ['date', 'after:from', function ($attribute, $value, $fail) {
                 $from = $this->input('from');
                 $to = $value;
                 $maxDate = \Carbon\Carbon::parse($from)->addDays(7);
@@ -38,6 +38,7 @@ class UpdateReservationRequest extends FormRequest
                     $fail('A data de retorno não pode ser maior que 7 dias após a data de retirada.');
                 }
             }],
+            'status' => ['in:pending,approved,canceled']
         ];
     }
 
@@ -50,6 +51,7 @@ class UpdateReservationRequest extends FormRequest
             'to.required' => 'A data de retorno é obrigatória.',
             'to.date' => 'A data de retorno deve ser uma data válida.',
             'to.after' => 'A data de retorno deve ser uma data futura.',
+            'status.in' => 'O status da reserva é inválido.'
         ];
     }
     /**
@@ -61,7 +63,7 @@ class UpdateReservationRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $blockedParams = ['book_id', 'user_id', 'status'];
+            $blockedParams = ['book_id', 'user_id'];
             foreach ($blockedParams as $param) {
                 if ($this->has($param)) {
                     $validator->errors()->add($param, "O parâmetro $param não é permitido.");
