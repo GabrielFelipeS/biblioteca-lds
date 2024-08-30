@@ -18,7 +18,7 @@ jobs:
       - name: install composer
         run: sudo apt-get install composer
       - name: instalando dependencias
-        run: composer install
+        run: cd ./code/ifsp/lds/back && composer install
       - name: gerando .env
         run: cp .env-dev .env
       - name: gerando chave
