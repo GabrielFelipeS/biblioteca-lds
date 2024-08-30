@@ -1,7 +1,3 @@
-networks:
-  laravel:
-    driver: bridge
-
 services:
   front:
     build: 
@@ -9,10 +5,4 @@ services:
     container_name: front_react
     ports:
       - "80:80"
-    depends_on:
-      - php_fpm
-      - nginx
     restart: always
-
-volumes:
-  pgdata:
