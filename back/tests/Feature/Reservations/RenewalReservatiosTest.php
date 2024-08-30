@@ -16,6 +16,7 @@ class RenewalReservatiosTest extends TestCase
     {
         $user = User::factory()->create();
         $role = Role::findByName('solicitante', 'api');
+        $user->assignRole($role);
 
         $token = $user->createToken('token')->accessToken;
 
@@ -50,6 +51,7 @@ class RenewalReservatiosTest extends TestCase
     {
         $user = User::factory()->create();
         $role = Role::findByName('solicitante', 'api');
+        $user->assignRole($role);
 
         $token = $user->createToken('token')->accessToken;
 
@@ -84,6 +86,7 @@ class RenewalReservatiosTest extends TestCase
     {
         $user = User::factory()->create();
         $role = Role::findByName('solicitante', 'api');
+        $user->assignRole($role);
 
         $token = $user->createToken('token')->accessToken;
 
