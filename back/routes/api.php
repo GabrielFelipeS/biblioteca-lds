@@ -20,5 +20,6 @@ Route::prefix('auth')->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('/books', BookController::class);
     Route::resource('reservation', ReservationController::class);
+    Route::put('/reservation/{reservation}/renewal', [ReservationController::class, 'renewal']);
 });
 
