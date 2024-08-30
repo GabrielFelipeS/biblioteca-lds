@@ -50,8 +50,13 @@ class ReservationController extends Controller
     public function update(UpdateReservationRequest $request, int $reservation)
     {
         try {
-            Log::info('Recebida requisição para atualizar reserva do usuário: ' . $request->user()->id);
-            return $this->service->update($reservation, $request->all());
+            if(Auth::user()->hasPermissionTo('editar reserva')) {
+                Log::info('Recebida requisição para atualizar reserva do usuário: ' . $request->user()->id);
+                return $this->service->update($reservation, $request->all());
+            } else {
+                Log::info('Usuário sem permissão para atualizar reserva');
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
         } catch (\Throwable $th) {
             Log::error('Erro ao atualizar reserva: ' . $th->getMessage());
             return response()->json(['message' => 'Error'], 500);
