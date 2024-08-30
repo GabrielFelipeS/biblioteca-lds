@@ -5,7 +5,7 @@ import { Book } from "../types/Book";
 
 
 export function Emprestimo() {
-    const [books, setBooks] = useState<Book[] | null>();
+    const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     
     useEffect(() => {
@@ -18,17 +18,17 @@ export function Emprestimo() {
                 }
             })
             .then(response => {
-                console.log(response)
-                setBooks(response.data)
+                console.log(response.data.data)
+                setBooks(response.data.data)
             })
             .catch(e => console.log(e))
     }, [])
 
-    function handleRenewal(id: string) {
+    function handleRenewal(id: number) {
         console.log(id)
     }
 
-    function handleReturn(id: string) {
+    function handleReturn(id: number) {
         console.log(id)
     }
 
@@ -56,7 +56,7 @@ export function Emprestimo() {
                         </tr>
                     </thead>
                     <tbody>
-                       { books && books.map((book, index) => {
+                       { books  && Array.isArray(books) && books.map((book, index) => {
                             return (
                                 <tr className="h-12" key={index}> 
                                     <td className="px-2 cursor-pointer border max-sm:px-0  max-sm:py-0" onClick={() => handleRenewal(book.id)}>

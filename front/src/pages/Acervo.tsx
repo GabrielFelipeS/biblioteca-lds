@@ -9,7 +9,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 export function Acervo() {
-    const [books, setBooks] = useState<Book[] | null>();
+    const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
 
@@ -23,16 +23,16 @@ export function Acervo() {
                 }
             })
             .then(response => {
-                console.log(response)
-                setBooks(response.data)
+                console.log(response.data)
+                setBooks(response.data.data)
             })
             .catch(e => console.log(e))
     }, [])
-    function editBook(id: string) {
+    function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
     }
 
-    function deleteBook(title: string, id: string) {
+    function deleteBook(title: string, id: number) {
         console.log(`Deletando livro com ${id}`)
         Swal.fire({
             title: "Você tem certeza?",
@@ -64,11 +64,12 @@ export function Acervo() {
                         }
                     })
                     .catch(e => {
+                        console.log(e)
                         Swal.fire({
                             icon: "error",
                             title: "Oops...",
                             text: "Alguma coisa deu errado!",
-                            footer: `Erro: ${e.response.data}`
+                            footer: `Erro: ${e.response.data.message}`
                           });
                     }
                 )
@@ -101,7 +102,7 @@ export function Acervo() {
                             </tr>
                         </thead>
                         <tbody>
-                            {books && books.map((book, index) => {
+                            {books && Array.isArray(books) && books.map((book, index) => {
                                 return (
                                     <tr className="" key={index}>
                                          <td className="px-2 cursor-pointer border max-sm:px-0  max-sm:py-0">
