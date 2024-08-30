@@ -18,7 +18,7 @@ export function CadastrarLivro() {
             isbn: '',
             publisher: '',
             edition: '',
-            image: ''
+            image: new File([], '')
         }
 
         api.post("books" ,data)
