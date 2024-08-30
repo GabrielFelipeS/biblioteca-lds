@@ -7,15 +7,17 @@ export type Book = {
     year: number
     edition: string
     publisher: string
+    image: File
 }
 
 export const LivroEmpty = {
+    id: "",
     title: "",
-    autor: "",
-    genero: "",
+    author: "",
+    genre: "",
     isbn: "",
-    ano: 0,
-    editora: "",
-    edicao: "",
-    imagem: ''
+    year: 0,
+    edition: "",
+    publisher: "",
+    image: new File([], '')
 }
