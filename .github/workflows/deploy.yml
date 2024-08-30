@@ -30,7 +30,8 @@ jobs:
       
       - name: Run Docker commands
         run: |
-          ssh -p ${{ env.REMOTE_PORT }} ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
+          cd ~/.ssh && echo "${{ secrets.SSH_PRIVATE_VPS }}" > id_rsa && chmod 600 id_rsa &&
+          ssh -p id_rsa ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
             cd ${{ env.TARGET }}
             docker-compose down
             docker-compose up -d --build
@@ -38,7 +39,6 @@ jobs:
         env:
           REMOTE_HOST: ${{ secrets.IP_VPS }}
           REMOTE_USER: ${{ secrets.USER_VPS }}
-          REMOTE_PORT: 22
           TARGET: "./code/ifsp/lds/back"
           ARGS: "-avz"
           SOURCE: "back/"
