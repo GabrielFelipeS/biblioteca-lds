@@ -21,4 +21,15 @@ class ShowReservationsTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_listando_reservas_de_usuario_sem_permissao()
+    {
+        $user = User::factory()->create();
+        $reservations = Reservation::factory(5)->create(['user_id' => $user->id]);
+
+        $response = $this->withHeader('Authorization', 'Bearer ' . $user->createToken('test')->accessToken)
+            ->getJson('/api/reservation');
+
+        $response->assertStatus(401);
+    }
 }
