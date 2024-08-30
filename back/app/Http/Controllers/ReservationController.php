@@ -34,8 +34,13 @@ class ReservationController extends Controller
     public function store(StoreReservationRequest $request)
     {
         try {
-            Log::info('Recebida requisição para criar reserva do usuário: ' . $request->user()->id);
-            return $this->service->create($request->all());
+            if (Auth::user()->hasPermissionTo('criar reserva')) {
+                Log::info('Recebida requisição para criar reserva do usuário: ' . $request->user()->id);
+                return $this->service->create($request->all());
+            } else {
+                Log::info('Usuário sem permissão para criar reserva');
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
         } catch (\Throwable $th) {
             Log::error('Erro ao criar reserva: ' . $th->getMessage());
             return response()->json(['message' => 'Error'], 500);
