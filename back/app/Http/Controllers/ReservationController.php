@@ -50,7 +50,7 @@ class ReservationController extends Controller
     public function update(UpdateReservationRequest $request, int $reservation)
     {
         try {
-            if(Auth::user()->hasPermissionTo('editar reserva')) {
+            if (Auth::user()->hasPermissionTo('editar reserva')) {
                 Log::info('Recebida requisição para atualizar reserva do usuário: ' . $request->user()->id);
                 return $this->service->update($reservation, $request->all());
             } else {
@@ -66,7 +66,7 @@ class ReservationController extends Controller
     public function destroy(Request $request, int $reservation)
     {
         try {
-            if(Auth::user()->hasPermissionTo('cancelar reserva')) {
+            if (Auth::user()->hasPermissionTo('cancelar reserva')) {
                 Log::info('Recebida requisição para deletar reserva do usuário: ' . $request->user()->id);
                 return $this->service->delete($reservation);
             } else {
@@ -82,8 +82,13 @@ class ReservationController extends Controller
     public function renewal(Request $request, int $reservation)
     {
         try {
-            Log::info('Recebida requisição para renovar reserva do usuário: ' . $request->user()->id);
-            return $this->service->renewal($reservation, $request->all());
+            if (Auth::user()->hasPermissionTo('extender reserva')) {
+                Log::info('Recebida requisição para renovar reserva do usuário: ' . $request->user()->id);
+                return $this->service->renewal($reservation, $request->all());
+            } else {
+                Log::info('Usuário sem permissão para renovar reserva');
+                return response()->json(['message' => 'Unauthorized'], 401);
+            }
         } catch (\Throwable $th) {
             Log::error('Erro ao renovar reserva: ' . $th->getMessage());
             return response()->json(['message' => 'Error'], 500);
