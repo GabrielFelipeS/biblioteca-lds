@@ -21,7 +21,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.IP_VPS }}
           REMOTE_USER: ${{ secrets.USER_VPS }}
           REMOTE_PORT: 22
-          TARGET: "/code/ifsp/lds/back"
+          TARGET: "./code/ifsp/lds/back"
           ARGS: "-avz"
           SOURCE: "back/"
           
@@ -33,7 +33,7 @@ jobs:
           REMOTE_USER: ${{ secrets.USER_VPS }}
           REMOTE_PORT: 22
           COMMAND: |
-            cd /code/ifsp/lds/back
+            cd ./code/ifsp/lds/back
             docker-compose down
             docker-compose build
             docker-compose up -d
