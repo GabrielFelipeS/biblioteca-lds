@@ -13,6 +13,16 @@ jobs:
   deploy-development:
     runs-on: ubuntu-latest
     steps:
+      - name: install php
+        run: sudo apt-get install php
+      - name: install composer
+        run: sudo apt-get install composer
+      - name: instalando dependencias
+        run: composer install
+      - name: gerando .env
+        run: cp .env-dev .env
+      - name: gerando chave
+        run: php artisan key:generate
       - name: Checkout Files With Repository
         uses: actions/checkout@v2
         
@@ -27,15 +37,3 @@ jobs:
           ARGS: "-avz"
           SOURCE: "back/"
       
-      - name: Run Docker commands
-        run: |
-          cd ~/.ssh && echo "${{ secrets.SSH_PRIVATE_VPS }}" > oracle_ssh.pem && chmod 600 oracle_ssh.pem &&
-          ssh -i oracle_ssh.pem -p 22 ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
-            cd ${{ env.TARGET }}
-            docker-compose down
-            docker-compose up -d --build
-          EOF
-        env:
-          REMOTE_HOST: ${{ secrets.IP_VPS }}
-          REMOTE_USER: ${{ secrets.USER_VPS }}
-          TARGET: "./code/ifsp/lds/back"
