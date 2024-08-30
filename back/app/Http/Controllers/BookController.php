@@ -41,7 +41,7 @@ class BookController extends Controller
                 return response()->json('Erro ao retornar livros ' . $th->getMessage(), 500);
             }
         } else {
-            return response()->json('Não autorizado', 403);
+            return response()->json(['message' => 'Não autorizado'], 403);
         }
     }
 
@@ -74,7 +74,7 @@ class BookController extends Controller
                 return response()->json(['message' => 'Erro ao cadastrar livro ' . $th->getMessage()], 500);
             }
         } else {
-            return response()->json('Não autorizado', 403);
+            return response()->json(['message' => 'Não autorizado'], 403);
         }
     }
 
@@ -103,7 +103,7 @@ class BookController extends Controller
                 return response()->json(['message' => 'Erro ao pesquisar livro ' . $th->getMessage()], 500);
             }
         } else {
-            return response()->json('Não autorizado', 403);
+            return response()->json(['message' => 'Não autorizado'], 403);
         }
     }
 
@@ -141,7 +141,7 @@ class BookController extends Controller
                 return response()->json(['message' => 'Erro ao atualizar livro ' . $th->getMessage()], 500);
             }
         } else {
-            return response()->json('Não autorizado', 403);
+            return response()->json(['message' => 'Não autorizado'], 403);
         }
     }
 
@@ -171,7 +171,7 @@ class BookController extends Controller
                 return response()->json(['message' => 'Erro ao deletar o livro ' . $th->getMessage()], 500);
             }
         } else {
-            return response()->json('Não autorizado', 403);
+            return response()->json(['message' => 'Não autorizado'], 403);
         }
     }
 }
