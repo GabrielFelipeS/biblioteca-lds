@@ -34,7 +34,7 @@ export function CadastrarLivro() {
         <div className={"bg-ligth-background_secondary w-full h-full"}>
             <NavBar/>
 
-            <div className={`h-full w-full flex justify-center pt-14`}>
+            <div className={`min-h-screen w-full flex justify-center pt-14`}>
                <FormLivro
                    handleSubmit={handleSubmit}
                    livro={book}

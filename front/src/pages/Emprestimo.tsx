@@ -33,7 +33,7 @@ export function Emprestimo() {
     }
 
     return (
-        <div className={"bg-ligth-background_secondary pb-20"}>
+        <div className={"bg-ligth-background_secondary pb-20 min-h-screen"}>
         <NavBar />
         <div className="flex justify-center pt-14 ">
             <div className={`h-min w-min flex flex-col justify-center items-center bg-white`}>

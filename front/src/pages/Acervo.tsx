@@ -77,10 +77,10 @@ export function Acervo() {
     }
 
     return (
-        <div className={"bg-ligth-background_secondary h-full pb-20"}>
+        <div className={"bg-ligth-background_secondary min-h-screen pb-20"}>
             <NavBar />
             <div className="flex justify-center pt-14 ">
-                <div className={`h-min w-11/12 flex flex-col justify-center items-center bg-white`}>
+                <div className={`h-full w-11/12 flex flex-col justify-center items-center bg-white`}>
                     <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl ">
                         Acervo de Livros 
                     </div>
