@@ -12,7 +12,7 @@ export type Book = {
 }
 
 export const LivroEmpty = {
-    id: "",
+    id: 0,
     title: "",
     author: "",
     genre: "",
