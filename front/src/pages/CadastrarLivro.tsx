@@ -11,14 +11,14 @@ export function CadastrarLivro() {
         e.preventDefault();
 
         const data = {
-            title: '',
-            author: '',
-            genre: '',
-            year: '',
-            isbn: '',
-            publisher: '',
-            edition: '',
-            image: new File([], '')
+            title: book.title,
+            author: book.author,
+            genre: book.genre,
+            year: book.year,
+            isbn: book.isbn,
+            publisher: book.publisher,
+            edition: book.edition,
+            image: book.file
         }
 
         api.post("books" ,data)

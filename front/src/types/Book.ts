@@ -7,7 +7,8 @@ export type Book = {
     year: number
     edition: string
     publisher: string
-    image: File
+    image: string
+    file?: File
 }
 
 export const LivroEmpty = {
@@ -19,5 +20,6 @@ export const LivroEmpty = {
     year: 0,
     edition: "",
     publisher: "",
-    image: new File([], '')
+    image: "",
+    file: new File([], '')
 }

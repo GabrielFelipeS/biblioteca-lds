@@ -15,7 +15,7 @@ export function FormLivro({handleSubmit, livro, setLivro,
     function handleImage (event: ChangeEvent<HTMLInputElement>) {
         if (event.target.files) {
             const file = event.target.files[0];
-            setLivro(state => ({...state, image: file}))
+            setLivro(state => ({...state, file: file}))
         }
     }
 
