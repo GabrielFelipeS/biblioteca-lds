@@ -63,21 +63,21 @@ export function FormLivro({handleSubmit, livro, setLivro,
                         <label htmlFor={"lancamento"}> Ano de lançamento</label>
                         <input id={"lancamento"} value={livro.year} className={"rounded-lg text-ligth-secondary pl-1"}
                                onChange={(e) =>
-                                   setLivro(state => ({...state, year: Number.parseInt(e.target.value)}))}/>
+                                   setLivro(state => ({...state, year: e.target.value}))}/>
 
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"editora"}> Editora</label>
                         <input id={"editora"} value={livro.edition} className={"rounded-lg text-ligth-secondary pl-1"}
                             onChange={(e) =>
-                            setLivro(state => ({...state, publisher: e.target.value}))}
+                            setLivro(state => ({...state, edition: e.target.value}))}
                         />
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"edicao"}> Edição</label>
                         <input id={"edicao"} value={livro.publisher} className={"rounded-lg text-ligth-secondary pl-1"}
                                    onChange={(e) =>
-                                    setLivro(state => ({...state, edition: e.target.value}))}
+                                    setLivro(state => ({...state, publisher: e.target.value}))}
                         />
                     </div>
                 </div>

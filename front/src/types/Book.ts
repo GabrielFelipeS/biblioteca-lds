@@ -4,7 +4,7 @@ export type Book = {
     author: string
     genre: string
     isbn: string
-    year: number
+    year: string
     edition: string
     publisher: string
     image: string
@@ -17,7 +17,7 @@ export const LivroEmpty = {
     author: "",
     genre: "",
     isbn: "",
-    year: 0,
+    year: "",
     edition: "",
     publisher: "",
     image: "",
