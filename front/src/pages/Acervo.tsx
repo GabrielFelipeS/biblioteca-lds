@@ -3,12 +3,13 @@ import verImg from "../assets/ver.png"
 import editarImg from "../assets/editar.png"
 import deletarImg from "/src/assets/deletar.png"
 import { Book } from "../types/Book.ts";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "../services/api.ts"
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 
 export function Acervo() {
+    const [load, setLoad] = useState(true);
     const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
@@ -23,17 +24,15 @@ export function Acervo() {
                 }
             })
             .then(response => {
-                console.log(response.data)
                 setBooks(response.data.data)
             })
             .catch(e => console.log(e))
-    }, [])
+    }, [load])
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
     }
 
     function deleteBook(title: string, id: number) {
-        console.log(`Deletando livro com ${id}`)
         Swal.fire({
             title: "Você tem certeza?",
             text: `Deletando '${title}' Você não vai poder reverter o processo!`,
@@ -55,12 +54,13 @@ export function Acervo() {
                     })
                     .then(response => {
                         console.log(response)
-                        if(response.status == 200) {
+                        if(response.status == 204) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Livro deletado com sucesso.",
                                 icon: "success"
                               });
+                              setLoad(state => !state);
                         }
                     })
                     .catch(e => {
