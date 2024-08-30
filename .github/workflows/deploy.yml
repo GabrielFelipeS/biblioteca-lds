@@ -17,12 +17,6 @@ jobs:
         run: sudo apt-get install php
       - name: install composer
         run: sudo apt-get install composer
-      - name: instalando dependencias
-        run: cd ./code/ifsp/lds/back && composer install
-      - name: gerando .env
-        run: cp .env-dev .env
-      - name: gerando chave
-        run: php artisan key:generate
       - name: Checkout Files With Repository
         uses: actions/checkout@v2
         
@@ -36,4 +30,10 @@ jobs:
           TARGET: "./code/ifsp/lds/back"
           ARGS: "-avz"
           SOURCE: "back/"
+      - name: instalando dependencias
+        run: cd ./code/ifsp/lds/back && composer install
+      - name: gerando .env
+        run: cp .env-dev .env
+      - name: gerando chave
+        run: php artisan key:generate
       
