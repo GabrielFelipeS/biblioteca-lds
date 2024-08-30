@@ -1,0 +1,39 @@
+name: DEPLOY  BACKEND
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+  workflow_dispatch:
+
+jobs:
+  deploy-development:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Files With Repository
+        uses: actions/checkout@v2
+        
+      - name: Deploy Only 'back' Folder to VPS
+        uses: easingthemes/ssh-deploy@v2.2.11
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_VPS }}
+          REMOTE_HOST: ${{ secrets.IP_VPS }}
+          REMOTE_USER: ${{ secrets.USER_VPS }}
+          REMOTE_PORT: 22
+          TARGET: "/var/www/html/"
+          ARGS: "-avz"
+          SOURCE: "back/"
+          
+      - name: Execute Docker Commands on VPS
+        uses: easingthemes/ssh-deploy@v2.2.11
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_VPS }}
+          REMOTE_HOST: ${{ secrets.IP_VPS }}
+          REMOTE_USER: ${{ secrets.USER_VPS }}
+          REMOTE_PORT: 22
+          COMMAND: |
+            cd /var/www/html/
+            docker-compose down
+            docker-compose build
+            docker-compose up -d
