@@ -30,8 +30,8 @@ jobs:
       
       - name: Run Docker commands
         run: |
-          cd ~/.ssh && echo "${{ secrets.SSH_PRIVATE_VPS }}" > id_rsa && chmod 600 id_rsa &&
-          ssh -p id_rsa ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
+          cd ~/.ssh && echo "${{ secrets.SSH_PRIVATE_VPS }}" > oracle_ssh.pem && chmod 600 oracle_ssh.pem &&
+          ssh -p oracle_ssh.pem ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
             cd ${{ env.TARGET }}
             docker-compose down
             docker-compose up -d --build
