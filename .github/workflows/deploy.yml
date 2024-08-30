@@ -1,4 +1,4 @@
-name: DEPLOY  BACKEND
+name: DEPLOY BACKEND
 
 on:
   pull_request:
@@ -6,7 +6,6 @@ on:
       - dev
     types:
       - closed
-
 
   workflow_dispatch:
 
@@ -31,7 +30,7 @@ jobs:
       - name: Run Docker commands
         run: |
           cd ~/.ssh && echo "${{ secrets.SSH_PRIVATE_VPS }}" > oracle_ssh.pem && chmod 600 oracle_ssh.pem &&
-          ssh -p oracle_ssh.pem ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
+          ssh -i oracle_ssh.pem -p 22 ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
             cd ${{ env.TARGET }}
             docker-compose down
             docker-compose up -d --build
@@ -40,6 +39,3 @@ jobs:
           REMOTE_HOST: ${{ secrets.IP_VPS }}
           REMOTE_USER: ${{ secrets.USER_VPS }}
           TARGET: "./code/ifsp/lds/back"
-          ARGS: "-avz"
-          SOURCE: "back/"
-      
