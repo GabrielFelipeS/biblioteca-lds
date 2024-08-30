@@ -24,16 +24,19 @@ jobs:
           TARGET: "./code/ifsp/lds/back"
           ARGS: "-avz"
           SOURCE: "back/"
-          
-      - name: Execute Docker Commands on VPS
-        uses: easingthemes/ssh-deploy@v2.2.11
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_VPS }}
+      
+      - name: Run Docker commands
+        run: |
+          ssh -p ${{ env.REMOTE_PORT }} ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
+            cd ${{ env.TARGET }}
+            docker-compose down
+            docker-compose up -d --build
+          EOF
+        env:
           REMOTE_HOST: ${{ secrets.IP_VPS }}
           REMOTE_USER: ${{ secrets.USER_VPS }}
           REMOTE_PORT: 22
-          COMMAND: |
-            cd ./code/ifsp/lds/back
-            docker-compose down
-            docker-compose build
-            docker-compose up -d
+          TARGET: "./code/ifsp/lds/back"
+          ARGS: "-avz"
+          SOURCE: "back/"
+      
