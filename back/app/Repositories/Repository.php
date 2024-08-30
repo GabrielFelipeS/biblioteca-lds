@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+
 abstract class Repository
 {
     protected $model;
@@ -29,5 +32,16 @@ abstract class Repository
     public function delete(int $id)
     {
         return $this->model->find($id)->delete();
+    }
+
+    public function search(array $params): LengthAwarePaginator
+    {
+        $query = $this->model->query();
+
+        foreach ($params as $key => $value) {
+            $query->where($key, 'like', '%' . $value . '%');
+        }
+
+        return $query->paginate(15);
     }
 }
