@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { api } from "../services/api";
-import { Book } from "../Book";
+import { Book } from "../types/Book";
 
 
 export function Emprestimo() {
-    const [books, setBooks] = useState<Book[] | null>();
+    const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     
     useEffect(() => {
@@ -18,27 +18,27 @@ export function Emprestimo() {
                 }
             })
             .then(response => {
-                console.log(response)
-                setBooks(response.data)
+                console.log(response.data.data)
+                setBooks(response.data.data)
             })
             .catch(e => console.log(e))
     }, [])
 
-    function handleRenewal(id: string) {
+    function handleRenewal(id: number) {
         console.log(id)
     }
 
-    function handleReturn(id: string) {
+    function handleReturn(id: number) {
         console.log(id)
     }
 
     return (
-        <div className={"bg-ligth-background_secondary pb-20"}>
+        <div className={"bg-ligth-background_secondary pb-20 min-h-screen"}>
         <NavBar />
         <div className="flex justify-center pt-14 ">
             <div className={`h-min w-min flex flex-col justify-center items-center bg-white`}>
                 <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl max-sm:text-base ">
-                    Acervos de Livros 
+                    Emprestimo de Livros 
                 </div>
                 <table className={"relative overflow-x-auto pr-2"}>
                     <thead>
@@ -56,7 +56,7 @@ export function Emprestimo() {
                         </tr>
                     </thead>
                     <tbody>
-                       { books && books.map((book, index) => {
+                       { books  && Array.isArray(books) && books.map((book, index) => {
                             return (
                                 <tr className="h-12" key={index}> 
                                     <td className="px-2 cursor-pointer border max-sm:px-0  max-sm:py-0" onClick={() => handleRenewal(book.id)}>

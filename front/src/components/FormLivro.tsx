@@ -1,5 +1,5 @@
 import { ChangeEvent } from "react";
-import {Book} from "../Book.ts";
+import {Book} from "../types/Book.ts";
 import input_file from "/src/assets/file-input.png";
 
 interface FormLivroProps {
@@ -12,26 +12,13 @@ interface FormLivroProps {
 
 export function FormLivro({handleSubmit, livro, setLivro,
                               title, buttonLabel}: FormLivroProps) {
-        const fileInput = document.getElementById('fileInput') as HTMLInputElement;
-        const imagePreview = document.getElementById('imagePreview') as HTMLImageElement;
-
     function handleImage (event: ChangeEvent<HTMLInputElement>) {
-        const input = event.target as HTMLInputElement;
-        const file = input.files?.[0];
-    
-        if (file) {
-          // Cria um URL para o arquivo selecionado
-          const reader = new FileReader();
-    
-          reader.onload = (e) => {
-            // Atualiza a fonte da imagem para o URL do arquivo
-            imagePreview.src = e.target?.result as string;
-            imagePreview.style.display = 'block';
-          };
-    
-          reader.readAsDataURL(file);
+        if (event.target.files) {
+            const file = event.target.files[0];
+            setLivro(state => ({...state, file: file}))
         }
     }
+
     return (
         <div className={`
                     bg-ligth-background text-ligth-primary 
@@ -82,14 +69,15 @@ export function FormLivro({handleSubmit, livro, setLivro,
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"editora"}> Editora</label>
                         <input id={"editora"} value={livro.edition}
-                               onChange={(e) =>
-                                   setLivro(state => ({...state, edition: e.target.value}))}/>
+                            onChange={(e) =>
+                            setLivro(state => ({...state, publisher: e.target.value}))}
+                        />
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"edicao"}> Edição</label>
                         <input id={"edicao"} value={livro.publisher}
-                               onChange={(e) =>
-                                   setLivro(state => ({...state, publisher: e.target.value}))}
+                                   onChange={(e) =>
+                                    setLivro(state => ({...state, edition: e.target.value}))}
                         />
                     </div>
                 </div>

@@ -7,18 +7,17 @@ use App\Http\Requests\Auth\UserRegisterRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
-    public function __construct(private UserService $service)
-    {
-    }
+    public function __construct(private UserService $service) {}
     public function register(UserRegisterRequest $request)
     {
         try {
             $this->service->register($request->validated());
-            return response()->json(['message'=> 'Usuário registrado com sucesso!'], 201);
+            return response()->json(['message' => 'Usuário registrado com sucesso!'], 201);
         } catch (\Throwable $th) {
             Log::error('Erro ao registrar usuario: ' . $th->getMessage());
             return response()->json(['message' => 'Erro ao registrar usuario!'], 500);
@@ -53,7 +52,13 @@ class AuthController extends Controller
     {
         try {
             Log::info('Validando token do usuário: ' . auth()->user()->email);
-            return response()->json(['message' => 'Token válido!']);
+            if (Auth::user()->hasRole('bibliotecario')) {
+                return response()->json(['message' => 'Token válido!', "type" => "bibliotecario"]);
+            }
+            if (Auth::user()->hasRole('solicitante')) {
+                return response()->json(['message' => 'Token válido!', "type" => "usuario"]);
+            }
+            return response()->json(['message' => 'Token válido!', "type" => null]);
         } catch (\Throwable $th) {
             Log::error('Erro ao validar token: ' . $th->getMessage());
             return response()->json(['message' => 'Erro ao validar token!'], 500);

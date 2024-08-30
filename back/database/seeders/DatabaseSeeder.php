@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -37,5 +38,12 @@ class DatabaseSeeder extends Seeder
             ReservationSeeeder::class,
             RolesAndPermissionsSeeder::class,
         ]);
+
+
+        // Pega o usuário que sera usado de administrador
+        $user = User::findOrFail(1);
+        // Da a Role de admin para o usuário criado
+        $user->assignRole('bibliotecario');
+
     }
 }
