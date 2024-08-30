@@ -4,6 +4,9 @@ on:
   pull_request:
     branches:
       - dev
+    types:
+      - closed
+
 
   workflow_dispatch:
 
