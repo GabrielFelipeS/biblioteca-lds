@@ -22,8 +22,8 @@ class RolesPermissionsTest extends TestCase
     {
         $role = Role::create(['name' => 'admin']);
         $user = User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+            'name' => 'teste',
+            'email' => 'teste@teste.com',
             'password' => bcrypt('password')
         ]);
         $user->assignRole('admin');
@@ -53,8 +53,8 @@ class RolesPermissionsTest extends TestCase
         $role->givePermissionTo('edit');
 
         $user = User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
+            'name' => 'teste',
+            'email' => 'teste@teste.com',
             'password' => bcrypt('password')
         ]);
         $user->assignRole('admin');

@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
@@ -16,13 +15,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
         Artisan::call('passport:keys' , ['--force' => true]);
 
         chmod(storage_path('oauth-public.key'), 0777);
@@ -41,7 +33,17 @@ class DatabaseSeeder extends Seeder
         config(['passport.personal_access_client.secret' => $client->secret]);
 
         $this->call([
+            UserSeeder::class,
+            BookSeeder::class,
+            ReservationSeeeder::class,
             RolesAndPermissionsSeeder::class,
         ]);
+
+
+        // Pega o usuário que sera usado de administrador
+        $user = User::findOrFail(1);
+        // Da a Role de admin para o usuário criado
+        $user->assignRole('bibliotecario');
+
     }
 }

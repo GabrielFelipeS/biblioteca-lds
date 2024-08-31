@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('book_id')->constrained();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('book_id')->references('id')->on('books');
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->date('from');
             $table->date('to');
             $table->enum('status', ['pending', 'approved', 'rejected', 'returned', 'canceled', 'expired', 'overdue']);
