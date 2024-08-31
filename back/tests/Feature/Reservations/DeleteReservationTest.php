@@ -10,6 +10,7 @@ use Tests\TestCase;
 
 class DeleteReservationTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_deletando_reserva_com_sucesso()
     {
         $user = User::factory()->create();

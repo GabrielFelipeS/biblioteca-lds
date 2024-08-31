@@ -1,7 +1,7 @@
 import {NavBar} from "../components/NavBar.tsx";
 import {FormLivro} from "../components/FormLivro.tsx";
 import {useState} from "react";
-import {Book, LivroEmpty} from "../Book.ts";
+import {Book, LivroEmpty} from "../types/Book.ts";
 
 export function EditBook() {
     const [book, setBook] = useState<Book>(LivroEmpty)

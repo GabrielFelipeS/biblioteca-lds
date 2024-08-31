@@ -18,11 +18,11 @@ export function logout(navigate: NavigateFunction) {
     api.post("auth/logout",
         {},
         config
-        ).then((response) => {
-        if(response.status == 200) {
-            localStorage.clear()
-            navigate("/home")
-        }
-    }).catch(e => console.log(e))
+        )
+    .catch(e => console.log(e))
+    .finally(() => {
+        localStorage.clear()
+        navigate("/home")
+    })
 
 }
