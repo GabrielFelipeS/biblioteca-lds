@@ -36,7 +36,9 @@ export function EditBook() {
             edition: book.edition,
             image: book.file
         }
+
         console.log(book)
+        console.log(data)
 
         api.put(`books/${book.id}` ,data,
             {headers: {
