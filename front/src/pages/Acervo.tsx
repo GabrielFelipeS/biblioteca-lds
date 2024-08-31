@@ -53,6 +53,10 @@ export function Acervo() {
             .catch(e => console.log(e))
     }, [update])
 
+    function redirectToFichaTecnica(id: number) {
+        navigate(`/livro/ficha/${id}`)
+    }
+
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
     }
@@ -132,7 +136,9 @@ export function Acervo() {
                                 return (
                                     <tr className="" id={index.toString()} key={index}>
                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
-                                            <button className="bg-ligth-blue p-1 md:p-1.5 rounded-lg w-full"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" /></button>
+                                            <button onClick={() => redirectToFichaTecnica(book.id)} className="bg-ligth-blue p-1 md:p-1.5 rounded-lg w-full" >
+                                                <img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" />
+                                            </button>
                                         </td>
                                         <td className="cursor-pointer border">
                                             <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 md:p-1.5 rounded-lg w-full"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>
