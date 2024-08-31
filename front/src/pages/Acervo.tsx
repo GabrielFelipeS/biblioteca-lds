@@ -41,7 +41,7 @@ export function Acervo() {
                 setPagination( desconstrutorPagination(response.data))
             })
             .catch(e => console.log(e))
-    }, [load])
+    }, [load, pagination])
 
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
@@ -96,7 +96,7 @@ export function Acervo() {
         <div className={"bg-ligth-background_secondary min-h-screen pb-20"}>
             <NavBar />
             <div className="flex justify-center pt-14 ">
-                <div className={`h-full w-11/12 flex flex-col justify-center items-center bg-white`}>
+                <div className={`h-full w-11/12 pb-3 flex flex-col justify-center items-center bg-white`}>
                     <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl ">
                         Acervo de Livros
                     </div>
@@ -145,8 +145,6 @@ export function Acervo() {
                     <Pagination pagination={pagination} setPagination={setPagination} />
                 </div>
             </div>
-
-
         </div>
     )
 }
