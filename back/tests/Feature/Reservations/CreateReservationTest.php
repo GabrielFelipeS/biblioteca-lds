@@ -9,6 +9,7 @@ use Tests\TestCase;
 
 class CreateReservationTest extends TestCase
 {
+    use RefreshDatabase;
     public function test_de_criacao_de_reserva_com_dados_validos()
     {
         $user = \App\Models\User::factory()->create();

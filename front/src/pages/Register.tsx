@@ -24,7 +24,6 @@ export function Register() {
             password_confirmation
         }
 
-        console.log(data)
         api.post("auth/register", data)
             .then(() => navigate("/login"))
             .catch(e => {
@@ -34,7 +33,7 @@ export function Register() {
             })
     }
     return (
-        <div className={"flex w-full h-full bg-ligth-background"}>
+        <div className={"flex w-screen h-screen bg-ligth-background"}>
             <div className="hidden w-1/2 md:flex justify-center items-end">
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex

@@ -5,8 +5,6 @@ import {api} from "./api.ts";
 export function logout(navigate: NavigateFunction) {
     const bearer = "Bearer " + localStorage.getItem("token");
 
-    console.log( localStorage.getItem("token"))
-
     const config = {
         headers: {
             Accept: 'application/json',
@@ -18,11 +16,11 @@ export function logout(navigate: NavigateFunction) {
     api.post("auth/logout",
         {},
         config
-        ).then((response) => {
-        if(response.status == 200) {
-            localStorage.clear()
-            navigate("/home")
-        }
-    }).catch(e => console.log(e))
+        )
+    .catch(e => console.log(e))
+    .finally(() => {
+        localStorage.clear()
+        navigate("/home")
+    })
 
 }

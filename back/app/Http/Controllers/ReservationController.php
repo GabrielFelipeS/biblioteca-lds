@@ -57,4 +57,15 @@ class ReservationController extends Controller
             return response()->json(['message' => 'Error'], 500);
         }
     }
+
+    public function renewal(Request $request, int $reservation)
+    {
+        try {
+            Log::info('Recebida requisição para renovar reserva do usuário: ' . $request->user()->id);
+            return $this->service->renewal($reservation, $request->all());
+        } catch (\Throwable $th) {
+            Log::error('Erro ao renovar reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
 }

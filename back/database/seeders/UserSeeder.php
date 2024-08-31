@@ -13,15 +13,15 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(20)->create();
-
-        // Criar usuário administrador
-        $user = User::create([
+        // Cria um usuário administrador com o id = 1
+        User::factory()->create([
             'name' => 'admin',
             'email' => 'admin@admin.com',
-            'password' => bcrypt('senha123'),
+            'password' => bcrypt('password'),
         ]);
-        $user->assingRole('bibliotecario');
+
+        User::factory(20)->create();
+
     }
 
 }

@@ -6,12 +6,13 @@ use App\Models\Book;
 use App\Repositories\BookRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class BookService
 {
     function __construct(private BookRepository $repository) {}
 
-    public function getAllBooks(): Collection
+    public function getAllBooks(): LengthAwarePaginator | Collection
     {
         return $this->repository->all();
     }
