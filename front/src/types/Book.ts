@@ -1,5 +1,5 @@
 export type Book = {
-    id: string
+    id: number
     title: string
     author: string
     genre: string
@@ -7,14 +7,19 @@ export type Book = {
     year: number
     edition: string
     publisher: string
+    image: string
+    file?: File
 }
 
 export const LivroEmpty = {
+    id: "",
     title: "",
-    autor: "",
-    genero: "",
+    author: "",
+    genre: "",
     isbn: "",
-    ano: 0,
-    editora: "",
-    edicao: ""
+    year: 0,
+    edition: "",
+    publisher: "",
+    image: "",
+    file: new File([], '')
 }

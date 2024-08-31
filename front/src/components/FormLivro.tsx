@@ -1,4 +1,5 @@
-import {Book} from "../Book.ts";
+import { ChangeEvent } from "react";
+import {Book} from "../types/Book.ts";
 import input_file from "/src/assets/file-input.png";
 
 interface FormLivroProps {
@@ -11,19 +12,26 @@ interface FormLivroProps {
 
 export function FormLivro({handleSubmit, livro, setLivro,
                               title, buttonLabel}: FormLivroProps) {
+    function handleImage (event: ChangeEvent<HTMLInputElement>) {
+        if (event.target.files) {
+            const file = event.target.files[0];
+            setLivro(state => ({...state, file: file}))
+        }
+    }
+
     return (
         <div className={`
                     bg-ligth-background text-ligth-primary 
                     pt-4 pb-4 pl-16 pr-16
                     rounded-xl   
                     h-max
-                    w-2/5 md:w-
+                    w-4/5 max-w-md
                 `}>
             <h1 className={"text-center mb-3 font-bold text-xl md:text-4xl"}>{title}</h1>
             <form onSubmit={handleSubmit}>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"titulo"}> Titulo</label>
-                    <input id={"titulo"} value={livro.title} className={""}
+                    <input id={"titulo"} value={livro.title} className={"rounded-lg text-ligth-secondary"}
                            onChange={(e) =>
                                setLivro(state => ({...state, title: e.target.value}))}
                     />
@@ -46,7 +54,7 @@ export function FormLivro({handleSubmit, livro, setLivro,
                 <div className={"md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-5 mb-6"}>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"isbn"}> Códgio ISBN</label>
-                        <input id={"isbn"} value={livro.isbn}
+                        <input id={"isbn"} value={livro.isbn} className="rounded-lg text-ligth-secondary"
                                onChange={(e) =>
                                    setLivro(state => ({...state, isbn: e.target.value}))}
                         />
@@ -61,14 +69,15 @@ export function FormLivro({handleSubmit, livro, setLivro,
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"editora"}> Editora</label>
                         <input id={"editora"} value={livro.edition}
-                               onChange={(e) =>
-                                   setLivro(state => ({...state, edition: e.target.value}))}/>
+                            onChange={(e) =>
+                            setLivro(state => ({...state, publisher: e.target.value}))}
+                        />
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"edicao"}> Edição</label>
                         <input id={"edicao"} value={livro.publisher}
-                               onChange={(e) =>
-                                   setLivro(state => ({...state, publisher: e.target.value}))}
+                                   onChange={(e) =>
+                                    setLivro(state => ({...state, edition: e.target.value}))}
                         />
                     </div>
                 </div>
@@ -85,7 +94,9 @@ export function FormLivro({handleSubmit, livro, setLivro,
                     <img src={input_file} className={"h-5 w-4"} alt={"input file"}/>
                 </label>
 
-                <input id={"input-file"} type={"file"} className={"hidden"}/>
+                <input id={"input-file"} type={"file"} className={"hidden"}
+                    onChange={handleImage}
+                />
 
                 <div className={"flex justify-center"}>
                     <button type={"submit"} className={"bg-ligth-container p-2 rounded-full"}>
