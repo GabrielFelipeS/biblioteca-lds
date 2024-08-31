@@ -29,11 +29,31 @@ class BookSearchTest extends TestCase
 
     public function test_search_book(): void
     {
-        $response = $this->getJson('/api/books/search', [
+        $response = $this->getJson('/api/books/search?title=teste', [
             'Authorization' => "Bearer {$this->token}",
-            'title' => 'teste',
         ]);
 
         $response->assertStatus(200);
+    }
+
+    public function test_unauthorized_request(): void
+    {
+        $user = User::factory()->create();
+        $token = $user->createToken('token')->accessToken;
+
+        $response = $this->getJson('/api/books/search?title=1', [
+            'Authorization' => "Bearer {$token}",
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+    public function test_wrong_parameter_request(): void
+    {
+        $response = $this->getJson('/api/books/search?batata=iso', [
+            'Authorization' => "Bearer {$this->token}",
+        ]);
+
+        $response->assertStatus(400);
     }
 }
