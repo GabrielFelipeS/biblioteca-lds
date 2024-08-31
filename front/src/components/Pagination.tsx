@@ -3,14 +3,16 @@ import { PaginationType } from "../types/Pagination"
 interface PaginationProps {
     pagination: PaginationType
     setPagination: React.Dispatch<React.SetStateAction<PaginationType>>
+    setUpdate: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export function Pagination({ pagination, setPagination }: PaginationProps) {
+export function Pagination({ pagination, setPagination, setUpdate }: PaginationProps) {
     function handlePagination(url: String) {
         const numberPage = url.split("page=")[1];
         console.log(numberPage)
         if(numberPage) {
             setPagination(state => ({...state, current_page: numberPage}))
+            setUpdate(state => !state)
         }
     }
 

@@ -12,7 +12,7 @@ import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
 
 
 export function Acervo() {
-    const [load, setLoad] = useState(true);
+    const [update, setUpdate] = useState(true);
     const [pagination, setPagination] = useState<PaginationType>(DefaultPagination)
     const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
@@ -42,7 +42,7 @@ export function Acervo() {
                 console.log(response.data)
             })
             .catch(e => console.log(e))
-    }, [load])
+    }, [update])
 
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
@@ -143,7 +143,7 @@ export function Acervo() {
                         </tbody>
                     </table>
 
-                    <Pagination pagination={pagination} setPagination={setPagination} />
+                    <Pagination pagination={pagination} setPagination={setPagination} setUpdate={setUpdate}/>
                 </div>
             </div>
         </div>
