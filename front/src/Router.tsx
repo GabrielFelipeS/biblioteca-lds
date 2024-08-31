@@ -6,6 +6,8 @@ import {CadastrarLivro} from "./pages/CadastrarLivro";
 import {EditBook} from "./pages/EditBook.tsx";
 import {Acervo} from "./pages/Acervo.tsx";
 import { Emprestimo } from "./pages/Emprestimo.tsx";
+import { MeusEmprestimos } from "./pages/MeusEmprestimos.tsx";
+import { FichaTecnica } from "./pages/FichaTecnica.tsx";
 
 export function Router() {
     return (
@@ -16,7 +18,8 @@ export function Router() {
                 <Route path={"/register"} element={<Register/>}/>
                 <Route path={"/acervo"} element={<Acervo/>}/>
                 <Route path={"/emprestimo"} element={<Emprestimo/>}/>
-                <Route path={"/user/emprestimo"} element={<Acervo/>}/>
+                <Route path={"/user/emprestimo"} element={<MeusEmprestimos/>}/>
+                <Route path={"/livro/ficha/:id"} element={<FichaTecnica/>}/>
                 <Route path={"/livro/cadastrar"} element={<CadastrarLivro/>}/>
                 <Route path={"/livro/editar/:id"} element={<EditBook/>}/>
                 <Route path="/*" element={<Navigate to="/home" replace />} />
