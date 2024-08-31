@@ -8,9 +8,9 @@ interface PaginationProps {
 
 export function Pagination({ pagination, setPagination, setUpdate }: PaginationProps) {
     function handlePagination(url: String) {
-        const numberPage = url.split("page=")[1];
-        console.log(numberPage)
-        if(numberPage) {
+        if(url) {
+            const numberPage = url.split("page=")[1];
+            console.log(numberPage)
             setPagination(state => ({...state, current_page: numberPage}))
             setUpdate(state => !state)
         }
