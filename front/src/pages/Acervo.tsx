@@ -128,6 +128,7 @@ export function Acervo() {
                         </thead>
                         <tbody id="tbody">
                             {books && Array.isArray(books) && books.map((book, index) => {
+                                const unit = books.filter((b) => b.isbn === book.isbn).length
                                 return (
                                     <tr className="" id={index.toString()} key={index}>
                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
@@ -146,7 +147,7 @@ export function Acervo() {
                                         <td className="border hidden xl:table-cell text-center">{book.year}</td>
                                         <td className="border hidden xl:table-cell">{book.publisher}</td>
                                         <td className="border hidden xl:table-cell text-center">{book.edition}</td>
-                                        <td className="max-sm:text-xs border text-center">5/10</td>
+                                        <td className="max-sm:text-xs border text-center">1/{unit}</td>
                                     </tr>)
                             })}
                         </tbody>
