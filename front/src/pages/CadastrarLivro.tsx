@@ -6,7 +6,9 @@ import {api} from "../services/api.ts";
 
 export function CadastrarLivro() {
     const [book, setBook] = useState<Book>(LivroEmpty)
-
+    const bearer = "Bearer " + localStorage.getItem("token");
+    console.log(bearer)
+    
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
@@ -21,8 +23,12 @@ export function CadastrarLivro() {
             image: book.file
         }
 
-        api.post("books" ,data)
-            .then(response => {
+        api.post("books" ,data,
+            {headers: {
+                'Content-Type': 'multipart/form-data',
+                Authorization: bearer
+            }}
+        ).then(response => {
                 console.log(response)
                 if(response.status == 201) {
                     console.log("FUNCIONOUUUU")

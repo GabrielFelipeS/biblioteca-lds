@@ -31,21 +31,21 @@ export function FormLivro({handleSubmit, livro, setLivro,
             <form onSubmit={handleSubmit}>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"titulo"}> Titulo</label>
-                    <input id={"titulo"} value={livro.title} className={"rounded-lg text-ligth-secondary"}
+                    <input id={"titulo"} value={livro.title} className={"rounded-lg text-ligth-secondary pl-1"}
                            onChange={(e) =>
                                setLivro(state => ({...state, title: e.target.value}))}
                     />
                 </div>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"autor"}> Autor</label>
-                    <input id={"autor"} value={livro.author}
+                    <input id={"autor"} value={livro.author} className={"rounded-lg text-ligth-secondary pl-1"}
                            onChange={(e) =>
                                setLivro(state => ({...state, author: e.target.value}))}
                     />
                 </div>
                 <div className={`flex flex-col mb-1`}>
                     <label htmlFor={"genero"}> Genero</label>
-                    <input id={"genero"} value={livro.genre}
+                    <input id={"genero"} value={livro.genre} className={"rounded-lg text-ligth-secondary pl-1"}
                            onChange={(e) =>
                                setLivro(state => ({...state, genre: e.target.value}))}
                     />
@@ -54,30 +54,30 @@ export function FormLivro({handleSubmit, livro, setLivro,
                 <div className={"md:grid md:grid-cols-2 md:grid-rows-2 md:gap-x-5 mb-6"}>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"isbn"}> Códgio ISBN</label>
-                        <input id={"isbn"} value={livro.isbn} className="rounded-lg text-ligth-secondary"
+                        <input id={"isbn"} value={livro.isbn} className="rounded-lg text-ligth-secondary pl-1"
                                onChange={(e) =>
                                    setLivro(state => ({...state, isbn: e.target.value}))}
                         />
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"lancamento"}> Ano de lançamento</label>
-                        <input id={"lancamento"} value={livro.year}
+                        <input id={"lancamento"} value={livro.year} className={"rounded-lg text-ligth-secondary pl-1"}
                                onChange={(e) =>
-                                   setLivro(state => ({...state, year: Number.parseInt(e.target.value)}))}/>
+                                   setLivro(state => ({...state, year: e.target.value}))}/>
 
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"editora"}> Editora</label>
-                        <input id={"editora"} value={livro.edition}
+                        <input id={"editora"} value={livro.edition} className={"rounded-lg text-ligth-secondary pl-1"}
                             onChange={(e) =>
-                            setLivro(state => ({...state, publisher: e.target.value}))}
+                            setLivro(state => ({...state, edition: e.target.value}))}
                         />
                     </div>
                     <div className={`flex flex-col mb-1`}>
                         <label htmlFor={"edicao"}> Edição</label>
-                        <input id={"edicao"} value={livro.publisher}
+                        <input id={"edicao"} value={livro.publisher} className={"rounded-lg text-ligth-secondary pl-1"}
                                    onChange={(e) =>
-                                    setLivro(state => ({...state, edition: e.target.value}))}
+                                    setLivro(state => ({...state, publisher: e.target.value}))}
                         />
                     </div>
                 </div>
