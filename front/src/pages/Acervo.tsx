@@ -26,6 +26,12 @@ export function Acervo() {
             }
     } 
 
+    function itNoAnEmptyPageAndTheFirstPage(data: any) {
+        const books: Book[] = data.data
+        const pagination = desconstrutorPagination(data)
+        return books.length != 0 && pagination.current_page !== "1"
+    }
+
     useEffect(() => {
         api.get(`books?page=${pagination.current_page}`,
             {
@@ -36,8 +42,13 @@ export function Acervo() {
                 }
             })
             .then(response => {
-                setBooks(response.data.data)
-                setPagination( desconstrutorPagination(response.data))
+                if(itNoAnEmptyPageAndTheFirstPage(response.data)) {
+                    setBooks(response.data.data)
+                    setPagination(desconstrutorPagination(response.data))
+                } else {
+                    setPagination(state => ({...state, current_page: "1"}))
+                    setUpdate(state => !state)
+                }
                 console.log(response.data)
             })
             .catch(e => console.log(e))
