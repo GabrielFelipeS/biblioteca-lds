@@ -31,7 +31,7 @@ jobs:
           ARGS: "-avz"
           SOURCE: "back/"
       - name: instalando dependencias
-        run: cd ./code/ifsp/lds/back && composer install
+        run: cd back && composer install
       - name: gerando .env
         run: cp .env-dev .env
       - name: gerando chave
