@@ -45,4 +45,9 @@ class BookService
     {
         return $this->repository->delete($id);
     }
+
+    public function searchBook(array $params): LengthAwarePaginator | Collection
+    {
+        return $this->repository->search($params);
+    }
 }
