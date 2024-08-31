@@ -103,17 +103,17 @@ export function Acervo() {
                     <table className={"overflow-x-auto w-full md:table-fixed"}>
                         <thead>
                             <tr className="text-ligth-primary bg-black">
-                                <th></th>
-                                <th></th>
-                                <th></th>
+                                <th className="w-12"></th>
+                                <th className="w-12"></th>
+                                <th className="w-12"></th>
                                 <th>Titulo</th>
                                 <th className="max-sm:hidden">Autor</th>
                                 <th className="hidden lg:table-cell">Gênero</th>
                                 <th className="hidden lg:table-cell">ISBN</th>
                                 <th className="hidden xl:table-cell">Lançamento</th>
                                 <th className="hidden xl:table-cell">Editora</th>
-                                <th className="hidden xl:table-cell">Edição</th>
-                                <th>Unidades</th>
+                                <th className="w-14 hidden xl:table-cell">Edição</th>
+                                <th className="w-15">Unidades</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -121,22 +121,22 @@ export function Acervo() {
                                 return (
                                     <tr className="" key={index}>
                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
-                                            <button className="bg-ligth-blue p-1 rounded-lg"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 flex m-auto" /></button>
+                                            <button className="bg-ligth-blue p-1 rounded-lg w-full"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" /></button>
                                         </td>
                                         <td className="cursor-pointer border">
-                                            <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 rounded-lg"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>
+                                            <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 rounded-lg w-full"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
                                         <td className="cursor-pointer border">
-                                            <button onClick={() => deleteBook(book.title, book.id)} className="bg-ligth-red p-1 rounded-lg"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto" /> </button>
+                                            <button onClick={() => deleteBook(book.title, book.id)} className="bg-ligth-red p-1 rounded-lg w-full"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
                                         <td className="px-1 max-sm:px-0   border max-sm:text-xs">{book.title}</td>
                                         <td className="px-1 border max-sm:hidden">{book.author}</td>
                                         <td className="border hidden lg:table-cell">{book.genre}</td>
-                                        <td className="border hidden lg:table-cell ai">{book.isbn}</td>
-                                        <td className="border hidden xl:table-cell">{book.year}</td>
+                                        <td className="border hidden lg:table-cell text-center">{book.isbn}</td>
+                                        <td className="border hidden xl:table-cell text-center">{book.year}</td>
                                         <td className="border hidden xl:table-cell">{book.publisher}</td>
-                                        <td className="border hidden xl:table-cell">{book.edition}</td>
-                                        <td className="max-sm:text-xs border">5/10</td>
+                                        <td className="border hidden xl:table-cell text-center">{book.edition}</td>
+                                        <td className="max-sm:text-xs border text-center">5/10</td>
                                     </tr>)
                             })}
                         </tbody>
