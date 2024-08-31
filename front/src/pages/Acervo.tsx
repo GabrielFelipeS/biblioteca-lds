@@ -3,7 +3,7 @@ import verImg from "../assets/ver.png"
 import editarImg from "../assets/editar.png"
 import deletarImg from "/src/assets/deletar.png"
 import { Book } from "../types/Book.ts";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { api } from "../services/api.ts"
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
