@@ -8,7 +8,7 @@ export type Book = {
     edition: string
     publisher: string
     image: string
-    file?: File
+    file: File
 }
 
 export const LivroEmpty = {
