@@ -9,7 +9,9 @@ interface UploadFileProps {
 }
 
 export function UploadFile({book, handleImage}: UploadFileProps) {
-    const name = book.file?.name;
+    const haveName = book.file?.name;
+    const haveImage = book.image;
+
     return (
         <>
             <label htmlFor={"input-file"}
@@ -19,11 +21,11 @@ export function UploadFile({book, handleImage}: UploadFileProps) {
                         pt-2 pb-2 mb-6`}>
 
                 <div className={" justify-center mr-2 ml-7 hidden md:flex"}>
-                    {name? "Upload realizado" : "Fazer upload"}
+                    {(haveName || haveImage)? "Upload realizado" : "Fazer upload"}
                 </div>
-                <img src={name? upload_success : input_file} className={"h-6 w-7"} alt={"input file"} />
+                <img src={(haveName || haveImage)? upload_success : input_file} className={"h-6 w-7"} alt={"input file"} />
                 <input id={"input-file"} type={"file"} className={"absolute -z-10"}
-                onChange={handleImage} required={!name}
+                onChange={handleImage} required={!(haveName || haveImage)}
             />
             </label>
 

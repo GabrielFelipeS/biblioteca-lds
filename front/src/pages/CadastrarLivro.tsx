@@ -33,7 +33,7 @@ export function CadastrarLivro() {
                 if(response.status == 201) {
                     console.log("FUNCIONOUUUU")
                 }
-            })
+            }).catch(e => console.log(e))
     }
 
     return (

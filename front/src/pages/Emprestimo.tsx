@@ -23,7 +23,6 @@ export function Emprestimo() {
             .then(response => {
                 console.log(response.data)
                 setReservations(response.data)
-                //setReservations(reservationsMock)
             })
             .catch(e => console.log(e))
     }, [load])
