@@ -39,9 +39,10 @@ export function Acervo() {
             .then(response => {
                 setBooks(response.data.data)
                 setPagination( desconstrutorPagination(response.data))
+                console.log(response.data)
             })
             .catch(e => console.log(e))
-    }, [load, pagination])
+    }, [load])
 
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)

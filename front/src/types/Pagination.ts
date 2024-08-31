@@ -1,6 +1,6 @@
 
 type Link = {
-    url: string | null
+    url: string
     label: string
     active: boolean
 };
