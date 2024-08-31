@@ -74,6 +74,19 @@ export function Emprestimo() {
             .catch(e => console.log(e))
     }
 
+    async function fetchData(id: string) {
+        api.get(`book/${id}`)
+        .then(response => {
+            const data = response.data; // Atribuindo o valor a uma constante
+            console.log('Dados recebidos:', data);
+            return data;
+        })
+        .catch(error => {
+            console.error('Erro ao buscar dados:', error);
+            throw error;
+        });
+    }
+
     function handleReturn(id: number) {
         api.delete(`reservation/${id}`,
             {
@@ -179,7 +192,7 @@ export function Emprestimo() {
                                                     <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg max-sm:text-xs" >Devolução </div>
                                                 </td>
                                                 <td className="px-6  max-sm:px-0 hidden lg:table-cell max-sm:py-0 border max-sm:text-xs">{bookName}</td>
-                                                <td className="px-6 border hidden lg:table-cell max-sm:hidden">{bookIsbn}</td>
+                                                <td className="px-6 border hidden lg:table-cell max-sm:hidden">{bookName}</td>
                                                 <td className="px-6 border max-sm:text-xs">{reservation.from}</td>
                                                 <td className="px-6 border max-sm:text-xs text-center">{reservation.to}</td>
                                                 <td className="px-6 border hidden lg:table-cell text-center">{nome}</td>
