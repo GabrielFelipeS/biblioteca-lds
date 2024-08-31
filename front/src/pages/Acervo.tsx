@@ -7,15 +7,17 @@ import { useEffect, useState } from "react";
 import { api } from "../services/api.ts"
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import { Pagination } from "../components/Pagination.tsx";
 
 export function Acervo() {
     const [load, setLoad] = useState(true);
+    const [page, setPage] = useState(1)
     const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get("books",
+        api.get(`books?page=${page}`,
             {
                 headers: {
                     Accept: 'application/json',
@@ -28,6 +30,7 @@ export function Acervo() {
             })
             .catch(e => console.log(e))
     }, [load])
+    
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
     }
@@ -85,47 +88,49 @@ export function Acervo() {
                     <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl ">
                         Acervo de Livros 
                     </div>
-                    <table className={"overflow-x-auto w-full"}>
+                    <table className={"overflow-x-auto w-full md:table-fixed"}>
                         <thead>
                             <tr className="text-ligth-primary bg-black">
-                                <th className="px-9 py-3 max-sm:px-0  max-sm:py-0"></th>
-                                <th className="px-9 py-3 max-sm:px-0  max-sm:py-0"></th>
-                                <th className="px-9 py-3 max-sm:px-0  max-sm:py-0"></th>
-                                <th className="px-6 py-3 max-sm:px-0  max-sm:py-0">Titulo</th>
-                                <th className="px-6 py-3 max-sm:hidden">Autor</th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>Titulo</th>
+                                <th className="max-sm:hidden">Autor</th>
                                 <th className="hidden lg:table-cell">Gênero</th>
                                 <th className="hidden lg:table-cell">ISBN</th>
                                 <th className="hidden xl:table-cell">Lançamento</th>
                                 <th className="hidden xl:table-cell">Editora</th>
                                 <th className="hidden xl:table-cell">Edição</th>
-                                <th className="px-0 py-0">Unidades</th>
+                                <th>Unidades</th>
                             </tr>
                         </thead>
                         <tbody>
                             {books && Array.isArray(books) && books.map((book, index) => {
                                 return (
                                     <tr className="" key={index}>
-                                         <td className="px-2 cursor-pointer border max-sm:px-0  max-sm:py-0">
+                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
                                             <button className="bg-ligth-blue p-1 rounded-lg"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 flex m-auto" /></button>
                                         </td>
-                                        <td className="px-2 cursor-pointer border">
+                                        <td className="cursor-pointer border">
                                             <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 rounded-lg"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
-                                        <td className="px-2 cursor-pointer border">
+                                        <td className="cursor-pointer border">
                                             <button onClick={() => deleteBook(book.title, book.id)} className="bg-ligth-red p-1 rounded-lg"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
-                                        <td className="px-6  max-sm:px-0  max-sm:py-0 border max-sm:text-xs">{book.title}</td>
-                                        <td className="px-6 border max-sm:hidden">{book.author}</td>
-                                        <td className="px-6 border hidden lg:table-cell">{book.genre}</td>
-                                        <td className="px-6 border hidden lg:table-cell">{book.isbn}</td>
-                                        <td className="px-6 border hidden xl:table-cell">{book.year}</td>
-                                        <td className="px-6 border hidden xl:table-cell">{book.publisher}</td>
-                                        <td className="px-6 border hidden xl:table-cell">{book.edition}</td>
-                                        <td className="px-6 max-lg:px-0  max-lg:py-0 max-sm:text-xs border">5/10</td>
+                                        <td className="px-1 max-sm:px-0   border max-sm:text-xs">{book.title}</td>
+                                        <td className="px-1 border max-sm:hidden">{book.author}</td>
+                                        <td className="border hidden lg:table-cell">{book.genre}</td>
+                                        <td className="border hidden lg:table-cell ai">{book.isbn}</td>
+                                        <td className="border hidden xl:table-cell">{book.year}</td>
+                                        <td className="border hidden xl:table-cell">{book.publisher}</td>
+                                        <td className="border hidden xl:table-cell">{book.edition}</td>
+                                        <td className="max-sm:text-xs border">5/10</td>
                                     </tr>)
                             })}
                         </tbody>
                     </table>
+                    
+                    <Pagination setPage={setPage}/>
                 </div>
             </div>
 
