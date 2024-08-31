@@ -10,15 +10,25 @@ import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
 
+
 export function Acervo() {
     const [load, setLoad] = useState(true);
-    const [page, setPage] = useState<PaginationType>(DefaultPagination)
+    const [pagination, setPagination] = useState<PaginationType>(DefaultPagination)
     const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
 
+    function desconstrutorPagination({current_page, first_page_url, from, last_page,
+             last_page_url, links, next_page_url, path, per_page, prev_page_url, to ,total}: PaginationType) {
+            return {
+                current_page, first_page_url, from,last_page, last_page_url, links, next_page_url, 
+                path, per_page, prev_page_url, to, total
+            }
+
+    } 
+
     useEffect(() => {
-        api.get(`books?page=${page.current_page}`,
+        api.get(`books?page=${pagination.current_page}`,
             {
                 headers: {
                     Accept: 'application/json',
@@ -28,10 +38,11 @@ export function Acervo() {
             })
             .then(response => {
                 setBooks(response.data.data)
+                setPagination( desconstrutorPagination(response.data))
             })
             .catch(e => console.log(e))
     }, [load])
-    
+
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
     }
@@ -46,7 +57,7 @@ export function Acervo() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Sim, deletar o livro!",
             cancelButtonText: "Cancelar"
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 api.delete(`books/${id}`,
                     {
@@ -58,13 +69,13 @@ export function Acervo() {
                     })
                     .then(response => {
                         console.log(response)
-                        if(response.status == 204) {
+                        if (response.status == 204) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Livro deletado com sucesso.",
                                 icon: "success"
-                              });
-                              setLoad(state => !state);
+                            });
+                            setLoad(state => !state);
                         }
                     })
                     .catch(e => {
@@ -74,11 +85,11 @@ export function Acervo() {
                             title: "Oops...",
                             text: "Alguma coisa deu errado!",
                             footer: `Erro: ${e.response.data.message}`
-                          });
+                        });
                     }
-                )
+                    )
             }
-          });
+        });
     }
 
     return (
@@ -87,7 +98,7 @@ export function Acervo() {
             <div className="flex justify-center pt-14 ">
                 <div className={`h-full w-11/12 flex flex-col justify-center items-center bg-white`}>
                     <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl ">
-                        Acervo de Livros 
+                        Acervo de Livros
                     </div>
                     <table className={"overflow-x-auto w-full md:table-fixed"}>
                         <thead>
@@ -109,7 +120,7 @@ export function Acervo() {
                             {books && Array.isArray(books) && books.map((book, index) => {
                                 return (
                                     <tr className="" key={index}>
-                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
+                                        <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
                                             <button className="bg-ligth-blue p-1 rounded-lg"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 flex m-auto" /></button>
                                         </td>
                                         <td className="cursor-pointer border">
@@ -130,8 +141,8 @@ export function Acervo() {
                             })}
                         </tbody>
                     </table>
-                    
-                    <Pagination setPage={setPage}/>
+
+                    <Pagination pagination={pagination} setPagination={setPagination} />
                 </div>
             </div>
 
