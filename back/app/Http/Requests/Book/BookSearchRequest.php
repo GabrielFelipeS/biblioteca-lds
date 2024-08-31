@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Book;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\ValidationException;
 
 class BookSearchRequest extends FormRequest
 {
@@ -30,6 +31,22 @@ class BookSearchRequest extends FormRequest
             'publisher' => ['string', 'sometimes'],
             'edition' => ['string', 'sometimes'],
         ];
+    }
+
+    /**
+     * Prepare the data for validation.
+     */
+    protected function prepareForValidation(): void
+    {
+        $allowedFields = array_keys($this->rules());
+
+        $extraFields = array_diff(array_keys($this->all()), $allowedFields);
+
+        if (!empty($extraFields)) {
+            throw ValidationException::withMessages([
+                'error' => 'Campos inválidos fornecidos: ' . implode(', ', $extraFields),
+            ])->status(400);
+        }
     }
 
     public function messages(): array
