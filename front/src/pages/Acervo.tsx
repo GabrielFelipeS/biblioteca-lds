@@ -132,13 +132,13 @@ export function Acervo() {
                                 return (
                                     <tr className="" key={index}>
                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
-                                            <button className="bg-ligth-blue p-1 rounded-lg w-full"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" /></button>
+                                            <button className="bg-ligth-blue p-1 md:p-1.5 rounded-lg w-full"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" /></button>
                                         </td>
                                         <td className="cursor-pointer border">
-                                            <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 rounded-lg w-full"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>
+                                            <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 md:p-1.5 rounded-lg w-full"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
                                         <td className="cursor-pointer border">
-                                            <button onClick={() => deleteBook(book.title, book.id)} className="bg-ligth-red p-1 rounded-lg w-full"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto" /> </button>
+                                            <button onClick={() => deleteBook(book.title, book.id)} className="bg-ligth-red p-1 md:p-1.5 rounded-lg w-full"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
                                         <td className="px-1 max-sm:px-0   border max-sm:text-xs">{book.title}</td>
                                         <td className="px-1 border max-sm:hidden">{book.author}</td>
