@@ -10,7 +10,6 @@ export function Pagination({ pagination, setPagination, setUpdate }: PaginationP
     function handlePagination(url: String) {
         if(url) {
             const numberPage = url.split("page=")[1];
-            console.log(numberPage)
             setPagination(state => ({...state, current_page: numberPage}))
             setUpdate(state => !state)
         }

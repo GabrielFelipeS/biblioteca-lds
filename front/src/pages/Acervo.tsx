@@ -49,7 +49,6 @@ export function Acervo() {
                     setPagination(state => ({...state, current_page: "1"}))
                     setUpdate(state => !state)
                 }
-                console.log(response.data)
             })
             .catch(e => console.log(e))
     }, [update])
@@ -127,10 +126,10 @@ export function Acervo() {
                                 <th className="w-15">Unidades</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody">
                             {books && Array.isArray(books) && books.map((book, index) => {
                                 return (
-                                    <tr className="" key={index}>
+                                    <tr className="" id={index.toString()} key={index}>
                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
                                             <button className="bg-ligth-blue p-1 md:p-1.5 rounded-lg w-full"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" /></button>
                                         </td>
