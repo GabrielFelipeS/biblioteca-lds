@@ -22,8 +22,8 @@ export function Emprestimo() {
             })
             .then(response => {
                 console.log(response.data)
-                // setReservations(response.data)
-                setReservations(reservationsMock)
+                setReservations(response.data)
+                //setReservations(reservationsMock)
             })
             .catch(e => console.log(e))
     }, [load])
@@ -31,6 +31,7 @@ export function Emprestimo() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(reservation)
+        console.log(reservations)
         api.post("reservation",
             {
                 to: reservation.to,
@@ -46,17 +47,19 @@ export function Emprestimo() {
             })
             .then(response => {
                 console.log(response.data)
-                // setReservations(response.data)
-                setReservations(reservationsMock)
+                setLoad(state => !state)
             })
             .catch(e => console.log(e))
     }
 
     function handleRenewal(id: number) {
-        console.log(id)
+        console.log("renovando")
+        const date = new Date()
+        date.setDate(date.getDate() + 7)
 
+        console.log(date)
         api.put(`reservation/${id}/renewal`, {
-            to: '2024-09-08'
+            to: date
         },
             {
                 headers: {
@@ -73,7 +76,7 @@ export function Emprestimo() {
     }
 
     function handleReturn(id: number) {
-        console.log(id)
+        console.log("devolvendo")
 
         api.delete(`reservation/${id}`,
             {
@@ -161,7 +164,11 @@ export function Emprestimo() {
                             </tr>
                         </thead>
                         <tbody>
-                            {reservations && Array.isArray(reservations) && reservations.map((reservation, index) => {
+                            {reservations && 
+                            Array.isArray(reservations) && 
+                            reservations
+                            .filter(reservation => reservation.status === "pending")
+                            .map((reservation, index) => {
                                 const bookName = 'MOCKADO'
                                 const bookIsbn = "MOCKADO";
                                 const nome = "MOCKADO"
