@@ -1,5 +1,7 @@
+import { PaginationType } from "../types/Pagination"
+
 interface PaginationProps {
-    setPage: React.Dispatch<React.SetStateAction<number>>
+    setPage: React.Dispatch<React.SetStateAction<PaginationType>>
 }
 
 export function Pagination({setPage}: PaginationProps) {

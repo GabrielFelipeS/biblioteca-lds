@@ -7,17 +7,18 @@ import { useEffect, useState } from "react";
 import { api } from "../services/api.ts"
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "../components/Pagination.tsx";
+import { Pagination } from "../components/Pagination";
+import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
 
 export function Acervo() {
     const [load, setLoad] = useState(true);
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState<PaginationType>(DefaultPagination)
     const [books, setBooks] = useState<Book[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get(`books?page=${page}`,
+        api.get(`books?page=${page.current_page}`,
             {
                 headers: {
                     Accept: 'application/json',
