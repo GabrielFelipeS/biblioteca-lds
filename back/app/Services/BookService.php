@@ -48,6 +48,12 @@ class BookService
 
     public function searchBook(string $query): Collection
     {
-        return $this->repository->search($query);
+        $fields = (new Book())->getFillable();
+
+        unset(
+            $fields[array_search('image', $fields, true)],
+        );
+
+        return $this->repository->search($query, $fields);
     }
 }
