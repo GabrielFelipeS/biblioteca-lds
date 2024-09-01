@@ -29,8 +29,6 @@ class ShowReservationsTest extends TestCase
         $user = User::find(1);
         $token = $user->createToken('token')->accessToken;
 
-        $allReservations = Reservation::where('status', 'pending')->count();
-
         $reservations = Reservation::factory()->count(5)->create([
             'status' => 'pending'
         ]);
@@ -41,16 +39,12 @@ class ShowReservationsTest extends TestCase
 
         $response->assertStatus(200);
 
-        $size = $allReservations+5;
-
-        $response->assertJsonCount($size);
+        $response->assertJsonCount(5);
     }
 
     public function test_buscando_reservas_com_data_especifica_pendentes(){
         $user = User::find(1);
         $token = $user->createToken('token')->accessToken;
-
-        $allReservations = Reservation::where('status', 'pending')->count();
 
         $reservations = Reservation::factory()->count(5)->create([
             'status' => 'pending',
@@ -64,8 +58,6 @@ class ShowReservationsTest extends TestCase
 
         $response->assertStatus(200);
 
-        $size = $allReservations+5;
-
-        $response->assertJsonCount($size);
+        $response->assertJsonCount(5);
     }
 }
