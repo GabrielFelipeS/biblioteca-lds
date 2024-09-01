@@ -162,7 +162,7 @@ class ReservationService
     public function getAllReservations($request)
     {
         try {
-            Log::info('Buscando reservas pelo usuário: ' . Auth::user()->id . ' com os filtros: ' . json_encode($request->all()));
+            Log::info('Buscando reservas pelo usuário: ' . Auth::user()->id . ' com os filtros: ' . json_encode($request));
             $reservations = $this->repository->getAllReservations($request);
             Log::info('Reservas encontradas pelo usuário: ' . Auth::user()->id . ', reservas: ' . $reservations);
             return response()->json($reservations, 200);
