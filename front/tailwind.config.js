@@ -22,7 +22,9 @@ export default {
           button: "#929292",
           orange: "#E18E19",
           red: "#A00A0A",
-          blue: "#105E9D"
+          blue: "#105E9D",
+          dark_gray: "#6A6A6A",
+          ligth_gray: "#DCD8D8"
         }
       }
     },
