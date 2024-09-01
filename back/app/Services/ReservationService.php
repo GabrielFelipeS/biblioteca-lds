@@ -18,6 +18,7 @@ class ReservationService
     {
         return $this->repository->findByUser($userId);
     }
+
     public function create(array $data)
     {
         try {
@@ -119,19 +120,19 @@ class ReservationService
                 return response()->json(['message' => 'Reserva não encontrada'], 404);
             }
             if ($reservation->status !== 'approved') {
-                if($reservation->status === 'canceled'){
+                if ($reservation->status === 'canceled') {
                     Log::info('Erro na tentativa de renovar reserva cancelada, Pelo usuário: ' . Auth::user()->id);
                     return response()->json(['message' => 'Reserva cancelada'], 422);
                 }
-                if($reservation->status === 'pending'){
+                if ($reservation->status === 'pending') {
                     Log::info('Erro na tentativa de renovar reserva pendente, Pelo usuário: ' . Auth::user()->id);
                     return response()->json(['message' => 'Reserva pendente'], 422);
                 }
-                if($reservation->status === 'denied'){
+                if ($reservation->status === 'denied') {
                     Log::info('Erro na tentativa de renovar reserva negada, Pelo usuário: ' . Auth::user()->id);
                     return response()->json(['message' => 'Reserva negada'], 422);
                 }
-                if($reservation->status === 'overdue'){
+                if ($reservation->status === 'overdue') {
                     Log::info('Erro na tentativa de renovar reserva atrasada, Pelo usuário: ' . Auth::user()->id);
                     return response()->json(['message' => 'Reserva atrasada'], 422);
                 }
@@ -160,7 +161,14 @@ class ReservationService
 
     public function getAllReservations($request)
     {
-        $reservations = $this->repository->getAllReservations($request);
-        return response()->json($reservations, 200);
+        try {
+            Log::info('Buscando reservas pelo usuário: ' . Auth::user()->id . ' com os filtros: ' . json_encode($request->all()));
+            $reservations = $this->repository->getAllReservations($request);
+            Log::info('Reservas encontradas pelo usuário: ' . Auth::user()->id . ', reservas: ' . $reservations);
+            return response()->json($reservations, 200);
+        } catch (\Throwable $th) {
+            Log::error('Erro ao buscar reservas: ' . $th->getMessage());
+            return response()->json(['message' => 'Erro ao buscar reservas'], 500);
+        }
     }
 }
