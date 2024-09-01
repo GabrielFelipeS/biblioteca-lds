@@ -156,4 +156,11 @@ class ReservationService
             return response()->json(['message' => 'Error'], 500);
         }
     }
+
+
+    public function getAllReservations($request)
+    {
+        $reservations = $this->repository->getAllReservations($request);
+        return response()->json($reservations, 200);
+    }
 }
