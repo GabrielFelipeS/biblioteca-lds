@@ -853,8 +853,48 @@
         }
     }
     ```
+## Rota api/admin/reservations/{reservation}/status
 
+### Método: PUT
 
+### Campos Necessários
 
+- status (string): Status da reserva ('pending', 'approved', 'returned', 'canceled')
 
-]()
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva atualizada com sucesso"
+    }
+    ```
+  
+### Erro de validação
+
+#### Reserva não encontrada
+
+- **Código HTTP:** 404 Not Found
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Reserva não encontrada"
+    }
+    ```
+  
+#### Status inválido
+
+- **Código HTTP:** 422 Unprocessable Entity
+
+- **Retorno:**
+    ```json
+    {
+        "message": "Status inválido"
+    }
+    ```
+
