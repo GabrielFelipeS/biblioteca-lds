@@ -15,6 +15,7 @@ class ShowReservationsTest extends TestCase
     public function test_checando_todas_reservas_do_sistema()
     {
         $user = User::find(1);
+        $reservations  = Reservation::all()->count();
         $token = $user->createToken('token')->accessToken;
 
         $response = $this->withHeaders([
@@ -22,6 +23,8 @@ class ShowReservationsTest extends TestCase
         ])->getJson('/api/admin/reservations');
 
         $response->assertStatus(200);
+
+        $response->assertJsonCount($reservations);
     }
 
     public function test_buscando_reservas_com_status_pendente()
