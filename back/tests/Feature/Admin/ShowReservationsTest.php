@@ -45,4 +45,27 @@ class ShowReservationsTest extends TestCase
 
         $response->assertJsonCount($size);
     }
+
+    public function test_buscando_reservas_com_data_especifica_pendentes(){
+        $user = User::find(1);
+        $token = $user->createToken('token')->accessToken;
+
+        $allReservations = Reservation::where('status', 'pending')->count();
+
+        $reservations = Reservation::factory()->count(5)->create([
+            'status' => 'pending',
+            'from' => '2021-10-10',
+            'to' => '2021-10-20'
+        ]);
+
+        $response = $this->withHeaders([
+            "Authorization" => "Bearer $token",
+        ])->getJson('/api/admin/reservations?from=2021-10-10&to=2021-10-20');
+
+        $response->assertStatus(200);
+
+        $size = $allReservations+5;
+
+        $response->assertJsonCount($size);
+    }
 }
