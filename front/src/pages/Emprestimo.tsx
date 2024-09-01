@@ -74,19 +74,6 @@ export function Emprestimo() {
             .catch(e => console.log(e))
     }
 
-    async function fetchData(id: string) {
-        api.get(`book/${id}`)
-        .then(response => {
-            const data = response.data; // Atribuindo o valor a uma constante
-            console.log('Dados recebidos:', data);
-            return data;
-        })
-        .catch(error => {
-            console.error('Erro ao buscar dados:', error);
-            throw error;
-        });
-    }
-
     function handleReturn(id: number) {
         api.delete(`reservation/${id}`,
             {
@@ -178,10 +165,8 @@ export function Emprestimo() {
                                 Array.isArray(reservations) &&
                                 reservations
                                     .map((reservation, index) => {
-                                        const bookName = 'MOCKADO'
-                                        const bookIsbn = "MOCKADO";
-                                        const nome = "MOCKADO"
-                                        const email = "MOCKADO"
+                                        const MOCKADO = 'MOCKADO'
+
 
                                         return (
                                             <tr className="h-12" key={index}>
@@ -191,12 +176,12 @@ export function Emprestimo() {
                                                 <td className="px-2 cursor-pointer border" onClick={() => handleReturn(reservation.id)}>
                                                     <div className="bg-ligth-tertiary text-ligth-primary p-1 rounded-lg max-sm:text-xs" >Devolução </div>
                                                 </td>
-                                                <td className="px-6 max-sm:px-0 hidden lg:table-cell max-sm:py-0 border max-sm:text-xs break-words">{bookName}</td>
-                                                <td className="px-6 border hidden lg:table-cell max-sm:hidden break-words">{bookName}</td>
+                                                <td className="px-6 max-sm:px-0 hidden lg:table-cell max-sm:py-0 border max-sm:text-xs break-words">{MOCKADO}</td>
+                                                <td className="px-6 border hidden lg:table-cell max-sm:hidden break-words">{MOCKADO}</td>
                                                 <td className="px-6 border max-sm:text-xs break-words">{reservation.from}</td>
                                                 <td className="px-6 border max-sm:text-xs text-center break-words">{reservation.to}</td>
-                                                <td className="px-6 border hidden lg:table-cell text-center break-words">{nome}</td>
-                                                <td className="px-6 border hidden lg:table-cell break-words">{email}</td>
+                                                <td className="px-6 border hidden lg:table-cell text-center break-words">{MOCKADO}</td>
+                                                <td className="px-6 border hidden lg:table-cell break-words">{MOCKADO}</td>
                                             </tr>
                                         )
                                     })}
