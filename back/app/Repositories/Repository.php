@@ -36,13 +36,11 @@ abstract class Repository
         return $this->model->find($id)->delete();
     }
 
-    public function search(string $query): Collection
+    public function search(string $query, array $fields): Collection
     {
         $search = $this->model->query();
 
-        $fillableFields = $this->model->getFillable();
-
-        foreach ($fillableFields as $field) {
+        foreach ($fields as $field) {
             $search->orWhere(DB::raw("LOWER(CAST({$field} AS TEXT))"), 'LIKE', '%' . strtolower($query) . '%');
         }
 
