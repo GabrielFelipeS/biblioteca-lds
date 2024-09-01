@@ -20,7 +20,7 @@ class ReservationsController extends Controller
     public function index(ReservationsSearchRequest $request)
     {
         try {
-            return $this->service->getAllReservations($request->all());
+            return $this->service->getAllReservations($request->toArray());
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
