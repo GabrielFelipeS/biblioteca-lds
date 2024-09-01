@@ -1,4 +1,4 @@
-# Documentação da API
+[# Documentação da API
 
 ## Usuário Administrador Padrão:
 
@@ -794,7 +794,65 @@
         "message": "Reserva {{status}}"
     }
     ```
+  
+# Rotas Painel de Admin
+
+### Para acessar as rotas é necessario a role de : `bibliotecario`
+
+## Rota api/admin/reservations
+
+### Método: GET
+
+### Campos Necessarios (Todos São Opcionais)
+
+- `to` (string): Data de término da reserva
+- `from` (string): Data de início da reserva
+- `status` (string): Status da reserva ('pending', 'approved', 'returned', 'canceled',  'expired', 'overdue')
+- `user_id` (string): Id do usuário que fez a reserva
+- `book_id` (string): Id do livro reservado
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+
+- **Retorno:**
+    ```json
+    {
+        {
+        "id": "1",
+        "user_id": "1",
+        "book_id": "1",
+        "from": "2021-09-01",
+        "to": "2021-09-15",
+        "status": "('pending', 'approved', 'returned', 'canceled',  'expired', 'overdue')"
+        }
+    }
+    ```
+### erros de validação
+
+- **Código HTTP:** 422 Unprocessable Entity**
+
+- **Retorno:**
+    ```json
+    {
+        "message": "O campo book_id é obrigatório (and 1 more error)",
+        "errors": {
+            "book_id": [
+                // Mensagens de erro específicas para o campo "book_id"
+            ],
+            "from": [
+                // Mensagens de erro específicas para o campo "from"
+            ],
+            "to": [
+                // Mensagens de erro específicas para o campo "to"
+            ]
+        }
+    }
+    ```
 
 
 
 
+]()
