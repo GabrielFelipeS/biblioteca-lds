@@ -160,4 +160,59 @@ class CreateReservationTest extends TestCase
 
         $this->assertEquals('A data de retorno não pode ser maior que 7 dias após a data de retirada.', $response['errors']['to'][0]);
     }
+
+    public function test_criando_reservas_com_reservas_ja_terminadas(){
+        $user = \App\Models\User::factory()->create();
+        $permission =  Permission::findByName('criar reserva');
+        $user->givePermissionTo($permission);
+        $token = $user->createToken('token')->accessToken;
+        $book = \App\Models\Book::factory()->create();
+        $book2 = \App\Models\Book::factory()->create();
+        $book3 = \App\Models\Book::factory()->create();
+        $book4 = \App\Models\Book::factory()->create();
+
+        $reservation = \App\Models\Reservation::factory()->create([
+            'user_id' => $user->id,
+            'book_id' => $book->id,
+            'from' => Date('Y-m-d', strtotime('-7 days')),
+            'to' => Date('Y-m-d', strtotime('-1 days')),
+            'status' => 'pending'
+        ]);
+
+        $reservation2 = \App\Models\Reservation::factory()->create([
+            'user_id' => $user->id,
+            'book_id' => $book2->id,
+            'from' => Date('Y-m-d', strtotime('-7 days')),
+            'to' => Date('Y-m-d', strtotime('-1 days')),
+            'status' => 'canceled'
+        ]);
+
+        $reservation3 = \App\Models\Reservation::factory()->create([
+            'user_id' => $user->id,
+            'book_id' => $book3->id,
+            'from' => Date('Y-m-d', strtotime('-7 days')),
+            'to' => Date('Y-m-d', strtotime('-1 days')),
+            'status' => 'canceled'
+        ]);
+
+        $data = [
+            'book_id' => $book4->id,
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
+        ];
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->postJson('/api/reservation', $data);
+
+
+        $response->assertStatus(201);
+
+        $this->assertDatabaseHas('reservations', [
+            'book_id' => $book4->id,
+            'from' => Date('Y-m-d', strtotime('+1 day')),
+            'to' => Date('Y-m-d', strtotime('+7 days')),
+            'status' => 'pending'
+        ]);
+    }
 }
