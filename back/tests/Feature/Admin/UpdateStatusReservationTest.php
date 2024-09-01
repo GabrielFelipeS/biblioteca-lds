@@ -35,4 +35,28 @@ class UpdateStatusReservationTest extends TestCase
             'status' => 'approved'
         ]);
     }
+
+    public function test_reprovando_reserva_de_usuario_com_sucesso()
+    {
+        $user = User::find(1);
+
+        $token = $user->createToken('token')->accessToken;
+
+        $reservation = Reservation::factory()->create([
+            'status' => 'pending'
+        ]);
+
+        $response = $this->withHeaders([
+            'Authorization' => 'Bearer ' . $token
+        ])->putJson('/api/admin/reservations/' . $reservation->id . '/status', [
+            'status' => 'rejected'
+        ]);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('reservations', [
+            'id' => $reservation->id,
+            'status' => 'rejected'
+        ]);
+    }
 }
