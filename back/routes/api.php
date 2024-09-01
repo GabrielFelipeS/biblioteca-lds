@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\Admin\ReservationsController as AdminReservationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,7 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/reservation/{reservation}/renewal', [ReservationController::class, 'renewal']);
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/reservations', [ReservationController::class, 'index']);
+        Route::get('/reservations', [AdminReservationController::class, 'index']);
     });
 });
 
