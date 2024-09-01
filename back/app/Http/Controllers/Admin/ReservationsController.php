@@ -25,4 +25,13 @@ class ReservationsController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try {
+            return $this->service->updateStatus($id, $request->status);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
 }
