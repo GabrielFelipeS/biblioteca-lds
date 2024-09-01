@@ -45,4 +45,15 @@ class BookService
     {
         return $this->repository->delete($id);
     }
+
+    public function searchBook(string $query): Collection
+    {
+        $fields = (new Book())->getFillable();
+
+        unset(
+            $fields[array_search('image', $fields, true)],
+        );
+
+        return $this->repository->search($query, $fields);
+    }
 }

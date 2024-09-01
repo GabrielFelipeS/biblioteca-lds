@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Book\BookRegisterRequest;
+use App\Http\Requests\Book\BookSearchRequest;
 use App\Http\Requests\Book\BookUpdateRequest;
 use App\Models\Book;
 use App\Services\BookService;
@@ -169,6 +170,33 @@ class BookController extends Controller
                 ];
                 Log::error('Erro ao remover livro: ' . json_encode($parametrosLog));
                 return response()->json(['message' => 'Erro ao deletar o livro ' . $th->getMessage()], 500);
+            }
+        } else {
+            return response()->json(['message' => 'Não autorizado'], 403);
+        }
+    }
+
+    public function searchBook(string $query): JsonResponse
+    {
+        if (auth()->user()->can('listar livro')) {
+            try{
+                $response = $this->service->searchBook($query);
+                $parametrosLog = [
+                    'ipUsuario' => request()->ip(),
+                    'idUsuario' => auth()->user()->getAuthIdentifier(),
+                    'query' => $query,
+                ];
+                Log::info('Pesquisa de livros: ' . json_encode($parametrosLog));
+                return response()->json(data: $response, status: 200);
+            } catch (\Throwable $th) {
+                $parametrosLog = [
+                    'ipUsuario' => request()->ip(),
+                    'erro' => $th->getMessage(),
+                    'idUsuario' => auth()->user()->getAuthIdentifier(),
+                    'query' => $query
+                ];
+                Log::error('Erro ao retornar livros: ' . json_encode($parametrosLog));
+                return response()->json('Erro ao retornar livros ' . $th->getMessage(), 500);
             }
         } else {
             return response()->json(['message' => 'Não autorizado'], 403);
