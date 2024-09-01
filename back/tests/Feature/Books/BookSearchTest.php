@@ -14,12 +14,13 @@ class BookSearchTest extends TestCase
 
     private string $token;
     private User $user;
+    private Book $book;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        Book::factory()->create([
+        $this->book = Book::factory()->create([
             'title' => 'teste',
         ]);
 
@@ -29,10 +30,12 @@ class BookSearchTest extends TestCase
 
     public function test_search_book(): void
     {
-        $response = $this->getJson('/api/books/search?title=teste', [
+        $response = $this->getJson('/api/books/search/teste', [
             'Authorization' => "Bearer {$this->token}",
         ]);
 
+
+        $this->assertEquals($this->book->id, $response->json()[0]['id']);
         $response->assertStatus(200);
     }
 
@@ -41,19 +44,10 @@ class BookSearchTest extends TestCase
         $user = User::factory()->create();
         $token = $user->createToken('token')->accessToken;
 
-        $response = $this->getJson('/api/books/search?title=1', [
+        $response = $this->getJson('/api/books/search/1', [
             'Authorization' => "Bearer {$token}",
         ]);
 
         $response->assertStatus(403);
-    }
-
-    public function test_wrong_parameter_request(): void
-    {
-        $response = $this->getJson('/api/books/search?batata=iso', [
-            'Authorization' => "Bearer {$this->token}",
-        ]);
-
-        $response->assertStatus(400);
     }
 }
