@@ -176,15 +176,15 @@ class BookController extends Controller
         }
     }
 
-    public function searchBook(BookSearchRequest $request): JsonResponse
+    public function searchBook(string $query): JsonResponse
     {
         if (auth()->user()->can('listar livro')) {
             try{
-                $params = $request->validated();
-                $response = $this->service->searchBook($params);
+                $response = $this->service->searchBook($query);
                 $parametrosLog = [
                     'ipUsuario' => request()->ip(),
                     'idUsuario' => auth()->user()->getAuthIdentifier(),
+                    'query' => $query,
                 ];
                 Log::info('Pesquisa de livros: ' . json_encode($parametrosLog));
                 return response()->json(data: $response, status: 200);
@@ -193,6 +193,7 @@ class BookController extends Controller
                     'ipUsuario' => request()->ip(),
                     'erro' => $th->getMessage(),
                     'idUsuario' => auth()->user()->getAuthIdentifier(),
+                    'query' => $query
                 ];
                 Log::error('Erro ao retornar livros: ' . json_encode($parametrosLog));
                 return response()->json('Erro ao retornar livros ' . $th->getMessage(), 500);
