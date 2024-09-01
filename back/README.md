@@ -743,6 +743,8 @@
 
 ## Rota api/reservation/{reservation}/renewal
 
+### Método: PUT
+
 ### campos necessários
 
 - `to` (string): Data de término da reserva (Maximo de 7 dias a partir da data de início)
