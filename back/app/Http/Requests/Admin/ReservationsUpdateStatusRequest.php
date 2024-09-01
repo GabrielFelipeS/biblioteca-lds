@@ -35,7 +35,7 @@ class ReservationsUpdateStatusRequest extends FormRequest
     {
         return [
             'status.required' => 'O campo status é obrigatório.',
-            'status.in' => 'O campo status deve ser approved, rejected, returned ou canceled.'
+            'status.in' => 'Status inválido'
         ];
     }
 }
