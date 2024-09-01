@@ -34,4 +34,16 @@ class ReservationsSearchRequest extends FormRequest
             'book_id' => ['integer'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'from.date' => 'O campo from deve ser uma data',
+            'to.date' => 'O campo to deve ser uma data',
+            'status.string' => 'O campo status deve ser uma string',
+            'status.in' => 'O campo status deve ser um dos valores: pending,completed,canceled,expired,overdue,approved,rejected,returned',
+            'user_id.integer' => 'O campo user_id deve ser um inteiro',
+            'book_id.integer' => 'O campo book_id deve ser um inteiro',
+        ];
+    }
 }
