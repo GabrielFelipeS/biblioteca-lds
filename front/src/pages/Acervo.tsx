@@ -140,14 +140,14 @@ export function Acervo() {
                                         <td className="cursor-pointer border">
                                             <button onClick={() => deleteBook(book.title, book.id)} className="bg-ligth-red p-1 md:p-1.5 rounded-lg w-full"><img src={deletarImg} alt="Icone de deletar" className="w-4 h-3 m-auto" /> </button>
                                         </td>
-                                        <td className="px-1 max-sm:px-0   border max-sm:text-xs">{book.title}</td>
-                                        <td className="px-1 border max-sm:hidden">{book.author}</td>
-                                        <td className="border hidden lg:table-cell">{book.genre}</td>
-                                        <td className="border hidden lg:table-cell text-center">{book.isbn}</td>
-                                        <td className="border hidden xl:table-cell text-center">{book.year}</td>
-                                        <td className="border hidden xl:table-cell">{book.publisher}</td>
-                                        <td className="border hidden xl:table-cell text-center">{book.edition}</td>
-                                        <td className="max-sm:text-xs border text-center">1/{unit}</td>
+                                        <td className="px-1 max-sm:px-0 border max-sm:text-xs break-words">{book.title}</td>
+                                        <td className="px-1 border max-sm:hidden break-words">{book.author}</td>
+                                        <td className="border hidden lg:table-cell break-words">{book.genre}</td>
+                                        <td className="border hidden lg:table-cell text-center break-words">{book.isbn}</td>
+                                        <td className="border hidden xl:table-cell text-center break-words">{book.year}</td>
+                                        <td className="border hidden xl:table-cell break-words">{book.publisher}</td>
+                                        <td className="border hidden xl:table-cell text-center break-words">{book.edition}</td>
+                                        <td className="max-sm:text-xs border text-center break-words">1/{unit}</td>
                                     </tr>)
                             })}
                         </tbody>

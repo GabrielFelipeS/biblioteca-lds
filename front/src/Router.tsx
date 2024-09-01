@@ -16,6 +16,7 @@ export function Router() {
                 <Route path={"/register"} element={<Register/>}/>
                 <Route path={"/acervo"} element={<Acervo/>}/>
                 <Route path={"/emprestimo"} element={<Emprestimo/>}/>
+                <Route path={"/user/emprestimo"} element={<Acervo/>}/>
                 <Route path={"/livro/cadastrar"} element={<CadastrarLivro/>}/>
                 <Route path={"/livro/editar/:id"} element={<EditBook/>}/>
                 <Route path="/*" element={<Navigate to="/home" replace />} />

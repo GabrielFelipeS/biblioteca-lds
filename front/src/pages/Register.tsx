@@ -24,7 +24,6 @@ export function Register() {
             password_confirmation
         }
 
-        console.log(data)
         api.post("auth/register", data)
             .then(() => navigate("/login"))
             .catch(e => {

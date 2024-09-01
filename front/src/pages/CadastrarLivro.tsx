@@ -31,7 +31,7 @@ export function CadastrarLivro() {
         ).then(response => {
                 console.log(response)
                 if(response.status == 201) {
-                    console.log("FUNCIONOUUUU")
+                    //  TODO: enviar para pagina do livro
                 }
             }).catch(e => console.log(e))
     }
