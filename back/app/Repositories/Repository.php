@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Book;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 
 abstract class Repository
 {
@@ -42,7 +43,7 @@ abstract class Repository
         $fillableFields = $this->model->getFillable();
 
         foreach ($fillableFields as $field) {
-            $search->orWhere($field, 'LIKE', "%{$query}%");
+            $search->orWhere(DB::raw("LOWER(CAST({$field} AS TEXT))"), 'LIKE', '%' . strtolower($query) . '%');
         }
 
         return $search->get();
