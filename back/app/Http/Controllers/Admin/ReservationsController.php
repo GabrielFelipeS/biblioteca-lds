@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\ReservationsSearchRequest;
 use App\Services\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +17,7 @@ class ReservationsController extends Controller
         }
     }
 
-    public function index(Request $request)
+    public function index(ReservationsSearchRequest $request)
     {
         try {
             return $this->service->getAllReservations($request->all());
