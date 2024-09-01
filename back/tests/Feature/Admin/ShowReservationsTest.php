@@ -60,4 +60,25 @@ class ShowReservationsTest extends TestCase
 
         $response->assertJsonCount(5);
     }
+
+    public function test_buscando_reservas_com_data_especifica_devolvidas(){
+        $user = User::find(1);
+        $token = $user->createToken('token')->accessToken;
+
+        $allReservations = Reservation::where('status', 'returned')->count();
+
+        $reservations = Reservation::factory()->count(5)->create([
+            'status' => 'returned',
+            'from' => '2021-10-10',
+            'to' => '2021-10-20'
+        ]);
+
+        $response = $this->withHeaders([
+            "Authorization" => "Bearer $token",
+        ])->getJson('/api/admin/reservations?from=2021-10-10&to=2021-10-20&status=returned');
+
+        $response->assertStatus(200);
+
+        $response->assertJsonCount(5);
+    }
 }
