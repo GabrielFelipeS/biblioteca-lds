@@ -3,6 +3,7 @@ import {useState} from "react";
 import {Book, LivroEmpty} from "../types/Book.ts";
 import {FormLivro} from "../components/FormLivro.tsx";
 import {api} from "../services/api.ts";
+import { BackArrow } from "../components/BackArrow.tsx";
 
 export function CadastrarLivro() {
     const [book, setBook] = useState<Book>(LivroEmpty)
@@ -39,8 +40,8 @@ export function CadastrarLivro() {
     return (
         <div className={"bg-ligth-background_secondary w-full h-full"}>
             <NavBar/>
-
-            <div className={`min-h-screen w-full flex justify-center pt-14`}>
+            <BackArrow/>
+            <div className={` w-full flex justify-center pt-14`}>
                <FormLivro
                    handleSubmit={handleSubmit}
                    livro={book}
