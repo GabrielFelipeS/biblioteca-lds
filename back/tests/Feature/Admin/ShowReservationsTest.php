@@ -12,6 +12,12 @@ class ShowReservationsTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        Reservation::truncate();
+    }
+
     public function test_checando_todas_reservas_do_sistema()
     {
         $user = User::find(1);
