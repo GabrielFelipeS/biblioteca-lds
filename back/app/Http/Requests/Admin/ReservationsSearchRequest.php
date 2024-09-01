@@ -29,7 +29,7 @@ class ReservationsSearchRequest extends FormRequest
         return [
             'from' => ['date'],
             'to' => ['date'],
-            'status' => ['string'],
+            'status' => ['string', 'in:pending,completed,canceled,expired,overdue,approved,rejected,returned'],
             'user_id' => ['integer'],
             'book_id' => ['integer'],
         ];
