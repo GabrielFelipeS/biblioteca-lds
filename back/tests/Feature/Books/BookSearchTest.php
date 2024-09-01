@@ -26,7 +26,10 @@ class BookSearchTest extends TestCase
             'publisher' => 'joão'
         ]);
 
-        $this->user = User::findOrFail(1);
+        $this->user = User::factory()->create();
+
+        $this->user->assignRole('solicitante');
+
         $this->token = $this->user->createToken('token')->accessToken;
     }
 
