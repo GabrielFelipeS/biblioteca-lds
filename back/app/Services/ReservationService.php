@@ -171,4 +171,23 @@ class ReservationService
             return response()->json(['message' => 'Erro ao buscar reservas'], 500);
         }
     }
+
+    public function updateStatus($id, $status)
+    {
+        try {
+            Log::info('Atualizando status da reserva: ' . $id . ' para: ' . $status . ', Pelo usuário: ' . Auth::user()->id);
+            $reservation = $this->repository->find($id);
+            if (!$reservation) {
+                Log::info('Erro na tentativa de atualizar status de reserva inexistente, Pelo usuário: ' . Auth::user()->id);
+                return response()->json(['message' => 'Reserva não encontrada'], 404);
+            }
+            $reservation->status = $status;
+            $reservation->save();
+            Log::info('Status da reserva atualizado com sucesso para o livro: ' . $reservation->book_id . ', Pelo usuário: ' . Auth::user()->id);
+            return response()->json(['message' => 'Status da reserva alterado com sucesso'], 200);
+        } catch (\Throwable $th) {
+            Log::error('Erro ao atualizar status da reserva: ' . $th->getMessage());
+            return response()->json(['message' => 'Error'], 500);
+        }
+    }
 }
