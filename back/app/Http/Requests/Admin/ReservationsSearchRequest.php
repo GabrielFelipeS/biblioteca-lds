@@ -44,6 +44,8 @@ class ReservationsSearchRequest extends FormRequest
             'status.in' => 'O campo status deve ser um dos valores: pending,completed,canceled,expired,overdue,approved,rejected,returned',
             'user_id.integer' => 'O campo user_id deve ser um inteiro',
             'book_id.integer' => 'O campo book_id deve ser um inteiro',
+            'user_id.exists' => 'O usuário informado não existe',
+            'book_id.exists' => 'O livro informado não existe',
         ];
     }
 }
