@@ -22,5 +22,9 @@ Route::middleware('auth:api')->group(function () {
     Route::apiResource('/books', BookController::class)->withoutMiddleware(['auth:api']);
     Route::resource('reservation', ReservationController::class);
     Route::put('/reservation/{reservation}/renewal', [ReservationController::class, 'renewal']);
+
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/reservations', [ReservationController::class, 'index']);
+    });
 });
 
