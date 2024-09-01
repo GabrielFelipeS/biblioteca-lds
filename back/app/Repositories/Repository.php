@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
@@ -34,14 +35,16 @@ abstract class Repository
         return $this->model->find($id)->delete();
     }
 
-    public function search(array $params): LengthAwarePaginator
+    public function search(string $query): Collection
     {
-        $query = $this->model->query();
+        $search = $this->model->query();
 
-        foreach ($params as $key => $value) {
-            $query->where($key, 'like', '%' . $value . '%');
+        $fillableFields = $this->model->getFillable();
+
+        foreach ($fillableFields as $field) {
+            $search->orWhere($field, 'LIKE', "%{$query}%");
         }
 
-        return $query->paginate(15);
+        return $search->get();
     }
 }
