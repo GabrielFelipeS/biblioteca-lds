@@ -141,6 +141,8 @@
         "message": "Erro ao realizar logout!."
     }
     ```
+  
+# Rotas referente aos livros
 
 ## Rota api/auth/validate
 
@@ -299,6 +301,82 @@
     }
     ```
 
+#### Erro de autenticação
+
+- **Código HTTP:** 403 Forbidden
+- **Retorno:**
+    ```json
+    {
+        "message": "Não autorizado"
+    }
+    ```
+
+#### Erro no retorno
+- **Código HTTP:** 500 Internal Server Error
+- **Retorno:**
+    ```json
+    {
+        "message": "Erro ao pesquisar livro {$errorMessage}"
+    }
+    ```
+
+## Rota api/books/search/{query}
+
+### Método: GET
+
+### Campos Necessários
+
+- `query` (string): Texto que será pesquisado (a pesquisa sera feita em todos os campos `fillable` do livro)
+
+### Campos Fillable
+
+- `title`
+- `author`
+- `year`
+- `isbn`
+- `genre`
+- `publisher`
+- `edition`
+
+### Respostas
+
+#### Sucesso
+
+- **Código HTTP:** 200 Ok
+- **Retorno:**
+    ```json
+    [
+        {
+        "id": 1,
+        "title": "Aut aliquam eum.",
+        "author": "Amya Dare MD",
+        "year": 1984,
+        "isbn": "9785185287316",
+        "created_at": "2024-08-29T21:38:49.000000Z",
+        "updated_at": "2024-08-29T21:38:49.000000Z",
+        "genre": "quia",
+        "publisher": "Rempel Inc",
+        "edition": "10º",
+        "image": "https://via.placeholder.com/640x480.png/0088cc?text=sed",
+        "deleted_at": null
+      },
+      {
+        "id": 2,
+        "title": "Quidem voluptatem consequatur.",
+        "author": "Michaela Schulist",
+        "year": 2007,
+        "isbn": "9780757584978",
+        "created_at": "2024-08-29T21:38:49.000000Z",
+        "updated_at": "2024-08-29T21:38:49.000000Z",
+        "genre": "aperiam",
+        "publisher": "McLaughlin Ltd",
+        "edition": "5º",
+        "image": "https://via.placeholder.com/640x480.png/0011ff?text=hic",
+        "deleted_at": null
+      },
+    ]       
+    ```
+  
 #### Erro de autenticação
 
 - **Código HTTP:** 403 Forbidden
