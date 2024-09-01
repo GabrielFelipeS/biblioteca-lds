@@ -3,6 +3,7 @@ import { NavBar } from "../components/NavBar";
 import { Book, LivroEmpty } from "../types/Book";
 import { useParams } from "react-router-dom";
 import { api, dominio } from "../services/api";
+import { BackArrow } from "../components/BackArrow";
 
 export function FichaTecnica() {
     const { id } = useParams()
@@ -30,6 +31,7 @@ export function FichaTecnica() {
     return (
         <div className={"bg-ligth-background_secondary pb-20 h-full w-full"}>
             <NavBar />
+            <BackArrow/>
             <div className="flex justify-center pt-14">
                 <div className={`h-full w-full flex flex-col justify-center items-center`}>
                     <div className="w-2/4 h-min bg-white mt-9 pb-20 text-ligth-button drop-shadow-lg">
