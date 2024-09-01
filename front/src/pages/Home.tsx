@@ -5,7 +5,7 @@ import { Book } from "../types/Book.ts";
 
 export function Home() {
     const [books, setBooks] = useState<Book[]>([])
-
+    console.log(books.length)
     return (
         <div className={"bg-ligth-background_secondary pb-20 h-full w-full"}>
             <NavBar />

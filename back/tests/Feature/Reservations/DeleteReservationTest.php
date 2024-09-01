@@ -15,6 +15,7 @@ class DeleteReservationTest extends TestCase
     {
         $user = User::factory()->create();
         $token = $user->createToken('token')->accessToken;
+        $user->givePermissionTo('cancelar reserva');
         $reservation = Reservation::factory()->create([
             'user_id' => $user->id,
             'status' => 'pending',
@@ -36,7 +37,7 @@ class DeleteReservationTest extends TestCase
     {
         $user = User::factory()->create();
         $token = $user->createToken('token')->accessToken;
-
+        $user->givePermissionTo('cancelar reserva');
         $response = $this->withHeaders([
             'Authorization' => 'Bearer ' . $token,
         ])->deleteJson('/api/reservation/1000');
@@ -48,6 +49,7 @@ class DeleteReservationTest extends TestCase
     {
         $user = User::factory()->create();
         $token = $user->createToken('token')->accessToken;
+        $user->givePermissionTo('cancelar reserva');
         $reservation = Reservation::factory()->create([
             'user_id' => $user->id,
             'status' => 'approved',
