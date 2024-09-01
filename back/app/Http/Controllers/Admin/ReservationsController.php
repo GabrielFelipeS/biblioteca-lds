@@ -11,7 +11,7 @@ class ReservationsController extends Controller
 {
     public function __construct(private ReservationService $service)
     {
-        if(Auth::user()->hasRole('admin') === false) {
+        if(Auth::user()->hasRole('bibliotecario') === false) {
             abort(403);
         }
     }
