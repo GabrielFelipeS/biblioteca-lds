@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\ReservationsSearchRequest;
+use App\Http\Requests\Admin\ReservationsUpdateStatusRequest;
 use App\Services\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,7 +27,7 @@ class ReservationsController extends Controller
         }
     }
 
-    public function updateStatus(Request $request, $id)
+    public function updateStatus(ReservationsUpdateStatusRequest $request, $id)
     {
         try {
             return $this->service->updateStatus($id, $request->status);
