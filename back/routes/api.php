@@ -26,6 +26,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/reservations', [AdminReservationController::class, 'index']);
+        Route::put('/reservations/{reservation}/status', [AdminReservationController::class, 'updateStatus']);
     });
 });
 
