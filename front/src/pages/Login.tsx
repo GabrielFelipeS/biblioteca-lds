@@ -1,18 +1,18 @@
-import {useEffect, useState} from "react";
+import {useContext, useState} from "react";
 import {api} from "../services/api"
 import {useNavigate} from "react-router-dom";
+import { BackArrow } from "../components/BackArrow";
+import { VerifyAuth } from "../services/VerifyAuth";
+import { AuthContext } from "../Router";
 
 export function Login() {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const navigete = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token")
-        if(token && token.trim().length != 0) {
-            navigete("/home")
-        }
-    }, [])
+    const {notIsLoggedIn, setRole} = useContext(AuthContext)
+
+    VerifyAuth(notIsLoggedIn);
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -23,11 +23,28 @@ export function Login() {
         }
 
         api.post("auth/login", data)
-            .then(response => response.data)
+            .then(response => {
+                console.log(response.data)
+                return response.data
+            })
             .then(responseData =>  responseData.token)
             .then(responseToken => {
-                localStorage.setItem("token", responseToken)
-                navigete("/home")
+                api.get("auth/validate",
+                    {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization:  "Bearer " +  responseToken
+                        }
+                    })
+                .then(response => response.data.type)
+                .then(type => {
+                    setRole(type)
+                    localStorage.setItem("token", responseToken)
+                    navigete("/home")
+                }).catch(e => {
+                    console.log(e)
+                 })
             })
             .catch(e => {
                console.log(e)
@@ -37,12 +54,14 @@ export function Login() {
 
     return (
         <div className={"flex w-screen h-screen bg-ligth-background"}>
+            <BackArrow/>
             <div className="hidden w-2/3 md:flex justify-center items-end" >
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex
                 </div>
             </div>
             <div className="bg-ligth-container max-md:w-full w-1/3 flex justify-center items-center">
+            
                 <form className="flex flex-col justify-center w-56" onSubmit={handleSubmit}>
                     <div className="text-ligth-primary font-bold text-5xl mb-5 flex justify-center">
                             Login

@@ -1,7 +1,9 @@
-import {useState} from "react";
-import * as React from "react";
+import {useContext, useState} from "react";
 import {api} from "../services/api.ts";
 import {useNavigate} from "react-router-dom";
+import { BackArrow } from "../components/BackArrow.tsx";
+import { VerifyAuth } from "../services/VerifyAuth";
+import { AuthContext } from "../Router";
 
 export function Register() {
     const navigate = useNavigate()
@@ -12,6 +14,10 @@ export function Register() {
     const [telefone, setTelefone] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const [password_confirmation, setPasswordConfirmation] = useState<string>("")
+
+    const {notIsLoggedIn} = useContext(AuthContext)
+
+    VerifyAuth(notIsLoggedIn);
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -34,6 +40,7 @@ export function Register() {
     }
     return (
         <div className={"flex w-screen h-screen bg-ligth-background"}>
+             <BackArrow/>
             <div className="hidden w-1/2 md:flex justify-center items-end">
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex

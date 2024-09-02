@@ -3,12 +3,14 @@ import verImg from "../assets/ver.png"
 import editarImg from "../assets/editar.png"
 import deletarImg from "/src/assets/deletar.png"
 import { Book } from "../types/Book.ts";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../services/api.ts"
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
+import { AuthContext } from "../Router";
+import { VerifyAuth } from "../services/VerifyAuth";
 
 
 export function Acervo() {
@@ -18,6 +20,11 @@ export function Acervo() {
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
 
+    const {isAdmin} = useContext(AuthContext)
+
+    VerifyAuth(isAdmin);
+
+    
     function desconstrutorPagination({current_page, first_page_url, from, last_page,
              last_page_url, links, next_page_url, path, per_page, prev_page_url, to ,total}: PaginationType) {
             return {
@@ -53,6 +60,10 @@ export function Acervo() {
             .catch(e => console.log(e))
     }, [update])
 
+    function redirectToFichaTecnica(id: number) {
+        navigate(`/livro/ficha/${id}`)
+    }
+
     function editBook(id: number) {
         navigate(`/livro/editar/${id}`)
     }
@@ -78,7 +89,6 @@ export function Acervo() {
                         }
                     })
                     .then(response => {
-                        console.log(response)
                         if (response.status == 204) {
                             Swal.fire({
                                 title: "Deleted!",
@@ -132,7 +142,9 @@ export function Acervo() {
                                 return (
                                     <tr className="" id={index.toString()} key={index}>
                                         <td className="cursor-pointer border max-sm:px-0  max-sm:py-0">
-                                            <button className="bg-ligth-blue p-1 md:p-1.5 rounded-lg w-full"><img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" /></button>
+                                            <button onClick={() => redirectToFichaTecnica(book.id)} className="bg-ligth-blue p-1 md:p-1.5 rounded-lg w-full" >
+                                                <img src={verImg} alt="Icone de visualização" className="w-4 h-3 m-auto" />
+                                            </button>
                                         </td>
                                         <td className="cursor-pointer border">
                                             <button onClick={() => editBook(book.id)} className="bg-ligth-orange p-1 md:p-1.5 rounded-lg w-full"> <img src={editarImg} alt="Icone de editar" className="w-4 h-3 m-auto" /> </button>

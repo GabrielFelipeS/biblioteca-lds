@@ -21,7 +21,7 @@ export function Pagination({ pagination, setPagination, setUpdate }: PaginationP
                 <button
                     key={index}
                     onClick={() => handlePagination(link.url)}
-                    className={`px-4 py-2 ${link.active ? 'bg-ligth-background text-white' : 'bg-gray-200 text-gray-700'}`}
+                    className={`px-4 py-2 rounded-lg ${link.active ? 'bg-ligth-background text-white' : 'bg-gray-200 text-gray-700'}`}
                     dangerouslySetInnerHTML={{ __html: link.label }}
                 />
             ))}
