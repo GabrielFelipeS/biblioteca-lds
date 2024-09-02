@@ -53,12 +53,12 @@ class AuthController extends Controller
         try {
             Log::info('Validando token do usuário: ' . auth()->user()->email);
             if (Auth::user()->hasRole('bibliotecario')) {
-                return response()->json(['message' => 'Token válido!', "type" => "bibliotecario"]);
+                return response()->json(['message' => 'Token válido!', "type" => "bibliotecario", "user" => Auth::user()]);
             }
             if (Auth::user()->hasRole('solicitante')) {
-                return response()->json(['message' => 'Token válido!', "type" => "usuario"]);
+                return response()->json(['message' => 'Token válido!', "type" => "usuario", "user" => Auth::user()]);
             }
-            return response()->json(['message' => 'Token válido!', "type" => null]);
+            return response()->json(['message' => 'Token válido!', "type" => null, "user" => Auth::user()]);
         } catch (\Throwable $th) {
             Log::error('Erro ao validar token: ' . $th->getMessage());
             return response()->json(['message' => 'Erro ao validar token!'], 500);
