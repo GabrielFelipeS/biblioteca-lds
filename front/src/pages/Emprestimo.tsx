@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { api } from "../services/api";
 import { Reservation, emptyReservation } from "../types/Reservation";
 import Swal from "sweetalert2";
+import { AuthContext } from "../Router";
+import { VerifyAuth } from "../services/VerifyAuth";
 
 export function Emprestimo() {
     const [load, setLoad] = useState(true)
@@ -11,6 +13,11 @@ export function Emprestimo() {
     const bearer = "Bearer " + localStorage.getItem("token");
 
     const [reservation, setReservation] = useState<Reservation>(emptyReservation);
+
+    const { isLoggedIn } = useContext(AuthContext)
+
+    VerifyAuth(isLoggedIn);
+
 
     useEffect(() => {
         api.get("reservation",
@@ -63,7 +70,7 @@ export function Emprestimo() {
             confirmButtonText: "Sim, renovar o livro!",
             cancelButtonText: "Cancelar"
         }).then(response => {
-            if(response.isConfirmed) {
+            if (response.isConfirmed) {
                 api.put(`reservation/${id}/renewal`,
                     {
                         to: date
@@ -81,7 +88,7 @@ export function Emprestimo() {
                     .catch(e => console.log(e))
             }
         })
-        
+
     }
 
     function handleReturn(id: number) {
@@ -95,7 +102,7 @@ export function Emprestimo() {
             confirmButtonText: "Sim, devolver o livro!",
             cancelButtonText: "Cancelar"
         }).then(response => {
-            if(response.isConfirmed) {
+            if (response.isConfirmed) {
                 api.delete(`reservation/${id}`,
                     {
                         headers: {
@@ -110,7 +117,7 @@ export function Emprestimo() {
                     .catch(e => console.log(e))
             }
         })
-       
+
     }
 
     return (
@@ -186,7 +193,9 @@ export function Emprestimo() {
                         <tbody>
                             {reservations &&
                                 Array.isArray(reservations) &&
+                                reservations.filter(reservation => reservation.status === "approved").length > 0 ? (
                                 reservations
+                                    .filter(reservation => reservation.status === "approved")
                                     .map((reservation, index) => {
                                         const MOCKADO = 'MOCKADO'
 
@@ -207,12 +216,67 @@ export function Emprestimo() {
                                                 <td className="px-6 border hidden lg:table-cell break-words">{MOCKADO}</td>
                                             </tr>
                                         )
-                                    })}
+                                    })) :
+                                    (
+                                        <tr>
+                                            <td colSpan={8} className="px-6 py-3 text-center">Nenhum livro emprestada</td>
+                                        </tr>
+                                    )
+                                }
                         </tbody>
                     </table>
                 </div>
             </div>
 
+            <div className="flex flex-col items-center pt-7 ">
+
+                <div className={`h-min w-min mt-5 flex flex-col justify-center items-center bg-white`}>
+                    <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl max-sm:text-base ">
+                        Livros pendentes para ser emprestado
+                    </div>
+
+                    <table className={"relative overflow-x-auto pr-2 mt-15"}>
+                        <thead>
+                            <tr className="text-ligth-primary bg-black">
+                                <th className="px-6 py-3 hidden lg:table-cell">Titulo</th>
+                                <th className="px-6 py-3 hidden lg:table-cell max-sm:hidden">ISBN</th>
+                                <th className="px-6 py-3 max-sm:text-xs">Data de emprestimo</th>
+                                <th className="px-6 py-3 max-sm:text-xs">Data de devolução</th>
+                                <th className="px-6 py-3 hidden lg:table-cell">Usuário</th>
+                                <th className="px-6 py-3 hidden lg:table-cell">E-mail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reservations &&
+                                Array.isArray(reservations) &&
+                                reservations.filter(reservation => reservation.status === "pending").length > 0 ? (
+                                reservations
+                                    .filter(reservation => reservation.status === "pending")
+                                    .map((reservation, index) => {
+                                        const MOCKADO = 'MOCKADO'
+
+
+                                        return (
+                                            <tr className="h-12" key={index}>
+                                                <td className="px-6 max-sm:px-0 hidden lg:table-cell max-sm:py-0 border max-sm:text-xs break-words">{MOCKADO}</td>
+                                                <td className="px-6 border hidden lg:table-cell max-sm:hidden break-words">{MOCKADO}</td>
+                                                <td className="px-6 border max-sm:text-xs break-words">{reservation.from}</td>
+                                                <td className="px-6 border max-sm:text-xs text-center break-words">{reservation.to}</td>
+                                                <td className="px-6 border hidden lg:table-cell text-center break-words">{MOCKADO}</td>
+                                                <td className="px-6 border hidden lg:table-cell break-words">{MOCKADO}</td>
+                                            </tr>
+                                        )
+                                    })) :
+                                (
+                                    <tr>
+                                        <td colSpan={6} className="px-6 py-3 text-center">Nenhuma reserva pendente</td>
+                                    </tr>
+                                )
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     );
 }

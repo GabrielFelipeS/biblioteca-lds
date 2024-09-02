@@ -10,18 +10,21 @@ import { MeusEmprestimos } from "./pages/MeusEmprestimos.tsx";
 import { FichaTecnica } from "./pages/FichaTecnica.tsx";
 import { createContext, useEffect, useState } from "react";
 import { api } from "./services/api.ts";
-import PrivateRoute from "./components/PrivateRoute.tsx";
 
 interface AuthContextType {
     role: string
+    setRole:  React.Dispatch<React.SetStateAction<string>>
+    isAdmin: boolean
+    notIsLoggedIn: boolean
+    isLoggedIn: boolean
 }
 
-export const AuthContext = createContext<AuthContextType>({ role: "visitor" });
+export const AuthContext = createContext<AuthContextType>({ role: "visitor", setRole: () => {} ,isAdmin: false, notIsLoggedIn: true, isLoggedIn: false });
 
 export function Router() {
     const [role, setRole] = useState<string>("visitor")
     const bearer = "Bearer " + localStorage.getItem("token");
-
+    console.log("SIM")
     const isAdmin: boolean = role.includes("bibliotecario")
     const notIsLoggedIn: boolean = role.includes("visitor")
     const isLoggedIn: boolean = !notIsLoggedIn
@@ -48,28 +51,19 @@ export function Router() {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ role }}>
+        <AuthContext.Provider value={{ role, setRole, isAdmin, isLoggedIn, notIsLoggedIn }}>
             <BrowserRouter>
                 <Routes>
                     <Route path={"/home"} element={<Home />} />
-
-                    <Route element={<PrivateRoute condition={notIsLoggedIn} />}>
-                        <Route path={"/login"} element={<Login />} />
-                        <Route path={"/register"} element={<Register />} />
-                    </Route>
-
-                    <Route element={<PrivateRoute condition={isLoggedIn} />}>
-                        <Route path={"/emprestimo"} element={<Emprestimo />} />
-                        <Route path={"/user/emprestimo"} element={<MeusEmprestimos />} />
-                        <Route path={"/livro/ficha/:id"} element={<FichaTecnica />} />
-                    </Route>
-
-                    <Route element={<PrivateRoute condition={isAdmin} />}>
-                        <Route path={"/acervo"} element={<Acervo />} />
-                        <Route path={"/livro/cadastrar"} element={<CadastrarLivro />} />
-                        <Route path={"/livro/editar/:id"} element={<EditBook />} />
-                    </Route>
-
+                    <Route path={"/login"} element={<Login />} />
+                    <Route path={"/register"} element={<Register />} />
+                    <Route path={"/emprestimo"} element={<Emprestimo />} />
+                    <Route path={"/user/emprestimo"} element={<MeusEmprestimos />} />
+                    <Route path={"/livro/ficha/:id"} element={<FichaTecnica />} />
+                    <Route path={"/acervo"} element={<Acervo />} />
+                    <Route path={"/livro/cadastrar"} element={<CadastrarLivro />} />
+                    <Route path={"/livro/editar/:id"} element={<EditBook />} />
+                    <Route path="/*" element={<Navigate to="/home" replace />} />
                 </Routes>
             </BrowserRouter>
         </AuthContext.Provider>

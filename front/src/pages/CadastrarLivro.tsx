@@ -1,15 +1,22 @@
 import {NavBar} from "../components/NavBar";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {Book, LivroEmpty} from "../types/Book.ts";
 import {FormLivro} from "../components/FormLivro.tsx";
 import {api} from "../services/api.ts";
 import { BackArrow } from "../components/BackArrow.tsx";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Router.tsx";
+import { VerifyAuth } from "../services/VerifyAuth.tsx";
 
 export function CadastrarLivro() {
     const [book, setBook] = useState<Book>(LivroEmpty)
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate()
+    
+    const {isAdmin} = useContext(AuthContext)
+
+    VerifyAuth(isAdmin);
+
     
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
