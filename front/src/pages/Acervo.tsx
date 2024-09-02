@@ -82,7 +82,6 @@ export function Acervo() {
                         }
                     })
                     .then(response => {
-                        console.log(response)
                         if (response.status == 204) {
                             Swal.fire({
                                 title: "Deleted!",

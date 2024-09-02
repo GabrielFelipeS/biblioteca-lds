@@ -4,11 +4,12 @@ import {Book, LivroEmpty} from "../types/Book.ts";
 import {FormLivro} from "../components/FormLivro.tsx";
 import {api} from "../services/api.ts";
 import { BackArrow } from "../components/BackArrow.tsx";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export function CadastrarLivro() {
     const [book, setBook] = useState<Book>(LivroEmpty)
     const bearer = "Bearer " + localStorage.getItem("token");
-    console.log(bearer)
+    const navigate = useNavigate()
     
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -30,9 +31,8 @@ export function CadastrarLivro() {
                 Authorization: bearer
             }}
         ).then(response => {
-                console.log(response)
                 if(response.status == 201) {
-                    //  TODO: enviar para pagina do livro
+                    navigate(`/livro/ficha/${response.data.idLivro}`)
                 }
             }).catch(e => console.log(e))
     }
