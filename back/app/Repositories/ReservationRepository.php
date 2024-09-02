@@ -28,4 +28,13 @@ class ReservationRepository extends Repository
             ->where('status', '!=', 'expired')
             ->get();
     }
+
+    public function getAllReservations(array $filters)
+    {
+        $query = $this->model->query();
+        foreach ($filters as $key => $value) {
+            $query->where($key, $value);
+        }
+        return $query->get();
+    }
 }
