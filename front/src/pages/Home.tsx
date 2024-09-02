@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { BookCard } from "../components/BookCard.tsx";
 import { NavBar } from "../components/NavBar.tsx";
 import { Search } from "../components/Search.tsx";
-import { Book } from "../types/Book.ts";
-import { BookCard } from "../components/BookCard.tsx";
 import { api } from "../services/api.ts";
+import { Book } from "../types/Book.ts";
 import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
-import { useNavigate } from "react-router-dom";
 
 export function Home() {
-     const [update, setUpdate] = useState(true);
     const [books, setBooks] = useState<Book[]>([])
     const [pagination, setPagination] = useState<PaginationType>(DefaultPagination)
     const bearer = "Bearer " + localStorage.getItem("token");
@@ -28,6 +27,7 @@ export function Home() {
         return books.length != 0 && pagination.current_page !== "1"
     }
 
+
     useEffect(() => {
         api.get(`books?page=${pagination.current_page}`,
             {
@@ -43,12 +43,10 @@ export function Home() {
                     setPagination(desconstrutorPagination(response.data))
                 } else {
                     setPagination(state => ({ ...state, current_page: "1" }))
-                    setUpdate(state => !state)
                 }
             })
             .catch(e => console.log(e))
-    }, [update])
-
+    }, [])
 
     return (
         <div className={"bg-ligth-background_secondary pb-20 min-h-screen w-full"}>
@@ -61,9 +59,9 @@ export function Home() {
                         <Search setBooks={setBooks} />
 
                     </div>
-                    <div className="w-11/12 h-min pl-10 pt-10 bg-white mt-9 text-ligth-button  drop-shadow-lg">
+                    <div className="w-11/12 h-min pl-10 pt-10 bg-white mt-9 pb-10 text-ligth-button  drop-shadow-lg">
                         <p className="ml-4 mt-1">Livros adicionados recenemente</p>
-                        <div className="flex flex-wrap gap-2 justify-evenly">
+                        <div className="flex flex-wrap gap-2 justify-evenly pb-5">
                             {books &&
                                 books
                                     .map((book, index) => (
@@ -77,8 +75,6 @@ export function Home() {
 
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
