@@ -20,6 +20,12 @@ class ReservationRepository extends Repository
     }
     public function findByUserActiveReservations(int $userId)
     {
-        return $this->model->where('user_id', $userId)->where('status', '!=', 'returned')->get();
+        return $this->model->query()
+            ->where('user_id', $userId)
+            ->where('status', '!=', 'returned')
+            ->where('status', '!=', 'canceled')
+            ->where('status', '!=', 'rejected')
+            ->where('status', '!=', 'expired')
+            ->get();
     }
 }

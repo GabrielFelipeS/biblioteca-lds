@@ -2,6 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\Book;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
+
 abstract class Repository
 {
     protected $model;
@@ -29,5 +34,16 @@ abstract class Repository
     public function delete(int $id)
     {
         return $this->model->find($id)->delete();
+    }
+
+    public function search(string $query, array $fields): Collection
+    {
+        $search = $this->model->query();
+
+        foreach ($fields as $field) {
+            $search->orWhere(DB::raw("LOWER(CAST({$field} AS TEXT))"), 'LIKE', '%' . strtolower($query) . '%');
+        }
+
+        return $search->get();
     }
 }
