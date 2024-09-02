@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { api } from "../services/api";
 import { Reservation, emptyReservation } from "../types/Reservation";
+import Swal from "sweetalert2";
 
 export function Emprestimo() {
     const [load, setLoad] = useState(true)
@@ -56,38 +57,66 @@ export function Emprestimo() {
         date.setDate(date.getDate() + 7)
 
         console.log(date)
-        api.put(`reservation/${id}/renewal`,
-            {
-                to: date
-            },
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: bearer
-                }
-            })
-            .then(response => {
-                console.log(response.data)
-                setLoad(state => !state)
-            })
-            .catch(e => console.log(e))
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: `Você não vai poder reverter o processo!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, renovar o livro!",
+            cancelButtonText: "Cancelar"
+        }).then(response => {
+            if(response.isConfirmed) {
+                api.put(`reservation/${id}/renewal`,
+                    {
+                        to: date
+                    },
+                    {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: bearer
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data)
+                        setLoad(state => !state)
+                    })
+                    .catch(e => console.log(e))
+            }
+        })
+        
     }
 
     function handleReturn(id: number) {
-        api.delete(`reservation/${id}`,
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: bearer
-                }
-            })
-            .then(response => {
-                console.log(response.data)
-                setLoad(state => !state)
-            })
-            .catch(e => console.log(e))
+        Swal.fire({
+            title: "Você tem certeza?",
+            text: `Você não vai poder reverter o processo!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Sim, devolver o livro!",
+            cancelButtonText: "Cancelar"
+        }).then(response => {
+            if(response.isConfirmed) {
+                api.delete(`reservation/${id}`,
+                    {
+                        headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            Authorization: bearer
+                        }
+                    })
+                    .then(response => {
+                        console.log(response.data)
+                        setLoad(state => !state)
+                    })
+                    .catch(e => console.log(e))
+            }
+        })
+       
     }
 
     return (
