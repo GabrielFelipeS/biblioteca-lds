@@ -8,13 +8,6 @@ export function Login() {
     const [password, setPassword] = useState<string>("")
     const navigete = useNavigate();
 
-    useEffect(() => {
-        const token = localStorage.getItem("token")
-        if(token && token.trim().length != 0) {
-            navigete("/home")
-        }
-    }, [])
-
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 

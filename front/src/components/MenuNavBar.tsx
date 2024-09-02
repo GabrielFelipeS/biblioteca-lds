@@ -24,7 +24,10 @@ export function MenuNavBar({ navigate }: MenuNavBarProps) {
                     Authorization: bearer
                 }
             })
-        .then(response => response.data.type)
+        .then(response => {
+            console.log(response.data)
+            return response.data.type
+        })
         .then(type => {
             console.log(type)
             setRole(type)
