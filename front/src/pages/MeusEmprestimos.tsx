@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { AuthContext } from "../Router";
 import { VerifyAuth } from "../services/VerifyAuth";
-import {Reservation } from "../types/Reservation";
+import { Reservation } from "../types/Reservation";
 import { api } from "../services/api";
 import { BookCard } from "../components/BookCard";
 import { LivroEmpty } from "../types/Book";
@@ -26,7 +26,7 @@ function Line({ index, reservation }: LineProps) {
             }
         ).then(response => {
             setBook(response.data)
-        }).catch(e => console.log(e))    
+        }).catch(e => console.log(e))
     })
 
     return (
@@ -63,15 +63,13 @@ export function MeusEmprestimos() {
             .catch(e => console.log(e))
     }, [])
 
-   
+
 
     return (
         <div className={"bg-ligth-background_secondary min-h-screen pb-20"}>
             <NavBar />
 
             <div className="flex flex-col items-center pt-7 ">
-              
-
                 <div className="w-3/5 bg-white mt-9 text-ligth-button h-min p-10 drop-shadow-lg ">
                     <h1 className="ml-4 mt-1 mb-10 font-bold text-center text-xl">Livros emprestados</h1>
 
@@ -91,7 +89,7 @@ export function MeusEmprestimos() {
 
                 <div className={`h-min w-2/3 mt-5 flex flex-col justify-center items-center bg-white`}>
                     <div className="text-ligth-primary bg-black w-full flex justify-center py-3 font-bold text-2xl max-sm:text-base ">
-                        Livros pendentes para ser reservado
+                        Pedidos de reserva pendentes
                     </div>
 
                     <table className={"relative overflow-x-auto w-full pr-2 mt-15"}>
@@ -99,7 +97,7 @@ export function MeusEmprestimos() {
                             <tr className="text-ligth-primary bg-black">
                                 <th className="px-6 py-3 hidden lg:table-cell">Titulo</th>
                                 <th className="px-6 py-3 hidden lg:table-cell max-sm:hidden">ISBN</th>
-                                <th className="px-6 py-3 max-sm:text-xs">Data de emprestimo</th>
+                                <th className="px-6 py-3 max-sm:text-xs">Data para emprestimo</th>
                                 <th className="px-6 py-3 max-sm:text-xs">Data de devolução</th>
                             </tr>
                         </thead>

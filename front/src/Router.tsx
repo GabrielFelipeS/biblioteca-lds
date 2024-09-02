@@ -10,6 +10,7 @@ import { MeusEmprestimos } from "./pages/MeusEmprestimos.tsx";
 import { FichaTecnica } from "./pages/FichaTecnica.tsx";
 import { createContext, useEffect, useState } from "react";
 import { api } from "./services/api.ts";
+import { Reservar } from "./pages/Reservar.tsx";
 
 interface AuthContextType {
     role: string
@@ -58,6 +59,7 @@ export function Router() {
                     <Route path={"/login"} element={<Login />} />
                     <Route path={"/register"} element={<Register />} />
                     <Route path={"/emprestimo"} element={<Emprestimo />} />
+                    <Route path={"/reservar"} element={<Reservar />} />
                     <Route path={"/user/emprestimo"} element={<MeusEmprestimos />} />
                     <Route path={"/livro/ficha/:id"} element={<FichaTecnica />} />
                     <Route path={"/acervo"} element={<Acervo />} />
