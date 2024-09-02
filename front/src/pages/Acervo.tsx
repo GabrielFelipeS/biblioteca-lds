@@ -3,12 +3,14 @@ import verImg from "../assets/ver.png"
 import editarImg from "../assets/editar.png"
 import deletarImg from "/src/assets/deletar.png"
 import { Book } from "../types/Book.ts";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../services/api.ts"
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
+import { AuthContext } from "../Router";
+import { VerifyAuth } from "../services/VerifyAuth";
 
 
 export function Acervo() {
@@ -18,6 +20,11 @@ export function Acervo() {
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate();
 
+    const {isAdmin} = useContext(AuthContext)
+
+    VerifyAuth(isAdmin);
+
+    
     function desconstrutorPagination({current_page, first_page_url, from, last_page,
              last_page_url, links, next_page_url, path, per_page, prev_page_url, to ,total}: PaginationType) {
             return {

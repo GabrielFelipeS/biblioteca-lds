@@ -1,15 +1,21 @@
 import { NavBar } from "../components/NavBar.tsx";
 import { FormLivro } from "../components/FormLivro.tsx";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Book, LivroEmpty } from "../types/Book.ts";
 import { useParams } from "react-router-dom";
 import { api } from "../services/api.ts";
 import { BackArrow } from "../components/BackArrow.tsx";
+import { AuthContext } from "../Router";
+import { VerifyAuth } from "../services/VerifyAuth";
 
 export function EditBook() {
     const [book, setBook] = useState<Book>(LivroEmpty)
     const { id } = useParams();
     const bearer = "Bearer " + localStorage.getItem("token");
+
+    const {isAdmin} = useContext(AuthContext)
+
+    VerifyAuth(isAdmin);
 
     useEffect(() => {
         api.get(`books/${id}`,

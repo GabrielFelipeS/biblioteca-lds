@@ -1,8 +1,7 @@
 import { LoginList } from "./LoginList.tsx";
 import { LiNavBar as Li } from "./LiNavBar.tsx";
 import { NavigateFunction } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
-import { api } from "../services/api.ts";
+import { useContext } from "react";
 import { When } from "./When.tsx";
 import { AuthContext } from "../Router.tsx";
 

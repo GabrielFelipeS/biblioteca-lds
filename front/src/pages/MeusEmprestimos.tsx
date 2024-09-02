@@ -1,10 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { Search } from "../components/Search";
 import { Book } from "../types/Book";
+import { AuthContext } from "../Router";
+import { VerifyAuth } from "../services/VerifyAuth";
 
 export function MeusEmprestimos() {
     const [books, setBooks] = useState<Book[]>([])
+    const {isLoggedIn} = useContext(AuthContext)
+
+    VerifyAuth(isLoggedIn);
+
     return (
         <div className={"bg-ligth-background_secondary pb-20 h-full w-full"}>
             <NavBar />

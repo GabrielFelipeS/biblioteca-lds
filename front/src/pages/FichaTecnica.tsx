@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { Book, LivroEmpty } from "../types/Book";
 import { useParams } from "react-router-dom";
 import { api, dominio } from "../services/api";
 import { BackArrow } from "../components/BackArrow";
+import { AuthContext } from "../Router";
+import { VerifyAuth } from "../services/VerifyAuth";
 
 export function FichaTecnica() {
     const { id } = useParams()
@@ -11,6 +13,10 @@ export function FichaTecnica() {
     const bearer = "Bearer " + localStorage.getItem("token");
 
     const image = book.image.includes("storage") ? dominio + book.image : book.image
+
+    const {isLoggedIn} = useContext(AuthContext)
+
+    VerifyAuth(isLoggedIn);
 
     useEffect(() => {
         api.get(`books/${id}`,

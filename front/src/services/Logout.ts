@@ -4,7 +4,7 @@ import {api} from "./api.ts";
 
 export function logout(navigate: NavigateFunction) {
     const bearer = "Bearer " + localStorage.getItem("token");
-
+ 
     const config = {
         headers: {
             Accept: 'application/json',
