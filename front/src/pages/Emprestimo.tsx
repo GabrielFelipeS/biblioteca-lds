@@ -22,7 +22,6 @@ export function Emprestimo() {
                 }
             })
             .then(response => {
-                console.log(response.data)
                 setReservations(response.data)
             })
             .catch(e => console.log(e))
@@ -30,8 +29,7 @@ export function Emprestimo() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(reservation)
-        console.log(reservations)
+
         api.post("reservation",
             {
                 to: reservation.to,
@@ -46,7 +44,6 @@ export function Emprestimo() {
                 }
             })
             .then(response => {
-                console.log(response.data)
                 setLoad(state => !state)
             })
             .catch(e => console.log(e))
@@ -56,7 +53,6 @@ export function Emprestimo() {
         const date = new Date()
         date.setDate(date.getDate() + 7)
 
-        console.log(date)
         Swal.fire({
             title: "Você tem certeza?",
             text: `Você não vai poder reverter o processo!`,
@@ -80,7 +76,6 @@ export function Emprestimo() {
                         }
                     })
                     .then(response => {
-                        console.log(response.data)
                         setLoad(state => !state)
                     })
                     .catch(e => console.log(e))
@@ -110,7 +105,6 @@ export function Emprestimo() {
                         }
                     })
                     .then(response => {
-                        console.log(response.data)
                         setLoad(state => !state)
                     })
                     .catch(e => console.log(e))

@@ -20,7 +20,6 @@ export function EditBook() {
                 }
             }
         ).then(response => {
-            console.log(response)
             setBook(response.data)
         }).catch(e => console.log(e))
     }, [])
@@ -38,8 +37,6 @@ export function EditBook() {
             image: book.file
         }
 
-        console.log(book)
-        console.log(data)
 
         api.put(`books/${book.id}` ,data,
             {headers: {

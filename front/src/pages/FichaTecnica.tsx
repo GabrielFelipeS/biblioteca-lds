@@ -12,8 +12,6 @@ export function FichaTecnica() {
 
     const image = book.image.includes("storage") ? dominio + book.image : book.image
 
-    console.log("aqui" + document.referrer)
-
     useEffect(() => {
         api.get(`books/${id}`,
             {
@@ -23,7 +21,6 @@ export function FichaTecnica() {
                 }
             }
         ).then(response => {
-            console.log(response)
             setBook(response.data)
         }).catch(e => console.log(e))
     }, [])
