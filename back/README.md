@@ -1,4 +1,4 @@
-[# Documentação da API
+# Documentação da API
 
 ## Usuário Administrador Padrão:
 
