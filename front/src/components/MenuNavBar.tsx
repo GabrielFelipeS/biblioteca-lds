@@ -1,43 +1,18 @@
 import { LoginList } from "./LoginList.tsx";
 import { LiNavBar as Li } from "./LiNavBar.tsx";
 import { NavigateFunction } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { api } from "../services/api.ts";
 import { When } from "./When.tsx";
+import { AuthContext } from "../Router.tsx";
 
 interface MenuNavBarProps {
     navigate: NavigateFunction
 }
 
 export function MenuNavBar({ navigate }: MenuNavBarProps) {
-    const [role, setRole] = useState<string>("")
-
-    const bearer = "Bearer " + localStorage.getItem("token");
-
-    useEffect(() => {
-        api
-        .get("auth/validate",  
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: bearer
-                }
-            })
-        .then(response => {
-            console.log(response.data)
-            return response.data.type
-        })
-        .then(type => {
-            console.log(type)
-            setRole(type)
-        })
-        .catch(e => {
-            localStorage.clear()
-            console.log(e)
-        })
-    }, [])
-    
+    const {role} = useContext(AuthContext)
+ 
     return (
         <>
             <Li endPoint={"/home"} navigate={navigate}>Inicio</Li>
