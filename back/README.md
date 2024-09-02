@@ -162,7 +162,15 @@
     ```json
     {
         "message": "Token válido",
-        "type" : "bibliotecario|usuario|null"
+        "type" : "bibliotecario|usuario|null",
+        "user" : {
+            "id": 1,
+            "name": "string",
+            "email": "string",
+            "email_verified_at": "2024-08-29T21:38:49.000000Z",
+            "created_at": "2024-08-29T21:38:49.000000Z",
+            "updated_at": "2024-08-29T21:38:49.000000Z"
+        }
     }
 
 #### Dados Inválidos
