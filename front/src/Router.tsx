@@ -70,7 +70,6 @@ export function Router() {
                         <Route path={"/livro/editar/:id"} element={<EditBook />} />
                     </Route>
 
-                    <Route path="/*" element={<Navigate to="/home" replace />} />
                 </Routes>
             </BrowserRouter>
         </AuthContext.Provider>
