@@ -21,8 +21,12 @@ export function MenuNavBar({ navigate }: MenuNavBarProps) {
                 <Li endPoint={"/livro/cadastrar"} navigate={navigate}>Cadastrar Livro</Li>
             </When>
 
-            <When expr={() => ["usuario", "bibliotecario"].includes(role)}>
-                <Li endPoint={"/emprestimo"} navigate={navigate}>Emprestimos</Li>
+            <When expr={() => ["usuario"].includes(role)}>
+                <Li endPoint={"/user/emprestimo"} navigate={navigate}>Meus Emprestimos</Li>
+            </When>
+
+            <When expr={() => ["bibliotecario"].includes(role)}>
+                <Li endPoint={"emprestimo"} navigate={navigate}>Emprestimos</Li>
             </When>
 
             <LoginList />

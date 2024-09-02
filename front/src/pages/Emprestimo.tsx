@@ -18,7 +18,6 @@ export function Emprestimo() {
 
     VerifyAuth(isLoggedIn);
 
-
     useEffect(() => {
         api.get("reservation",
             {
@@ -50,7 +49,7 @@ export function Emprestimo() {
                     Authorization: bearer
                 }
             })
-            .then(response => {
+            .then(() => {
                 setLoad(state => !state)
             })
             .catch(e => console.log(e))
@@ -82,7 +81,7 @@ export function Emprestimo() {
                             Authorization: bearer
                         }
                     })
-                    .then(response => {
+                    .then(() => {
                         setLoad(state => !state)
                     })
                     .catch(e => console.log(e))
@@ -111,7 +110,7 @@ export function Emprestimo() {
                             Authorization: bearer
                         }
                     })
-                    .then(response => {
+                    .then(() => {
                         setLoad(state => !state)
                     })
                     .catch(e => console.log(e))
