@@ -3,10 +3,10 @@ import { MenuNavBar } from "./MenuNavBar.tsx";
 
 export function NavBar() {
     const navigate = useNavigate()
-
+ 
     return (
-        <div className="flex justify-around items-center bg-ligth-background h-20 cursor-pointer ">
-            <div className="w-full ml-5 font-bold text-4xl hidden sm:flex" onClick={() => navigate("/home")}>
+        <div className="flex justify-around items-center bg-ligth-background h-20">
+            <div className="w-full ml-5 font-bold text-4xl hidden sm:flex cursor-pointer" onClick={() => navigate("/home")}>
                 Bibliotex
             </div>
 
