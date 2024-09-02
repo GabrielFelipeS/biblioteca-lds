@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { AuthContext } from "../Router";
 import { VerifyAuth } from "../services/VerifyAuth";
-import { emptyReservation, Reservation } from "../types/Reservation";
+import {Reservation } from "../types/Reservation";
 import { api } from "../services/api";
 import { BookCard } from "../components/BookCard";
 import { LivroEmpty } from "../types/Book";
@@ -41,12 +41,8 @@ function Line({ index, reservation }: LineProps) {
 
 
 export function MeusEmprestimos() {
-    const [load, setLoad] = useState(true)
-
     const [reservations, setReservations] = useState<Reservation[]>([]);
     const bearer = "Bearer " + localStorage.getItem("token");
-
-    const [reservation, setReservation] = useState<Reservation>(emptyReservation);
 
     const { isLoggedIn } = useContext(AuthContext)
 
@@ -65,81 +61,16 @@ export function MeusEmprestimos() {
                 setReservations(response.data)
             })
             .catch(e => console.log(e))
-    }, [load])
+    }, [])
 
-    function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-
-        api.post("reservation",
-            {
-                to: reservation.to,
-                from: reservation.from,
-                book_id: reservation.book_id
-            },
-            {
-                headers: {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: bearer
-                }
-            })
-            .then(() => {
-                setLoad(state => !state)
-            })
-            .catch(e => console.log(e))
-    }
+   
 
     return (
         <div className={"bg-ligth-background_secondary min-h-screen pb-20"}>
             <NavBar />
 
             <div className="flex flex-col items-center pt-7 ">
-                <div className={"bg-ligth-background_secondary w-full h-full"}>
-                    <div className={` w-full flex justify-center `}>
-                        <div className={`
-                            bg-ligth-background text-ligth-primary 
-                            pt-4 pb-4 pl-16 pr-16
-                            rounded-xl   
-                            h-max
-                            w-4/5 max-w-md
-                        `}>
-                            <h1 className={"text-center mb-3 font-bold text-xl md:text-4xl"}>Reservar</h1>
-                            <form onSubmit={handleSubmit} >
-                                <div className={`flex flex-col mb-1`}>
-                                    <label htmlFor={"titulo"}> ID do livro</label>
-                                    <input type="number" required id={"titulo"} className={"rounded-lg text-ligth-secondary pl-1"}
-                                        onChange={(e) =>
-                                            setReservation(state => ({ ...state, book_id: e.target.value }))}
-                                    />
-                                </div>
-
-                                <div className={"md:grid md:grid-cols-2 md:grid-rows-1 md:gap-x-5 mb-6"}>
-                                    <div className={`flex flex-col mb-1`}>
-                                        <label htmlFor={"data_inicio"}>Data de início</label>
-                                        <input type="date" required id={"data_inicio"} className="rounded-lg text-ligth-secondary pl-1"
-                                            onChange={(e) =>
-                                                setReservation(state => ({ ...state, from: e.target.value }))}
-                                        />
-                                    </div>
-                                    <div className={`flex flex-col mb-1`}>
-                                        <label htmlFor={"data_fim"}>Data de término</label>
-                                        <input type="date" required id={"data_fim"} className={"rounded-lg text-ligth-secondary pl-1"}
-                                            onChange={(e) =>
-                                                setReservation(state => ({ ...state, to: e.target.value }))}
-                                        />
-                                    </div>
-                                </div>
-
-
-                                <div className={"flex justify-center"}>
-                                    <button type={"submit"} className={"bg-ligth-container p-2 rounded-full"}>
-                                        Confirmar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+              
 
                 <div className="w-3/5 bg-white mt-9 text-ligth-button h-min p-10 drop-shadow-lg ">
                     <h1 className="ml-4 mt-1 mb-10 font-bold text-center text-xl">Livros emprestados</h1>
