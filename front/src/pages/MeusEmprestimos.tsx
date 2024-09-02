@@ -5,6 +5,7 @@ import { VerifyAuth } from "../services/VerifyAuth";
 import Swal from "sweetalert2";
 import { emptyReservation, Reservation } from "../types/Reservation";
 import { api } from "../services/api";
+import { BookCard } from "../components/BookCard";
 
 export function MeusEmprestimos() {
     const [load, setLoad] = useState(true)
@@ -145,33 +146,12 @@ export function MeusEmprestimos() {
                 <div className="w-3/5 bg-white mt-9 text-ligth-button h-min p-10 drop-shadow-lg ">
                     <h1 className="ml-4 mt-1 mb-10 font-bold text-center text-xl">Livros emprestados</h1>
 
-                    <div className="flex gap-4">
-                        <div className="w-max rounded overflow-hidden shadow-lg bg-white relative group">
-                            <img className="w-full" src="https://via.placeholder.com/150" alt="Capa do Livro" />
-
-                            <div className="px-3 py-2">
-                                <div className="font-bold text-xl mb-2">Título do Livro</div>
-                            </div>
-
-                            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">Renovar</button>
-                            </div>
-                        </div>
-
-                        <div className="w-max rounded overflow-hidden shadow-lg bg-white relative group">
-                            <img className="w-full" src="https://via.placeholder.com/150" alt="Capa do Livro" />
-
-                            <div className="px-3 py-2">
-                                <div className="font-bold text-xl mb-2">Título do Livro</div>
-                            </div>
-
-                            <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">Renovar</button>
-                            </div>
-                        </div>
+                    <div className="flex gap-1">
+                        {reservations && reservations.map((reservation, index) => (
+                            <BookCard key={index} reservation={reservation}/>
+                        ))}
+                                                
                     </div>
-
-
                 </div>
             </div>
 
