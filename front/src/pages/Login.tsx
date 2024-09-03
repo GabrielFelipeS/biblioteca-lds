@@ -1,16 +1,16 @@
 import {useContext, useState} from "react";
 import {api} from "../services/api"
 import {useNavigate} from "react-router-dom";
-import { BackArrow } from "../components/BackArrow";
 import { VerifyAuth } from "../services/VerifyAuth";
 import { AuthContext } from "../components/AuthProvider";
+import { User } from "../types/User";
 
 export function Login() {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const navigete = useNavigate();
 
-    const {notIsLoggedIn, setRole} = useContext(AuthContext)
+    const {notIsLoggedIn, setRole, setUser} = useContext(AuthContext)
 
     VerifyAuth(notIsLoggedIn);
 
@@ -37,7 +37,12 @@ export function Login() {
                             Authorization:  "Bearer " +  responseToken
                         }
                     })
-                .then(response => response.data.type)
+                .then(response => {
+                    console.log(response)
+                    const user: User = response.data.user
+                    setUser({name: user.name, email: user.email})
+                    return response.data.type
+                })
                 .then(type => {
                     setRole(type)
                     localStorage.setItem("token", responseToken)
