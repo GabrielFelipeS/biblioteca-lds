@@ -51,10 +51,8 @@ export function Login() {
             })
     }
 
-
     return (
         <div className={"flex w-screen h-screen bg-ligth-background"}>
-            <BackArrow/>
             <div className="hidden w-2/3 md:flex justify-center items-end" >
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex

@@ -1,10 +1,13 @@
 import {NavigateFunction} from "react-router-dom";
 // import axios from "axios";
 import {api} from "./api.ts";
+import { useContext } from "react";
+import { AuthContext } from "../components/AuthProvider.tsx";
 
 export function logout(navigate: NavigateFunction) {
     const bearer = "Bearer " + localStorage.getItem("token");
  
+
     const config = {
         headers: {
             Accept: 'application/json',
@@ -20,7 +23,7 @@ export function logout(navigate: NavigateFunction) {
     .catch(e => console.log(e))
     .finally(() => {
         localStorage.clear()
-        navigate("/home")
+        navigate("/login")
     })
 
 }
