@@ -29,6 +29,7 @@ export function Home() {
 
 
     useEffect(() => {
+        console.log("A")
         api.get(`books?page=${pagination.current_page}`,
             {
                 headers: {
