@@ -3,7 +3,7 @@ import {api} from "../services/api.ts";
 import {useNavigate} from "react-router-dom";
 import { BackArrow } from "../components/BackArrow.tsx";
 import { VerifyAuth } from "../services/VerifyAuth";
-import { AuthContext } from "../Router";
+import { AuthContext } from "../components/AuthProvider.tsx";
 
 export function Register() {
     const navigate = useNavigate()

@@ -2,11 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { BookCard } from "../components/BookCard";
 import { NavBar } from "../components/NavBar";
-import { AuthContext } from "../Router";
 import { api } from "../services/api";
 import { VerifyAuth } from "../services/VerifyAuth";
 import { LivroEmpty } from "../types/Book";
 import { Reservation } from "../types/Reservation";
+import { AuthContext } from "../components/AuthProvider";
 
 interface LineProps {
     index: number
@@ -152,11 +152,11 @@ export function MeusEmprestimos() {
                                         <Line index={index} reservation={reservation} />
                                     )
                                     )) :
-                                (
-                                    <tr>
-                                        <td colSpan={4} className="px-6 py-3 text-center">Nenhuma reserva pendente</td>
-                                    </tr>
-                                )
+                                    (
+                                        <tr>
+                                            <td colSpan={4} className="px-6 py-3 text-center">Nenhuma reserva pendente</td>
+                                        </tr>
+                                    )
                             }
                         </tbody>
                     </table>

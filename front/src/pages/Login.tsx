@@ -3,7 +3,7 @@ import {api} from "../services/api"
 import {useNavigate} from "react-router-dom";
 import { BackArrow } from "../components/BackArrow";
 import { VerifyAuth } from "../services/VerifyAuth";
-import { AuthContext } from "../Router";
+import { AuthContext } from "../components/AuthProvider";
 
 export function Login() {
     const [email, setEmail] = useState<string>("")

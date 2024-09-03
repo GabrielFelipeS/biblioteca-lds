@@ -5,8 +5,8 @@ import { Book, LivroEmpty } from "../types/Book.ts";
 import { useParams } from "react-router-dom";
 import { api } from "../services/api.ts";
 import { BackArrow } from "../components/BackArrow.tsx";
-import { AuthContext } from "../Router";
 import { VerifyAuth } from "../services/VerifyAuth";
+import { AuthContext } from "../components/AuthProvider.tsx";
 
 export function EditBook() {
     const [book, setBook] = useState<Book>(LivroEmpty)

@@ -8,13 +8,24 @@ export type Reservation = {
     to: string
     status: Status
 }
+function getDate(plusDays: number = 0) {
+    const today = new Date()
+    today.setDate(today.getDate() + plusDays);
+
+    const realMonth = 1 + today.getMonth();
+
+    const completeZeroInLeftMonth = realMonth.toString().padStart(2, '0');
+    const completeZeroInLeftDay = today.getDate().toString().padStart(2, '0');
+
+    return  `${today.getFullYear()}-${completeZeroInLeftMonth}-${completeZeroInLeftDay}`;
+}
 
 export const emptyReservation: Reservation = {
     id: 0,
     book_id: '0',
     user_id: 0,
-    from: '2024-09-01',
-    to: '2024-09-08',
+    from: getDate(1),
+    to:  getDate(2),
     status: 'pending'
 };
 

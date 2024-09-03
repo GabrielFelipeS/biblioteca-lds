@@ -3,8 +3,8 @@ import { NavBar } from "../components/NavBar";
 import { api } from "../services/api";
 import { Reservation } from "../types/Reservation";
 import Swal from "sweetalert2";
-import { AuthContext } from "../Router";
 import { VerifyAuth } from "../services/VerifyAuth";
+import { AuthContext } from "../components/AuthProvider";
 
 export function Emprestimo() {
     const [load, setLoad] = useState(true)
