@@ -2,7 +2,7 @@ import { NavBar } from "../components/NavBar.tsx";
 import { FormLivro } from "../components/FormLivro.tsx";
 import { useContext, useEffect, useState } from "react";
 import { Book, LivroEmpty } from "../types/Book.ts";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { api } from "../services/api.ts";
 import { BackArrow } from "../components/BackArrow.tsx";
 import { VerifyAuth } from "../services/VerifyAuth";
@@ -12,7 +12,7 @@ export function EditBook() {
     const [book, setBook] = useState<Book>(LivroEmpty)
     const { id } = useParams();
     const bearer = "Bearer " + localStorage.getItem("token");
-
+    const navigate = useNavigate()
     const {isAdmin} = useContext(AuthContext)
 
     VerifyAuth(isAdmin);
@@ -31,6 +31,7 @@ export function EditBook() {
     }, [])
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      
         e.preventDefault();
         const data = {
             title: book.title,
@@ -42,8 +43,7 @@ export function EditBook() {
             edition: book.edition,
             image: book.file
         }
-
-
+        console.log(data)
         api.put(`books/${book.id}` ,data,
             {headers: {
                 'Content-Type': 'multipart/form-data',
@@ -51,6 +51,7 @@ export function EditBook() {
             }}
         ).then(response => {
                 console.log(response)
+                navigate(`/livro/ficha/${response.data.idLivro}`)
             }).catch(e => console.log(e))
         console.log(id)
     }

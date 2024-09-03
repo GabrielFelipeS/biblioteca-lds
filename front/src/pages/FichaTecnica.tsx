@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { Book, LivroEmpty } from "../types/Book";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { api, dominio } from "../services/api";
 import { BackArrow } from "../components/BackArrow";
 import { VerifyAuth } from "../services/VerifyAuth";
@@ -9,6 +9,7 @@ import { AuthContext } from "../components/AuthProvider";
 
 export function FichaTecnica() {
     const { id } = useParams()
+    const navigate = useNavigate()
     const [book, setBook] = useState<Book>(LivroEmpty)
     const bearer = "Bearer " + localStorage.getItem("token");
 
@@ -52,7 +53,7 @@ export function FichaTecnica() {
                                 <p>Gênero: {book.genre}</p>
                                 <p>Lançamento: {book.year}</p>
 
-                                <div className="mt-6 mb-5 flex justify-center">
+                                <div onClick={() => navigate(`/reservar/${book.id}`)} className="mt-6 mb-5 flex justify-center">
                                     <button className="rounded-2xl px-5 sm:px-9 py-3 bg-ligth-dark_gray text-ligth-ligth_gray">Reservar</button>
                                 </div>
                             </div>

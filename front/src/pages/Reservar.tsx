@@ -8,21 +8,6 @@ import { Erro } from "../types/Erro";
 import { Errors } from "../components/Errors";
 import { AuthContext } from "../components/AuthProvider";
 
-function erros() {
-    return (
-        <div role="alert" className="alert">
-            <div className="bg-red-500 text-white font-bold rounded-t px-4 py-2">
-                Danger
-            </div>
-            <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
-                <p>Something not ideal might be happening.</p>
-            </div>
-        </div>
-    )
-}
-
-
-
 export function Reservar() {
     const { id } = useParams()
     const book_id = id ? id : "1"
@@ -66,12 +51,10 @@ export function Reservar() {
                 })
             })
             .catch(err => {
-                // const newError = GenerateNewError(err.response.data.message);
-                const errorId = new Date().getTime();  // Cria um ID único para o erro
+                const errorId = new Date().getTime();
                 const newError = { id: errorId, message: err.response.data.message };
-                setErrors([...errors, newError]);  // Adiciona o novo erro ao estado
+                setErrors([...errors, newError]);  
 
-                // Configura um timeout para remover o erro após 5 segundos
                 setTimeout(() => {
                     setErrors((prevErrors) => prevErrors.filter(error => error.id !== errorId));
                 }, 5000);
@@ -106,7 +89,7 @@ export function Reservar() {
 
                             <div className={"md:grid md:grid-cols-2 md:grid-rows-1 md:gap-x-5 mb-6"}>
                                 <div className={`flex flex-col mb-1`}>
-                                    <label htmlFor={"data_inicio"}>Data de início</label>
+                                    <label htmlFor={"data_inicio"}>Data de início (from)</label>
                                     <input type="date" required id={"data_inicio"} className="rounded-lg text-ligth-secondary pl-1"
                                         value={reservation.from}
                                         onChange={(e) =>
@@ -114,7 +97,7 @@ export function Reservar() {
                                     />
                                 </div>
                                 <div className={`flex flex-col mb-1`}>
-                                    <label htmlFor={"data_fim"}>Data de término</label>
+                                    <label htmlFor={"data_fim"}>Data de término (to)</label>
                                     <input type="date" required id={"data_fim"} className={"rounded-lg text-ligth-secondary pl-1"}
                                         value={reservation.to}
                                         onChange={(e) =>
