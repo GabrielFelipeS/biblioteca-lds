@@ -2,7 +2,7 @@ import {LiNavBar as Li, style} from "./LiNavBar.tsx";
 import {logout} from "../services/Logout.ts";
 import {useNavigate} from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../Router.tsx";
+import { AuthContext } from "./AuthProvider.tsx";
 
 export function LoginList() {
     const token = localStorage.getItem("token") ?? ""

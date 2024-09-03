@@ -5,8 +5,8 @@ import { FormLivro } from "../components/FormLivro.tsx";
 import { api } from "../services/api.ts";
 import { BackArrow } from "../components/BackArrow.tsx";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../Router.tsx";
 import { VerifyAuth } from "../services/VerifyAuth.tsx";
+import { AuthContext } from "../components/AuthProvider.tsx";
 
 export function CadastrarLivro() {
     const [book, setBook] = useState<Book>(LivroEmpty)

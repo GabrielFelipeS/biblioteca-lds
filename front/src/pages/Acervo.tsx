@@ -9,8 +9,8 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "../components/Pagination";
 import { DefaultPagination, PaginationType } from "../types/Pagination.ts";
-import { AuthContext } from "../Router";
 import { VerifyAuth } from "../services/VerifyAuth";
+import { AuthContext } from "../components/AuthProvider.tsx";
 
 
 export function Acervo() {

@@ -4,8 +4,8 @@ import { Book, LivroEmpty } from "../types/Book";
 import { useParams } from "react-router-dom";
 import { api, dominio } from "../services/api";
 import { BackArrow } from "../components/BackArrow";
-import { AuthContext } from "../Router";
 import { VerifyAuth } from "../services/VerifyAuth";
+import { AuthContext } from "../components/AuthProvider";
 
 export function FichaTecnica() {
     const { id } = useParams()
