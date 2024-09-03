@@ -10,9 +10,10 @@ export function Reservar() {
     const book_id = id ? id : "1"
     const [reservation, setReservation] = useState<Reservation>({ ...emptyReservation, book_id: book_id });
 
-
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate()
+
+    console.log(reservation.from)
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -60,6 +61,7 @@ export function Reservar() {
                             <div className={`flex flex-col mb-1`}>
                                 <label htmlFor={"titulo"}> ID do livro</label>
                                 <input type="number" required id={"titulo"} className={"rounded-lg text-ligth-secondary pl-1"}
+                                    value={reservation.book_id}
                                     onChange={(e) =>
                                         setReservation(state => ({ ...state, book_id: e.target.value }))}
                                 />
@@ -69,6 +71,7 @@ export function Reservar() {
                                 <div className={`flex flex-col mb-1`}>
                                     <label htmlFor={"data_inicio"}>Data de início</label>
                                     <input type="date" required id={"data_inicio"} className="rounded-lg text-ligth-secondary pl-1"
+                                        value={reservation.from}
                                         onChange={(e) =>
                                             setReservation(state => ({ ...state, from: e.target.value }))}
                                     />
@@ -76,6 +79,7 @@ export function Reservar() {
                                 <div className={`flex flex-col mb-1`}>
                                     <label htmlFor={"data_fim"}>Data de término</label>
                                     <input type="date" required id={"data_fim"} className={"rounded-lg text-ligth-secondary pl-1"}
+                                         value={reservation.to}
                                         onChange={(e) =>
                                             setReservation(state => ({ ...state, to: e.target.value }))}
                                     />

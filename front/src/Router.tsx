@@ -59,7 +59,7 @@ export function Router() {
                     <Route path={"/login"} element={<Login />} />
                     <Route path={"/register"} element={<Register />} />
                     <Route path={"/emprestimo"} element={<Emprestimo />} />
-                    <Route path={"/reservar"} element={<Reservar />} />
+                    <Route path={"/reservar/:id"} element={<Reservar />} />
                     <Route path={"/user/emprestimo"} element={<MeusEmprestimos />} />
                     <Route path={"/livro/ficha/:id"} element={<FichaTecnica />} />
                     <Route path={"/acervo"} element={<Acervo />} />

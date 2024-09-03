@@ -152,11 +152,11 @@ export function MeusEmprestimos() {
                                         <Line index={index} reservation={reservation} />
                                     )
                                     )) :
-                                (
-                                    <tr>
-                                        <td colSpan={4} className="px-6 py-3 text-center">Nenhuma reserva pendente</td>
-                                    </tr>
-                                )
+                                    (
+                                        <tr>
+                                            <td colSpan={4} className="px-6 py-3 text-center">Nenhuma reserva pendente</td>
+                                        </tr>
+                                    )
                             }
                         </tbody>
                     </table>

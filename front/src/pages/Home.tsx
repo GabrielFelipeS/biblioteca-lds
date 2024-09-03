@@ -59,8 +59,8 @@ export function Home() {
                         <Search setBooks={setBooks} />
 
                     </div>
-                    <div className="w-11/12 h-min pl-10 pt-10 bg-white mt-9 pb-10 text-ligth-button  drop-shadow-lg">
-                        <p className="ml-4 mt-1">Livros adicionados recenemente</p>
+                    <div className="w-11/12 h-min md:pl-10 pt-10 bg-white mt-9 pb-10 text-ligth-button  drop-shadow-lg">
+                        <p className="mt-1 mb-10 text-center">Livros adicionados recenemente</p>
                         <div className="flex flex-wrap gap-2 justify-evenly pb-5">
                             {books &&
                                 books
@@ -69,7 +69,10 @@ export function Home() {
                                             key={index}
                                             book_id={book.id.toString()}
                                             buttonText={"Reservar"}
-                                            handle={() => console.log("a")}
+                                            handle={() => {
+                                                console.log("UE")
+                                                navigate(`/reservar/${book.id}`)
+                                            }}
                                         />
                                     ))}
 
