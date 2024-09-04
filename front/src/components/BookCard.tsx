@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { LivroEmpty } from "../types/Book"
 import { api, dominio } from "../services/api";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface BookCardProps {
     book_id: string

@@ -13,7 +13,11 @@ export function EditBook() {
     const { id } = useParams();
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate()
+<<<<<<< HEAD
     const {isAdmin} = useContext(AuthContext)
+=======
+    const { isAdmin } = useContext(AuthContext)
+>>>>>>> 7532ad2e67f8ad8e0f8ecee614d9bb563a150adc
 
     VerifyAuth(isAdmin);
 
@@ -33,7 +37,7 @@ export function EditBook() {
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
       
         e.preventDefault();
-        const data = {
+        const dados = {
             title: book.title,
             author: book.author,
             genre: book.genre,
@@ -43,6 +47,7 @@ export function EditBook() {
             edition: book.edition,
             image: book.file
         }
+<<<<<<< HEAD
         console.log(data)
         api.put(`books/${book.id}` ,data,
             {headers: {
@@ -53,13 +58,36 @@ export function EditBook() {
                 console.log(response)
                 navigate(`/livro/ficha/${response.data.idLivro}`)
             }).catch(e => console.log(e))
+=======
+        console.log(dados)
+        api.put(`books/${book.id}`, dados,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: bearer,
+                },
+                params: {
+                    title: book.title,
+                    author: book.author,
+                    genre: book.genre,
+                    year: book.year,
+                    isbn: book.isbn,
+                    publisher: book.publisher,
+                    edition: book.edition
+                }
+            }
+        ).then(response => {
+            console.log(response)
+            navigate(`/livro/ficha/${book.id}`)
+        }).catch(e => console.log(e))
+>>>>>>> 7532ad2e67f8ad8e0f8ecee614d9bb563a150adc
         console.log(id)
     }
 
     return (
         <div className={"bg-ligth-background_secondary w-full h-full"}>
             <NavBar />
-            <BackArrow/>
+            <BackArrow />
             <div className={`min-h-screen w-full flex justify-center pt-14`}>
                 <FormLivro
                     handleSubmit={handleSubmit}
