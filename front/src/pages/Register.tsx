@@ -38,7 +38,7 @@ export function Register() {
                 const erros = e.response?.data?.errors;
                 console.log(erros)
                 if(erros[0].password) {
-
+                    setErrors([])
                 }
             })
     }

@@ -13,11 +13,7 @@ export function EditBook() {
     const { id } = useParams();
     const bearer = "Bearer " + localStorage.getItem("token");
     const navigate = useNavigate()
-<<<<<<< HEAD
-    const {isAdmin} = useContext(AuthContext)
-=======
     const { isAdmin } = useContext(AuthContext)
->>>>>>> 7532ad2e67f8ad8e0f8ecee614d9bb563a150adc
 
     VerifyAuth(isAdmin);
 
