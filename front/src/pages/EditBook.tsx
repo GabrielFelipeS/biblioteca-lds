@@ -47,18 +47,6 @@ export function EditBook() {
             edition: book.edition,
             image: book.file
         }
-<<<<<<< HEAD
-        console.log(data)
-        api.put(`books/${book.id}` ,data,
-            {headers: {
-                'Content-Type': 'multipart/form-data',
-                Authorization: bearer
-            }}
-        ).then(response => {
-                console.log(response)
-                navigate(`/livro/ficha/${response.data.idLivro}`)
-            }).catch(e => console.log(e))
-=======
         console.log(dados)
         api.put(`books/${book.id}`, dados,
             {
@@ -80,7 +68,6 @@ export function EditBook() {
             console.log(response)
             navigate(`/livro/ficha/${book.id}`)
         }).catch(e => console.log(e))
->>>>>>> 7532ad2e67f8ad8e0f8ecee614d9bb563a150adc
         console.log(id)
     }
 
