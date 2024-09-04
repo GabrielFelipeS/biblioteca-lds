@@ -43,11 +43,13 @@ export function EditBook() {
             image: book.file
         }
         console.log(dados)
-        api.put(`books/${book.id}`, [],
+        api.put(`books/${book.id}`, dados,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     Authorization: bearer,
+                },
+                params: {
                     title: book.title,
                     author: book.author,
                     genre: book.genre,
