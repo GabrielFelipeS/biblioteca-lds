@@ -137,7 +137,10 @@ export function Acervo() {
                             </tr>
                         </thead>
                         <tbody id="tbody">
-                            {books && Array.isArray(books) && books.map((book, index) => {
+                            {books && 
+                            Array.isArray(books) && 
+                            books
+                            .map((book, index) => {
                                 const unit = books.filter((b) => b.isbn === book.isbn).length
                                 return (
                                     <tr className="" id={index.toString()} key={index}>

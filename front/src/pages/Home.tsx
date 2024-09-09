@@ -54,7 +54,7 @@ export function Home() {
 
             <div className="flex justify-center pt-14">
                 <div className={`h-full w-full flex flex-col justify-center items-center`}>
-                    <div className="flex justify-center p-1 rounded-full w-2/6 border-ligth-tertiary border border-solid focus-within:border-2">
+                    <div className="flex justify-center p-1 rounded-full w-3/4 md:w-2/6 border-ligth-tertiary border border-solid focus-within:border-2">
 
                         <Search setBooks={setBooks} />
 
@@ -70,7 +70,6 @@ export function Home() {
                                             book_id={book.id.toString()}
                                             buttonText={"Reservar"}
                                             handle={() => {
-                                                console.log("UE")
                                                 navigate(`/reservar/${book.id}`)
                                             }}
                                         />

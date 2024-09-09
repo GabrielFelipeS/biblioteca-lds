@@ -1,22 +1,25 @@
 import {useContext, useState} from "react";
 import {api} from "../services/api"
 import {useNavigate} from "react-router-dom";
-import { BackArrow } from "../components/BackArrow";
 import { VerifyAuth } from "../services/VerifyAuth";
 import { AuthContext } from "../components/AuthProvider";
+import { User } from "../types/User";
+import { Erro } from "../types/Erro";
+import { Errors } from "../components/Errors";
 
 export function Login() {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const navigete = useNavigate();
 
-    const {notIsLoggedIn, setRole} = useContext(AuthContext)
-
+    const {notIsLoggedIn, setRole, setUser} = useContext(AuthContext)
+    const [errors, setErrors] = useState<Erro[]>([]); 
+    
     VerifyAuth(notIsLoggedIn);
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-
+        console.log("AQUI")
         const data = {
             email,
             password
@@ -37,32 +40,43 @@ export function Login() {
                             Authorization:  "Bearer " +  responseToken
                         }
                     })
-                .then(response => response.data.type)
+                .then(response => {
+                    console.log(response)
+                    const user: User = response.data.user
+                    setUser({name: user.name, email: user.email})
+                    return response.data.type
+                })
                 .then(type => {
                     setRole(type)
                     localStorage.setItem("token", responseToken)
                     navigete("/home")
                 }).catch(e => {
-                    console.log(e)
+                    console.log(`aqui? ${e}`)
                  })
             })
-            .catch(e => {
-               console.log(e)
+            .catch(err => {
+                console.log(err)
+                const errorId = new Date().getTime();
+                const newError = { id: errorId, message: err.response.data.message };
+                setErrors([...errors, newError]);  
+
+                setTimeout(() => {
+                    setErrors((prevErrors) => prevErrors.filter(error => error.id !== errorId));
+                }, 5000);
             })
     }
 
-
     return (
         <div className={"flex w-screen h-screen bg-ligth-background"}>
-            <BackArrow/>
             <div className="hidden w-2/3 md:flex justify-center items-end" >
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex
                 </div>
             </div>
+          
             <div className="bg-ligth-container max-md:w-full w-1/3 flex justify-center items-center">
-            
                 <form className="flex flex-col justify-center w-56" onSubmit={handleSubmit}>
+                    <Errors errors={errors}/>
                     <div className="text-ligth-primary font-bold text-5xl mb-5 flex justify-center">
                             Login
                     </div>
@@ -80,8 +94,8 @@ export function Login() {
                         <input type="password" name="password" className="h-10 rounded-2xl pl-1"
                                onChange={(e) => setPassword(e.target.value)}/>
                     </div>
-                    <div className="text-ligth-primary mb-7 font-bold">
-                        Esqueceu sua senha?
+                    <div className="text-ligth-primary mb-7 font-bold cursor-pointer" onClick={() => navigete("/register")}>
+                        Aperte aqui para registrar-se
                     </div>
                     <div className="flex justify-center">
                         <button type="submit" className="flex bg-ligth-primary justify-center items-center font-bold text-ligth-tertiary rounded-full w-28 h-9">

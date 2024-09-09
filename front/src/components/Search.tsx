@@ -27,7 +27,7 @@ export function Search({ setBooks }: SearchProps) {
                     console.log(response)
                     setBooks(response.data)
                 })
-        }, 750), // 500ms de atraso
+        }, 500), // 500ms de atraso
         []
       );
 

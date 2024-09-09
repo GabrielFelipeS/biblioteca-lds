@@ -31,6 +31,7 @@ export function EditBook() {
     }, [])
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+      
         e.preventDefault();
         const dados = {
             title: book.title,
