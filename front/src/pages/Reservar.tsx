@@ -46,7 +46,7 @@ export function Reservar() {
                     if(isAdmin) {
                         navigate("emprestimo")
                     } else {
-                        navigate("user/emprestimo")
+                        navigate("emprestimo")
                     }
                 })
             })
@@ -62,18 +62,18 @@ export function Reservar() {
     }
 
     return (
-        <div className={"bg-ligth-background_secondary w-full h-full"}>
+        <div className={"bg-ligth-background_secondary w-screen h-screen"}>
             <NavBar />
            <Errors errors={errors}/>
 
-            <div className="mt-10">
+            <div className="mt-10 h-min w-full">
 
                 <div className={` w-full flex justify-center `}>
                     <div className={`
                                 bg-ligth-background text-ligth-primary 
                                 pt-4 pb-4 pl-16 pr-16
                                 rounded-xl   
-                                h-max
+                                md:h-max
                                 w-4/5 max-w-md  
                             `}>
                         <h1 className={"text-center mb-3 font-bold text-xl md:text-4xl"}>Reservar</h1>

@@ -42,7 +42,7 @@ export function FichaTecnica() {
                         <p className="ml-4 mt-1 text-center font-bold text-lg">Ficha tecnica</p>
                         <div className="mt-5 ml-2 mr-2 flex flex-col items-center md:flex-row">
 
-                            <img src={image} alt="imagem do livro" className="w-28 h-44 sm:w-48 sm:h-72 sm:mr-5 mb-3 sm:mb-0"/>
+                            <img src={image} alt="imagem do livro" className="w-28 h-44 ml-5 md:ml-0 md:mb-0 sm:w-48 sm:h-72 sm:mr-5 mb-3 sm:mb-0"/>
 
                             <div className="bg-ligth-background_secondary mb-3 w-5/6 sm:w-2/3 p-2">
                                 <p className="mb-3 text-center"><strong>{book.title}</strong></p>

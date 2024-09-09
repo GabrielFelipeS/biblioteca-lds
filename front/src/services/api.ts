@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const dominio = "http://localhost:8000"
+export const dominio = "http://localhost:80"
 const url = dominio + "/api/" as string;
 
 export const api = axios.create({

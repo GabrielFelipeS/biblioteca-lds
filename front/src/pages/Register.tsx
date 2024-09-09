@@ -34,18 +34,35 @@ export function Register() {
 
         api.post("auth/register", data)
             .then(() => navigate("/login"))
-            .catch(e => {
-                const erros = e.response?.data?.errors;
+            .catch(err => {
+                const erros = err.response?.data?.errors;
                 console.log(erros)
-                if(erros[0].password) {
-                    setErrors([])
+                console.log(erros.password)
+                const errorId = new Date().getTime();
+
+
+                if (erros.password) {
+
+                    for (let i = 0; i < erros.password.length; i++) {
+                        const newError = { id: errorId, message: erros.password[i] };
+                        setErrors([...errors, newError]);
+                        setTimeout(() => {
+                            setErrors((prevErrors) => prevErrors.filter(error => error.id !== errorId));
+                        }, 5000);
+                        console.log(newError)
+                        console.log(errors)
+                    }
+
                 }
+
+
+
             })
     }
     return (
         <div className={"flex w-screen h-screen bg-ligth-background"}>
             <BackArrow />
-            <Errors errors={errors} />
+         
             <div className="hidden w-1/2 md:flex justify-center items-end">
                 <div className="text-4xl font-bold text-ligth-secondary w-[287px] h-[51px] mb-[199px]">
                     Bibliotex
@@ -55,6 +72,7 @@ export function Register() {
                 <div className="text-ligth-primary font-bold text-5xl mb-5 flex justify-center">
                     Cadastro
                 </div>
+                <Errors errors={errors} />
                 <form onSubmit={handleSubmit} className="grid grid-rows-4 grid-cols-2 gap-x-10 justify-center w-10/12">
                     <div className="flex flex-col mb-2">
                         <label htmlFor="nome" className="text-ligth-primary font-bold mb-1">

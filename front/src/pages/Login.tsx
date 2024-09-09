@@ -19,7 +19,7 @@ export function Login() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
-
+        console.log("AQUI")
         const data = {
             email,
             password
@@ -55,6 +55,7 @@ export function Login() {
                  })
             })
             .catch(err => {
+                console.log(err)
                 const errorId = new Date().getTime();
                 const newError = { id: errorId, message: err.response.data.message };
                 setErrors([...errors, newError]);  
@@ -72,9 +73,10 @@ export function Login() {
                     Bibliotex
                 </div>
             </div>
+          
             <div className="bg-ligth-container max-md:w-full w-1/3 flex justify-center items-center">
-            <Errors errors={errors}/>
                 <form className="flex flex-col justify-center w-56" onSubmit={handleSubmit}>
+                    <Errors errors={errors}/>
                     <div className="text-ligth-primary font-bold text-5xl mb-5 flex justify-center">
                             Login
                     </div>

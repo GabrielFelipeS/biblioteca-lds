@@ -29,7 +29,7 @@ export function BookCard({book_id, handle, buttonText}: BookCardProps) {
     })
 
     return (
-        <div className="w-96 rounded overflow-hidden shadow-lg bg-white relative group mr-10 mb-5">
+        <div className="w-96 rounded overflow-hidden shadow-lg bg-white relative group md:mr-10 mb-5">
             <img className="w-full" src={image} alt="Capa do Livro" />
 
             <div className="px-3 py-2">
